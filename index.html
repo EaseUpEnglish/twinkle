@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Twinkle — уроки английского</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffc83d;--ink:#fff7e0;--card:#35207a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#2b1b6b,#120a33 55%,#07041a);color:var(--ink);font-family:Fredoka,system-ui,sans-serif;font-weight:500;user-select:none;-webkit-user-select:none;overflow-x:hidden}
+#sky{position:fixed;inset:0;pointer-events:none;z-index:0}
+#sky i{position:absolute;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.15;transform:scale(.6)}}
+#app{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:12px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.top b{font-size:22px}
+#bank{background:var(--card);border:2px solid var(--gold);border-radius:999px;padding:6px 16px;font-size:20px;color:var(--gold);font-weight:700}
+#bank.bump{animation:bump .3s}
+@keyframes bump{50%{transform:scale(1.25)}}
+.hrow{display:flex;align-items:center;gap:10px;margin:8px 0;min-height:130px}
+#hero{width:120px;height:130px;flex:none;display:grid;place-items:center}
+#hero video,#hero img{height:100%;max-width:100%;object-fit:contain}
+.ph{font-size:64px}
+.bubble{background:#fff7e0;color:#2a1760;border-radius:18px;padding:10px 14px;font-size:18px;font-weight:600;position:relative}
+.bubble:before{content:"";position:absolute;left:-8px;top:50%;margin-top:-8px;border:8px solid transparent;border-left:0;border-right-color:#fff7e0}
+.link{background:none;border:0;color:#7fe9df;font:inherit;font-size:16px;cursor:pointer;padding:6px}
+.lc{display:flex;align-items:center;gap:14px;width:100%;margin:10px 0;padding:14px;border-radius:20px;background:var(--card);border:3px solid var(--gold);color:var(--ink);font:inherit;font-size:20px;text-align:left;cursor:pointer}
+.lc .n{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#3a2300;display:grid;place-items:center;font-weight:700;font-size:24px;flex:none}
+.lc small{font-size:14px;color:#c9bbf5}.lc .st{margin-left:auto;color:var(--gold);font-weight:700}
+.board{display:flex;justify-content:space-between;gap:14px}
+.col{flex:1;display:flex;flex-direction:column;gap:10px}
+.tile{height:64px;display:grid;place-items:center;font-size:42px;font-weight:700;border-radius:18px;background:#150b3a;border:3px solid var(--c);color:var(--c);text-shadow:0 0 8px var(--c),0 0 18px var(--c);box-shadow:0 0 12px var(--c),inset 0 0 10px #0006;cursor:grab;touch-action:none;transition:transform .15s}
+.tile.sel{transform:scale(1.1);background:#2a1760}
+.tile.done{opacity:.35;cursor:default;box-shadow:none}
+.card{height:64px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:18px;background:var(--card);border:3px solid var(--gold);font-size:19px}
+.card .em{font-size:30px}
+.card .bd{margin-left:auto;font-size:28px;font-weight:700;color:var(--c);text-shadow:0 0 10px var(--c);display:none}
+.card.done{background:#1f6b4d;border-color:#46d28a;box-shadow:0 0 16px #46d28a88}
+.card.done .bd{display:block}
+.shake{animation:sh .35s}
+.hint{animation:pl .7s infinite}
+@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes pl{50%{box-shadow:0 0 18px var(--gold);transform:scale(1.04)}}
+.ghost{position:fixed;z-index:50;pointer-events:none;width:80px;height:64px}
+.fly{position:fixed;z-index:60;font-size:26px;pointer-events:none}
+.btn{display:block;width:100%;margin-top:16px;border:0;border-radius:18px;padding:14px;font:inherit;font-size:22px;font-weight:600;cursor:pointer;background:var(--gold);color:#3a2300;box-shadow:0 5px 0 #b98400}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #b98400}
+.btn:focus-visible,.lc:focus-visible,.opt:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.btn.alt{background:#3fd6c9;box-shadow:0 5px 0 #1b8f86;color:#06312e}
+h1{font-size:30px;margin:8px 0;text-align:center}.center{text-align:center}
+.prog{height:10px;background:#150b3a;border-radius:9px;overflow:hidden}.prog i{display:block;height:100%;background:var(--gold)}
+.word{font-size:38px;text-align:center;margin:10px 0 4px;color:var(--gold)}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-size:20px;color:var(--ink);background:#2a1760;border:3px solid #5a3fb0;border-radius:16px;padding:14px;margin:9px 0;cursor:pointer}
+.opt.ok{background:#1f6b4d;border-color:#46d28a}.opt.bad{background:#7a2a3a;border-color:#ff7a8a}
+.video{aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#150a31;display:grid;place-items:center;text-align:center;color:#b9a8ee;padding:12px;margin:8px 0}
+iframe{width:100%;height:100%;border:0;border-radius:14px}
+.abc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}
+.abc .tile{height:48px;font-size:28px;cursor:default}.abc .tile.weak{opacity:.4;border-style:dashed;box-shadow:none}
+.rep{background:var(--card);border:2px solid var(--gold);border-radius:18px;padding:12px;margin:8px 0}
+.rep button{font:inherit;margin:4px 4px 0 0;padding:6px 12px;border-radius:12px;border:0;background:#3fd6c9;color:#06312e;cursor:pointer}
+@media (prefers-reduced-motion:reduce){#sky i,.hint{animation:none}}
+</style>
+</head>
+<body>
+<div id="sky"></div>
+<div id="app"></div>
+<script>
+/* ===== НАСТРОЙКИ ===== */
+const CLIP_DIR="clips/";        // клипы героя: wave, happy, think, thumbs_up, try_again, reward, surprise
+const AUDIO_FILES=true;         // озвучка Твинкла для букв лежит в папке audio (a_apple.mp3 ...)
+const LESSONS=[
+ {id:"abc",title:"Буквы",sub:"Алфавит A-Z",yt:"RI79dG0v3nQ",moments:{}},   // yt: ID видео, moments: {"A":12}
+ {id:"cls",title:"Фразы урока",sub:"Stand up, Sit down, Open...",yt:"H635jhX5pNk",moments:{},blocks:[[0,6],[6,13],[13,15]],items:[
+  ["Stand up","Встаньте"],["Sit down","Сядьте"],["Open","Открой"],["Close","Закрой"],["Take","Возьми"],["Put","Положи"],
+  ["Listen","Слушай"],["Speak","Говори"],["Read","Читай"],["Write","Пиши"],["Draw","Рисуй"],["Point","Покажи, укажи"],["Sing","Пой"],
+  ["Can I go out?","Можно мне выйти?"],["I'm sorry I'm late","Извините, я опоздал"]]},
+ {id:"hel",title:"Приветствия",sub:"Hello, How are you?",yt:"mdIPwY0P84M",moments:{},blocks:[[0,5],[5,11]],items:[
+  ["Hello","Здравствуйте"],["Hi","Привет"],["My name is...","Меня зовут..."],["What's your name?","Как тебя зовут?"],["Nice to meet you","Приятно познакомиться"],
+  ["How are you?","Как дела?"],["I'm happy","Я счастлив"],["I'm sad","Мне грустно"],["I'm fine, thank you","У меня всё хорошо, спасибо"],["I'm so-so","Так себе"],["Goodbye","До свидания"]]}];
+const PAIRS=[["A","Эй","Apple","🍎"],["B","Би","Bus","🚌"],["C","Си","Cat","🐱"],["D","Ди","Dog","🐶"],["E","И","Elephant","🐘"],["F","Эф","Frog","🐸"],["G","Джи","Giraffe","🦒"],["H","Эйч","Horse","🐴"],["I","Ай","Ice","🧊"],["J","Джей","Jam","🍯"],["K","Кей","Kangaroo","🦘"],["L","Эл","Lemon","🍋"],["M","Эм","Mouse","🐭"],["N","Эн","Nut","🌰"],["O","Оу","Orange","🍊"],["P","Пи","Pig","🐷"],["Q","Кью","Queen","👑"],["R","Ар","Rocket","🚀"],["S","Эс","Snake","🐍"],["T","Ти","Telephone","☎️"],["U","Ю","Umbrella","☂️"],["V","Ви","Vase","🏺"],["W","Дабл-ю","Window","🪟"],["X","Экс","Fox","🦊"],["Y","Уай","Yellow","🟡"],["Z","Зэд","Zebra","🦓"]];
+const ROUNDS=[[0,4],[4,8],[8,12],[12,16],[16,20],[20,26]];
+const COLORS=["#ff8fb8","#5ff0c0","#6fb7ff","#7dff8a","#ffa65c","#d08cff","#ffe45c","#b8a4ff"];
+
+/* ===== ОБЩЕЕ ===== */
+const $=id=>document.getElementById(id), app=$("app");
+const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+const isSafari=/iP(hone|ad|od)|^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const col=i=>COLORS[i%COLORS.length];
+for(let i=0;i<70;i++){const s=document.createElement("i"),z=Math.random()*3+1;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*3}s;opacity:${.4+Math.random()*.6}`;$("sky").appendChild(s)}
+
+/* прогресс (сохраняется в браузере) */
+const LS="twinkle_v1"; let P={lessons:{}};
+try{P=JSON.parse(localStorage.getItem(LS))||P}catch(e){}
+const save=()=>{try{localStorage.setItem(LS,JSON.stringify(P))}catch(e){}};
+const bests=ex=>Object.entries(P.lessons).reduce((s,[k,v])=>k===ex?s:s+(v.best||0),0);
+let R={id:"",stars:0,weak:new Set()}, L=null, live=false;
+const maxStars=l=>l.id==="abc"?PAIRS.length*2+ROUNDS.length*3:l.items.length*2+l.blocks.length*3;
+const totalMax=()=>LESSONS.reduce((a,l)=>a+maxStars(l),0);
+const bankVal=()=>live?`${R.stars} / ${maxStars(L)}`:`${bests("")} / ${totalMax()}`;
+
+function ph(){const d=document.createElement("div");d.className="ph";d.textContent="👽";return d}
+function hero(s){const h=$("hero");if(!h)return;const b=CLIP_DIR+s;
+ const img=()=>{h.innerHTML=`<img src="${b}.webp" alt="">`;h.firstChild.onerror=()=>{h.innerHTML="";h.appendChild(ph())}};
+ if(!isSafari){h.innerHTML=`<video src="${b}.webm" autoplay muted loop playsinline></video>`;h.firstChild.onerror=img}else img()}
+function say(t){const e=$("say");if(e)e.textContent=t}
+const slug=t=>t.toLowerCase().replace(/[^a-z0-9 ]/g,"").trim().replace(/ +/g,"_");
+function tts(txt){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=.8;speechSynthesis.speak(u)}
+let snd=null;
+function speak(txt,file){
+ if(snd){snd.pause();snd=null}
+ if(AUDIO_FILES&&file){const a=new Audio("audio/"+file+".mp3");snd=a;a.onerror=()=>tts(txt);a.play().catch(()=>{});return}
+ tts(txt)}
+function hear(){const w=L.items[M.i][0];speak(w,slug(w)+"_en")}
+function frame(inner,back=true){
+ app.innerHTML=`<div class="top">${back?'<button class="link" onclick="home()">← Меню</button>':'<b>Twinkle</b>'}<div id="bank">⭐ <span id="sc">${bankVal()}</span></div></div>
+ <div class="hrow"><div id="hero"></div><div id="say" class="bubble"></div></div>${inner}`}
+function fly(el,n){
+ const a=el.getBoundingClientRect(),b=$("bank").getBoundingClientRect();
+ for(let i=0;i<n*2;i++){const s=document.createElement("div");s.className="fly";s.textContent="⭐";
+  s.style.left=(a.left+a.width/2)+"px";s.style.top=(a.top+a.height/2)+"px";document.body.appendChild(s);
+  const dx=b.left+b.width/2-(a.left+a.width/2),dy=b.top+b.height/2-(a.top+a.height/2);
+  s.animate([{transform:"translate(0,0) scale(1)"},{transform:`translate(${dx}px,${dy}px) scale(.5)`}],{duration:800+i*90,easing:"ease-in",fill:"forwards"})
+   .onfinish=()=>{s.remove();if(i===0){$("sc").textContent=bankVal();$("bank").classList.add("bump");setTimeout(()=>$("bank").classList.remove("bump"),300)}}}}
+
+/* ===== МЕНЮ И УРОК ===== */
+function home(){
+ live=false; frame(`${LESSONS.map((l,i)=>{const p=P.lessons[l.id];return `<button class="lc" onclick="lesson('${l.id}')"><span class="n">${i+1}</span><span><b>${l.title}</b><br><small>${l.sub}</small></span><span class="st">${p&&p.done?"✓ "+p.best+" из "+maxStars(l)+" ⭐":"▶"}</span></button>`}).join("")}
+ <button class="link" onclick="resetP()">Сбросить прогресс</button>`,false);
+ hero("wave");say("Привет, друзья! Это Твинкл!")}
+function resetP(){if(confirm("Удалить все звёзды и прогресс?")){P={lessons:{}};save();home()}}
+function lesson(id){
+ L=LESSONS.find(x=>x.id===id);R={id,stars:0,weak:new Set()};live=false;
+ const v=L.yt?`<iframe src="https://www.youtube.com/embed/${L.yt}?rel=0&playsinline=1" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`:`Здесь будет видео урока.<br>Вставьте ID в настройках (yt)`;
+ frame(`<h1>${L.title}</h1><div class="video">${v}</div><button class="btn" onclick="begin()">${id==="abc"?"Играть":"Пройти тест"}</button>`);
+ hero("wave");say("Посмотри видео и проверь себя!")}
+function begin(){live=true;R={id:L.id,stars:0,weak:new Set()};L.id==="abc"?abcRound(0):mcStart()}
+
+/* ===== УРОК 1: БУКВЫ (перетаскивание) ===== */
+let A={},sel=null,drag=null;
+function abcRound(r){
+ const ps=PAIRS.slice(ROUNDS[r][0],ROUNDS[r][1]);A={r,tries:{},errs:0,done:0,total:ps.length};sel=null;
+ frame(`<div class="board"><div class="col" id="Lc"></div><div class="col" id="Rc"></div></div><div id="foot"></div>`);
+ hero("surprise");say(`Раунд ${r+1} из ${ROUNDS.length}. Найди пары!`);
+ shuffle(ps).forEach(p=>{const i=PAIRS.indexOf(p),t=document.createElement("div");t.className="tile";t.dataset.l=p[0];t.style.setProperty("--c",col(i));t.textContent=p[0];
+  t.style.transform=`rotate(${Math.round(Math.random()*12-6)}deg)`;t.style.marginLeft=Math.round(Math.random()*18)+"px";t.onpointerdown=e=>tileDown(e,t);$("Lc").appendChild(t)});
+ shuffle(ps).forEach(p=>{const i=PAIRS.indexOf(p),c=document.createElement("div");c.className="card";c.dataset.l=p[0];c.style.setProperty("--c",col(i));
+  c.innerHTML=`<span class="em">${p[3]}</span><span>${p[2]}</span><span class="bd">${p[0]}</span>`;c.onclick=()=>{if(sel)attempt(sel,c)};$("Rc").appendChild(c)})}
+function tileDown(e,t){if(t.classList.contains("done"))return;e.preventDefault();drag={t,x:e.clientX,y:e.clientY,moved:false,g:null}}
+window.addEventListener("pointermove",e=>{if(!drag)return;
+ if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>8){drag.moved=true;const g=drag.t.cloneNode(true);g.classList.add("ghost");g.style.cssText="transform:none;margin:-32px 0 0 -40px";document.body.appendChild(g);drag.g=g;drag.t.style.opacity=.3}
+ if(drag.g){drag.g.style.left=e.clientX+"px";drag.g.style.top=e.clientY+"px"}});
+window.addEventListener("pointerup",e=>{if(!drag)return;const {t,moved,g}=drag;drag=null;if(g)g.remove();
+ if(moved){t.style.opacity="";const c=document.elementFromPoint(e.clientX,e.clientY);const cd=c&&c.closest(".card");if(cd)attempt(t,cd)}
+ else{document.querySelectorAll(".tile.sel").forEach(x=>x.classList.remove("sel"));if(sel===t)sel=null;else{sel=t;t.classList.add("sel")}}});
+function attempt(t,c){
+ if(c.classList.contains("done")||t.classList.contains("done"))return;
+ const l=t.dataset.l,p=PAIRS.find(x=>x[0]===l);document.querySelectorAll(".hint").forEach(x=>x.classList.remove("hint"));
+ if(c.dataset.l===l){t.classList.add("done");t.classList.remove("sel");c.classList.add("done");sel=null;
+  const first=!A.tries[l],add=first?2:1;R.stars+=add;A.done++;speak(l+". "+p[2],l.toLowerCase()+"_"+p[2].toLowerCase());fly(c,add);
+  hero(first?"thumbs_up":"happy");say(`${l} — ${p[2]}! ${first?"Отлично!":"Молодец!"}`);
+  if(A.done===A.total)setTimeout(abcEnd,1200)}
+ else{A.tries[l]=(A.tries[l]||0)+1;A.errs++;R.weak.add(l);sel=null;t.classList.remove("sel");
+  c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");hero("try_again");say("Попробуй ещё раз!");
+  if(A.tries[l]>=2)document.querySelector(`.card[data-l="${l}"]`).classList.add("hint")}}
+function abcEnd(){
+ const perfect=A.errs===0;if(perfect)R.stars+=3;$("sc").textContent=bankVal();
+ hero(perfect?"reward":"happy");say(perfect?"Без ошибок! Бонус +3 ⭐":"Раунд пройден! Молодцы!");
+ const last=A.r===ROUNDS.length-1;
+ $("foot").innerHTML=`<button class="btn" onclick="${last?"abcResult()":`abcRound(${A.r+1})`}">${last?"Результат":"Дальше"}</button>`}
+function abcResult(){
+ finish(`<div class="abc">${PAIRS.map((p,i)=>`<div class="tile ${R.weak.has(p[0])?"weak":""}" style="--c:${col(i)}">${p[0]}</div>`).join("")}</div>`)}
+
+/* ===== УРОКИ 2 И 3: ТЕСТ НА ПЕРЕВОД ===== */
+let M={};
+function mcStart(){M={b:0,i:0,tries:0,errs:0};mcQ()}
+function mcQ(){
+ const it=L.items[M.i],[a,b]=L.blocks[M.b];
+ let pool=L.items.map((x,k)=>k).filter(k=>k!==M.i&&k>=a&&k<b);
+ if(pool.length<2)pool=pool.concat(shuffle(L.items.map((x,k)=>k).filter(k=>k!==M.i&&!(k>=a&&k<b))));
+ const opts=shuffle([it[1],...shuffle(pool).slice(0,2).map(k=>L.items[k][1])]);M.tries=0;
+ frame(`<div class="prog"><i style="width:${M.i/L.items.length*100}%"></i></div><p class="center">Вопрос ${M.i+1} из ${L.items.length}</p>
+  <div class="word">${it[0]}</div><p class="center"><button class="link" onclick="hear()">🔊 Послушать</button></p><p class="center">Что это значит?</p>
+  ${opts.map(o=>`<button class="opt" onclick="mcPick(this)">${o}</button>`).join("")}<div id="foot"></div>`);
+ if(M.i===a){hero("surprise");say(a===0?"Поехали! Выбери перевод.":"Следующая часть!")}else{hero("think");say("Как это переводится?")}}
+function mcPick(btn){
+ const it=L.items[M.i],ok=btn.textContent===it[1],all=document.querySelectorAll(".opt");
+ const nxt=()=>{const end=M.i===L.blocks[M.b][1]-1;$("foot").innerHTML=`<button class="btn" onclick="mcNext()">${end?"Дальше":"Следующий вопрос"}</button>`};
+ if(ok){all.forEach(x=>x.disabled=true);btn.classList.add("ok");const add=M.tries===0?2:1;R.stars+=add;fly(btn,add);speak(it[0],slug(it[0]));
+  hero(M.tries===0?"thumbs_up":"happy");say(M.tries===0?"Отлично! +2 ⭐":"Молодец! +1 ⭐");nxt()}
+ else{btn.classList.add("bad");btn.disabled=true;M.tries++;M.errs++;R.weak.add(it[0]);
+  if(M.tries===1){hero("try_again");say("Hmm... Попробуй ещё раз!")}
+  else{all.forEach(x=>{x.disabled=true;if(x.textContent===it[1])x.classList.add("ok")});hero("think");say(`Запомним: ${it[0]} — ${it[1]}`);nxt()}}}
+function mcNext(){
+ const [a,b]=L.blocks[M.b];
+ if(M.i===b-1&&!M.shown){ // конец части
+  const perfect=![...R.weak].some(w=>L.items.slice(a,b).some(x=>x[0]===w));if(perfect)R.stars+=3;$("sc").textContent=bankVal();
+  M.shown=true;hero(perfect?"reward":"happy");say(perfect?"Часть без ошибок! Бонус +3 ⭐":"Часть пройдена! Молодец!");
+  const last=M.b===L.blocks.length-1;$("foot").innerHTML=`<button class="btn" onclick="mcNext()">${last?"Результат":"Дальше"}</button>`;return}
+ if(M.shown){M.shown=false;if(M.b===L.blocks.length-1)return finish("");M.b++}
+ M.i++;mcQ()}
+
+/* ===== РЕЗУЛЬТАТ ===== */
+const label=k=>L.id==="abc"?k+" — "+PAIRS.find(x=>x[0]===k)[2]:k;
+function finish(extra){
+ live=false;const p=P.lessons[R.id]||{};P.lessons[R.id]={done:true,best:Math.max(p.best||0,R.stars),weak:[...R.weak]};save();
+ const w=[...R.weak];
+ frame(`<h1>Урок пройден!</h1><p class="center">Ты набрал ${R.stars} из ${maxStars(L)} ⭐<br><small>Лучший результат: ${P.lessons[R.id].best} из ${maxStars(L)}</small></p>${extra}
+  ${w.length?`<div class="rep"><b>Повторим:</b><br>${w.map(k=>`<button onclick="watch('${k.replace(/'/g,"\\'")}')">${label(k)}</button>`).join("")}<div id="vid"></div></div>`:`<p class="center">Ни одной ошибки, супер!</p>`}
+  <button class="btn" onclick="lesson('${R.id}')">Пройти ещё раз</button><button class="btn alt" onclick="home()">В меню</button>`);
+ hero("reward");say("Ты большой молодец!")}
+function watch(k){const v=$("vid"),m=L.moments[k];
+ v.innerHTML=L.yt&&m!=null?`<div class="video"><iframe src="https://www.youtube.com/embed/${L.yt}?start=${m}&autoplay=1&rel=0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`:`<p>Видео появится, когда добавим ID и тайминги.</p>`}
+home();
+</script>
+</body>
+</html>
