@@ -30,6 +30,7 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#2b1b
 .link{background:none;border:0;color:#7fe9df;font:inherit;font-size:16px;cursor:pointer;padding:6px}
 .lc{display:flex;align-items:center;gap:14px;width:100%;margin:10px 0;padding:14px;border-radius:20px;background:var(--card);border:3px solid var(--gold);color:var(--ink);font:inherit;font-size:20px;text-align:left;cursor:pointer}
 .lc .n{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#3a2300;display:grid;place-items:center;font-weight:700;font-size:24px;flex:none}
+.lc.soon{opacity:.55;cursor:default}
 .lc small{font-size:14px;color:#c9bbf5}.lc .tt{flex:1;min-width:0}.lc .st{margin-left:auto;flex:none;white-space:nowrap;font-size:17px;color:var(--gold);font-weight:700}
 .board{display:flex;justify-content:space-between;gap:14px}
 .col{flex:1;display:flex;flex-direction:column;gap:10px}
@@ -90,14 +91,16 @@ const cloud={
  get:()=>new Promise(r=>{if(!(tg&&tg.CloudStorage))return r(null);setTimeout(()=>r(null),1500);try{tg.CloudStorage.getItem("p",(e,v)=>r(e||!v?null:v))}catch(e){r(null)}}),
  set:v=>{try{if(tg&&tg.CloudStorage)tg.CloudStorage.setItem("p",v)}catch(e){}}};
 const LESSONS=[
- {id:"abc",title:"Буквы",sub:"Алфавит A-Z",yt:"RI79dG0v3nQ",moments:{}},   // yt: ID видео, moments: {"A":12}
- {id:"cls",title:"Фразы урока",sub:"Stand up, Sit down, Open...",yt:"H635jhX5pNk",moments:{},blocks:[[0,6],[6,13],[13,15]],items:[
+ {id:"abc",e:"🔤",title:"Буквы",sub:"Алфавит A-Z",yt:"RI79dG0v3nQ",moments:{}},   // yt: ID видео, moments: {"A":12}
+ {id:"cls",e:"🏫",title:"Фразы урока",sub:"Stand up, Sit down, Open...",yt:"H635jhX5pNk",moments:{},blocks:[[0,6],[6,13],[13,15]],items:[
   ["Stand up","Встаньте"],["Sit down","Сядьте"],["Open","Открой"],["Close","Закрой"],["Take","Возьми"],["Put","Положи"],
   ["Listen","Слушай"],["Speak","Говори"],["Read","Читай"],["Write","Пиши"],["Draw","Рисуй"],["Point","Покажи, укажи"],["Sing","Пой"],
   ["Can I go out?","Можно мне выйти?"],["I'm sorry I'm late","Извините, я опоздал"]]},
- {id:"hel",title:"Приветствия",sub:"Hello, How are you?",yt:"mdIPwY0P84M",moments:{},blocks:[[0,5],[5,11]],items:[
+ {id:"hel",e:"👋",title:"Приветствия",sub:"Hello, How are you?",yt:"mdIPwY0P84M",moments:{},blocks:[[0,5],[5,11]],items:[
   ["Hello","Здравствуйте"],["Hi","Привет"],["My name is...","Меня зовут..."],["What's your name?","Как тебя зовут?"],["Nice to meet you","Приятно познакомиться"],
   ["How are you?","Как дела?"],["I'm happy","Я счастлив"],["I'm sad","Мне грустно"],["I'm fine, thank you","У меня всё хорошо, спасибо"],["I'm so-so","Так себе"],["Goodbye","До свидания"]]}];
+const COMING=["Цифры","Новый раздел","Цвета"];   // разделы «в разработке» (номера 4, 5, 6)
+const SYN={"Hello":["Hi"],"Hi":["Hello"]};   // слова с близким переводом: не показываем друг у друга в вариантах
 const PAIRS=[["A","Эй","Apple","🍎"],["B","Би","Bus","🚌"],["C","Си","Cat","🐱"],["D","Ди","Dog","🐶"],["E","И","Elephant","🐘"],["F","Эф","Frog","🐸"],["G","Джи","Giraffe","🦒"],["H","Эйч","Horse","🐴"],["I","Ай","Ice","🧊"],["J","Джей","Jam","🍯"],["K","Кей","Kangaroo","🦘"],["L","Эл","Lemon","🍋"],["M","Эм","Mouse","🐭"],["N","Эн","Nut","🌰"],["O","Оу","Orange","🍊"],["P","Пи","Pig","🐷"],["Q","Кью","Queen","👑"],["R","Ар","Rocket","🚀"],["S","Эс","Snake","🐍"],["T","Ти","Telephone","☎️"],["U","Ю","Umbrella","☂️"],["V","Ви","Vase","🏺"],["W","Дабл-ю","Window","🪟"],["X","Экс","Fox","🦊"],["Y","Уай","Yellow","🟡"],["Z","Зэд","Zebra","🦓"]];
 const ROUNDS=[[0,4],[4,8],[8,12],[12,16],[16,20],[20,26]];
 const COLORS=["#ff8fb8","#5ff0c0","#6fb7ff","#7dff8a","#ffa65c","#d08cff","#ffe45c","#b8a4ff"];
@@ -145,16 +148,15 @@ function fly(el,n){
 
 /* ===== МЕНЮ И УРОК ===== */
 function home(){
- live=false; frame(`${LESSONS.map((l,i)=>{const p=P.lessons[l.id];return `<button class="lc" onclick="lesson('${l.id}')"><span class="n">${i+1}</span><span class="tt"><b>${l.title}</b><br><small>${l.sub}</small></span><span class="st">${p&&p.done?"✓ "+p.best+" из "+maxStars(l)+" ⭐":"▶"}</span></button>`}).join("")}
- <button class="btn alt" onclick="sendProgress()">📊 Мой результат</button><p id="psent" class="center"></p>
- <div class="rep"><b>Как играть:</b><br>1. Выбери раздел<br>2. Посмотри видео<br>3. Пройди игру и собери ⭐</div>
+ live=false; frame(`${LESSONS.map((l,i)=>{const p=P.lessons[l.id];return `<button class="lc" onclick="lesson('${l.id}')"><span class="n">${i+1}</span><span class="tt"><b>${l.title}</b><br><small>${l.sub}</small></span><span class="st">${p&&p.done?"✓ "+p.best+" из "+maxStars(l)+" ⭐":"▶"}</span></button>`}).join("")}${COMING.map((c,i)=>`<div class="lc soon"><span class="n">${LESSONS.length+i+1}</span><span class="tt"><b>${c}</b><br><small>В разработке</small></span><span class="st">🛠</span></div>`).join("")}
+ <button class="btn alt" onclick="sendProgress()">💾 Сохранить результат</button><p id="psent" class="center"></p>
  <button class="link" onclick="resetP()">Сбросить прогресс</button>`,false);
  hero("wave");say((P.name?P.name+", давай":"Давай")+" проверим твои знания! Выбери раздел.")}
 async function sendProgress(){
  const e=$("psent");
  if(!initData){e.textContent="Откройте приложение через бота, и результат придёт в чат.";return}
  e.textContent="Отправляю…";
- const lessons=LESSONS.map(l=>{const p=P.lessons[l.id],d=!!(p&&p.done);return{t:l.title,s:d?Math.min(p.best||0,maxStars(l)):0,m:maxStars(l),d}});
+ const lessons=LESSONS.map(l=>{const p=P.lessons[l.id],d=!!(p&&p.done);return{e:l.e,t:l.title,s:d?Math.min(p.best||0,maxStars(l)):0,m:maxStars(l),d}});
  const r=await api("/progress",{name:P.name||"",lessons,total:bests(""),max:totalMax(),videos:LESSONS.filter(l=>l.yt).map(l=>({t:l.title,u:"https://youtu.be/"+l.yt}))});
  e.textContent=r&&r.ok?"✓ Результат отправлен в чат с ботом":"Не получилось отправить. Откройте чат с ботом и нажмите Start."}
 function resetP(){if(confirm("Удалить все звёзды и прогресс?")){P={lessons:{},v:2};save();home()}}
@@ -204,9 +206,9 @@ function abcResult(){
 let M={};
 function mcStart(){M={b:0,i:0,tries:0,errs:0};mcQ()}
 function mcQ(){
- const it=L.items[M.i],[a,b]=L.blocks[M.b];
- let pool=L.items.map((x,k)=>k).filter(k=>k!==M.i&&k>=a&&k<b);
- if(pool.length<2)pool=pool.concat(shuffle(L.items.map((x,k)=>k).filter(k=>k!==M.i&&!(k>=a&&k<b))));
+ const it=L.items[M.i],[a,b]=L.blocks[M.b],ok=k=>k!==M.i&&!(SYN[it[0]]||[]).includes(L.items[k][0]);
+ let pool=L.items.map((x,k)=>k).filter(k=>ok(k)&&k>=a&&k<b);
+ if(pool.length<2)pool=pool.concat(shuffle(L.items.map((x,k)=>k).filter(k=>ok(k)&&!(k>=a&&k<b))));
  const opts=shuffle([it[1],...shuffle(pool).slice(0,2).map(k=>L.items[k][1])]);M.tries=0;
  frame(`<div class="prog"><i style="width:${M.i/L.items.length*100}%"></i></div><p class="center">Вопрос ${M.i+1} из ${L.items.length}</p>
   <div class="word">${it[0]}</div><p class="center"><button class="link" onclick="hear()">🔊 Послушать</button></p><p class="center">Что это значит?</p>
@@ -235,7 +237,7 @@ const link=k=>L.yt?`https://youtu.be/${L.yt}${k!=null&&L.moments[k]!=null?"?t="+
 function finish(extra){
  live=false;const flawless=R.weak.size===0;if(flawless)R.stars+=BONUS_LESSON;const p=P.lessons[R.id]||{};P.lessons[R.id]={done:true,best:Math.max(p.best||0,R.stars),weak:[...R.weak]};save();
  const w=[...R.weak];
- api("/result",{name:P.name||"Ученик",lesson:L.title,stars:R.stars,max:maxStars(L),weak:w.map(k=>({t:label(k),u:link(k)})),all:link(null)})
+ api("/result",{name:P.name||"",lesson:L.title,e:L.e,stars:R.stars,max:maxStars(L),weak:w.map(k=>label(k)),all:link(null)})
   .then(r=>{const e=$("sent");if(e&&r&&r.ok)e.textContent="✓ Результат отправлен родителю"});
  frame(`<h1>Урок пройден!</h1><p class="center">Ты набрал ${R.stars} из ${maxStars(L)} ⭐<br><small>Лучший результат: ${P.lessons[R.id].best} из ${maxStars(L)}</small></p>${flawless?`<p class="center">🎁 Суперприз за урок без ошибок: +${BONUS_LESSON} ⭐</p>`:""}${extra}<p id="sent" class="center"></p>
   ${w.length?`<div class="rep"><b>Повторим:</b><br>${w.map(k=>`<button onclick="watch('${k.replace(/'/g,"\\'")}')">${label(k)}</button>`).join("")}<div id="vid"></div></div>`:`<p class="center">Ни одной ошибки, супер!</p>`}
@@ -258,7 +260,7 @@ function chooseVoice(){if(!document.querySelector(".lc"))return;const p=voice("c
 function afterHome(){if(introState===1)pendingChoose=true;else chooseVoice()}
 function intro(){
  live=false;
- frame(`<h1>Привет!</h1><p class="center">Как зовут малыша?</p>
+ frame(`<h1>Привет!</h1>
   <input id="nm" class="inp" maxlength="20" placeholder="Имя (необязательно)" value="${(P.name||"").replace(/"/g,"")}">
   <button class="btn" onclick="enter()">Начать</button>`,false);
  hero("wave");say("Привет! Это Твинкл!");introVoice()}
@@ -280,11 +282,11 @@ function why(r){
  return ""}
 function gate(r){
  const d=(DEBUG&&r!==undefined&&why(r))?`<p class="center" style="font-size:11px;color:#999">${why(r).replace(/</g,"&lt;")}</p>`:"";
- frame(`<h1>Почти готово!</h1><p class="center">Чтобы заниматься с Твинклом, подпишись на наш канал</p>
-  <button class="btn" onclick="openCh()">Открыть канал</button><button class="btn alt" onclick="recheck()">Я подписался</button>${d}`,false);
- hero("think");say("Подпишись, и начнём!")}
+ frame(`<h1>Почти готово!</h1><p class="center">Чтобы пользоваться приложением, подпишитесь на наш канал. Мы очень ценим это ❤️</p>
+  <button class="btn" onclick="openCh()">Открыть канал</button><button class="btn alt" onclick="recheck()">Я подписался(лась)</button>${d}`,false);
+ hero("think");say("Подпишитесь, и начнём!")}
 function openCh(){if(!CHANNEL_URL)return;tg&&tg.openTelegramLink?tg.openTelegramLink(CHANNEL_URL):window.open(CHANNEL_URL,"_blank")}
-async function recheck(){const r=await api("/check",{});if(!blocked(r)){home();afterHome()}else{gate(r);hero("try_again");say("Пока не вижу подписки. Попробуй ещё раз!")}}
+async function recheck(){const r=await api("/check",{});if(!blocked(r)){home();afterHome()}else{gate(r);hero("try_again");say("Пока не вижу подписки. Попробуйте ещё раз!")}}
 async function boot(){
  const v=await cloud.get();
  if(v){try{const c=JSON.parse(v);if(c.name&&!P.name)P.name=c.name;
