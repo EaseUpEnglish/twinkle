@@ -73,6 +73,8 @@ iframe{width:100%;height:100%;border:0;border-radius:14px}
 const CLIP_DIR="clips/";        // клипы героя: wave, happy, think, thumbs_up, try_again, reward, surprise
 const AUDIO_FILES=true;         // озвучка Твинкла для букв лежит в папке audio (a_apple.mp3 ...)
 const WORKER_URL="https://twinkle-api.vlavalk1.workers.dev";   // адрес вашего Cloudflare Worker (https://....workers.dev)
+const STRICT=true;     // true: внутри Telegram без подтверждённой подписки уроки не открываются
+const DEBUG=true;      // true: на экране «Подпишись» мелким шрифтом видна причина (после отладки поставьте false)
 const CHANNEL_URL="https://t.me/EaseUpEnglish";  // ссылка на ваш канал, например https://t.me/ваш_канал
 const tg=window.Telegram&&Telegram.WebApp; if(tg){tg.ready();tg.expand()}
 const initData=tg?tg.initData:"";
@@ -245,14 +247,25 @@ async function enter(){
  P.name=n;save();
  voice("intro","Привет! Это Твинкл!",()=>{if(document.querySelector(".lc"))voice("choose","Давай проверим твои знания! Выбери раздел.")});
  const r=await api("/check",{});
- if(r&&r.subscribed===false)return gate();
+ if(blocked(r))return gate(r);
  home()}
-function gate(){
+function blocked(r){
+ if(!initData)return false;            // открыто не из Telegram: проверка невозможна
+ if(r&&r.subscribed===true)return false;
+ if(r&&r.subscribed===false)return true;
+ return STRICT}                          // нет ответа или ошибка сервера
+function why(r){
+ if(!r)return "нет ответа от Worker (проверьте ALLOWED_ORIGIN и нажатие Deploy)";
+ if(r.error==="unauthorized")return "Worker не принял данные Telegram (BOT_TOKEN не от этого бота или не сохранён)";
+ if(r.subscribed===null)return "Telegram: "+(r.error||"не удалось проверить (бот должен быть админом канала)");
+ return ""}
+function gate(r){
+ const d=(DEBUG&&r!==undefined&&why(r))?`<p class="center" style="font-size:11px;color:#999">${why(r).replace(/</g,"&lt;")}</p>`:"";
  frame(`<h1>Почти готово!</h1><p class="center">Чтобы заниматься с Твинклом, подпишись на наш канал</p>
-  <button class="btn" onclick="openCh()">Открыть канал</button><button class="btn alt" onclick="recheck()">Я подписался</button>`,false);
+  <button class="btn" onclick="openCh()">Открыть канал</button><button class="btn alt" onclick="recheck()">Я подписался</button>${d}`,false);
  hero("think");say("Подпишись, и начнём!")}
 function openCh(){if(!CHANNEL_URL)return;tg&&tg.openTelegramLink?tg.openTelegramLink(CHANNEL_URL):window.open(CHANNEL_URL,"_blank")}
-async function recheck(){const r=await api("/check",{});if(r&&r.subscribed!==false)home();else{hero("try_again");say("Пока не вижу подписки. Попробуй ещё раз!")}}
+async function recheck(){const r=await api("/check",{});if(!blocked(r))home();else{gate(r);hero("try_again");say("Пока не вижу подписки. Попробуй ещё раз!")}}
 async function boot(){
  const v=await cloud.get();
  if(v){try{const c=JSON.parse(v);if(c.name&&!P.name)P.name=c.name;
