@@ -282,7 +282,7 @@ function why(r){
  return ""}
 function gate(r){
  const d=(DEBUG&&r!==undefined&&why(r))?`<p class="center" style="font-size:11px;color:#999">${why(r).replace(/</g,"&lt;")}</p>`:"";
- frame(`<h1>Почти готово!</h1><p class="center">Чтобы пользоваться приложением, подпишитесь на наш канал. Мы очень ценим это ❤️</p>
+ frame(`<h1>Почти готово!</h1><p class="center">Чтобы пользоваться приложением, подпишитесь на наш канал.❤️</p>
   <button class="btn" onclick="openCh()">Открыть канал</button><button class="btn alt" onclick="recheck()">Я подписался(лась)</button>${d}`,false);
  hero("think");say("Подпишитесь, и начнём!")}
 function openCh(){if(!CHANNEL_URL)return;tg&&tg.openTelegramLink?tg.openTelegramLink(CHANNEL_URL):window.open(CHANNEL_URL,"_blank")}
