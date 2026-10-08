@@ -10,6 +10,7 @@
 :root{--gold:#ffc83d;--ink:#fff7e0;--card:#35207a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
+html,body{overscroll-behavior:none}
 body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#2b1b6b,#120a33 55%,#07041a);color:var(--ink);font-family:Fredoka,system-ui,sans-serif;font-weight:500;user-select:none;-webkit-user-select:none;overflow-x:hidden}
 #sky{position:fixed;inset:0;pointer-events:none;z-index:0}
 #sky i{position:absolute;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
@@ -29,7 +30,7 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#2b1b
 .link{background:none;border:0;color:#7fe9df;font:inherit;font-size:16px;cursor:pointer;padding:6px}
 .lc{display:flex;align-items:center;gap:14px;width:100%;margin:10px 0;padding:14px;border-radius:20px;background:var(--card);border:3px solid var(--gold);color:var(--ink);font:inherit;font-size:20px;text-align:left;cursor:pointer}
 .lc .n{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#3a2300;display:grid;place-items:center;font-weight:700;font-size:24px;flex:none}
-.lc small{font-size:14px;color:#c9bbf5}.lc .st{margin-left:auto;color:var(--gold);font-weight:700}
+.lc small{font-size:14px;color:#c9bbf5}.lc .tt{flex:1;min-width:0}.lc .st{margin-left:auto;flex:none;white-space:nowrap;font-size:17px;color:var(--gold);font-weight:700}
 .board{display:flex;justify-content:space-between;gap:14px}
 .col{flex:1;display:flex;flex-direction:column;gap:10px}
 .tile{height:64px;display:grid;place-items:center;font-size:42px;font-weight:700;border-radius:18px;background:#150b3a;border:3px solid var(--c);color:var(--c);text-shadow:0 0 8px var(--c),0 0 18px var(--c);box-shadow:0 0 12px var(--c),inset 0 0 10px #0006;cursor:grab;touch-action:none;transition:transform .15s}
@@ -74,9 +75,13 @@ const CLIP_DIR="clips/";        // клипы героя: wave, happy, think, th
 const AUDIO_FILES=true;         // озвучка Твинкла для букв лежит в папке audio (a_apple.mp3 ...)
 const WORKER_URL="https://twinkle-api.vlavalk1.workers.dev";   // адрес вашего Cloudflare Worker (https://....workers.dev)
 const STRICT=true;     // true: внутри Telegram без подтверждённой подписки уроки не открываются
-const DEBUG=true;      // true: на экране «Подпишись» мелким шрифтом видна причина (после отладки поставьте false)
+const DEBUG=false;     // true: на экране «Подпишись» мелким шрифтом видна причина (после отладки поставьте false)
+const BONUS_PART=1;    // бонус за часть (раунд) без ошибок
+const BONUS_LESSON=2;  // бонус за весь урок без ошибок
 const CHANNEL_URL="https://t.me/EaseUpEnglish";  // ссылка на ваш канал, например https://t.me/ваш_канал
-const tg=window.Telegram&&Telegram.WebApp; if(tg){tg.ready();tg.expand()}
+const tg=window.Telegram&&Telegram.WebApp; if(tg){tg.ready();tg.expand();
+ try{if(tg.disableVerticalSwipes)tg.disableVerticalSwipes()}catch(e){}
+ try{tg.onEvent("viewportChanged",()=>{if(!tg.isExpanded)tg.expand()})}catch(e){}}
 const initData=tg?tg.initData:"";
 async function api(path,body){
  if(!WORKER_URL||!initData)return null;
@@ -105,12 +110,12 @@ const col=i=>COLORS[i%COLORS.length];
 for(let i=0;i<70;i++){const s=document.createElement("i"),z=Math.random()*3+1;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*3}s;opacity:${.4+Math.random()*.6}`;$("sky").appendChild(s)}
 
 /* прогресс (сохраняется в браузере) */
-const LS="twinkle_v1"; let P={lessons:{}};
-try{P=JSON.parse(localStorage.getItem(LS))||P}catch(e){}
+const LS="twinkle_v1"; let P={lessons:{},v:2};
+try{const o=JSON.parse(localStorage.getItem(LS));if(o)P=o.v===2?o:{lessons:{},name:o.name,v:2}}catch(e){}
 const save=()=>{const j=JSON.stringify(P);try{localStorage.setItem(LS,j)}catch(e){}cloud.set(j)};
 const bests=ex=>Object.entries(P.lessons).reduce((s,[k,v])=>k===ex?s:s+(v.best||0),0);
 let R={id:"",stars:0,weak:new Set()}, L=null, live=false;
-const maxStars=l=>l.id==="abc"?PAIRS.length*2+ROUNDS.length*3:l.items.length*2+l.blocks.length*3;
+const maxStars=l=>(l.id==="abc"?PAIRS.length+ROUNDS.length*BONUS_PART:l.items.length+l.blocks.length*BONUS_PART)+BONUS_LESSON;
 const totalMax=()=>LESSONS.reduce((a,l)=>a+maxStars(l),0);
 const bankVal=()=>live?`${R.stars} / ${maxStars(L)}`:`${bests("")} / ${totalMax()}`;
 
@@ -119,7 +124,7 @@ function hero(s){const h=$("hero");if(!h)return;const b=CLIP_DIR+s;
  const img=()=>{h.innerHTML=`<img src="${b}.webp" alt="">`;h.firstChild.onerror=()=>{h.innerHTML="";h.appendChild(ph())}};
  if(!isSafari){h.innerHTML=`<video src="${b}.webm" autoplay muted loop playsinline></video>`;h.firstChild.onerror=img}else img()}
 function say(t){const e=$("say");if(e)e.textContent=t}
-const slug=t=>t.toLowerCase().replace(/[^a-z0-9 ]/g,"").trim().replace(/ +/g,"_");
+const slug=t=>t.toLowerCase().replace(/-/g," ").replace(/[^a-z0-9 ]/g,"").trim().replace(/ +/g,"_");
 function tts(txt){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=.8;speechSynthesis.speak(u)}
 let snd=null;
 function speak(txt,file){
@@ -140,11 +145,19 @@ function fly(el,n){
 
 /* ===== МЕНЮ И УРОК ===== */
 function home(){
- live=false; frame(`${LESSONS.map((l,i)=>{const p=P.lessons[l.id];return `<button class="lc" onclick="lesson('${l.id}')"><span class="n">${i+1}</span><span><b>${l.title}</b><br><small>${l.sub}</small></span><span class="st">${p&&p.done?"✓ "+p.best+" из "+maxStars(l)+" ⭐":"▶"}</span></button>`}).join("")}
+ live=false; frame(`${LESSONS.map((l,i)=>{const p=P.lessons[l.id];return `<button class="lc" onclick="lesson('${l.id}')"><span class="n">${i+1}</span><span class="tt"><b>${l.title}</b><br><small>${l.sub}</small></span><span class="st">${p&&p.done?"✓ "+p.best+" из "+maxStars(l)+" ⭐":"▶"}</span></button>`}).join("")}
+ <button class="btn alt" onclick="sendProgress()">📊 Мой результат</button><p id="psent" class="center"></p>
  <div class="rep"><b>Как играть:</b><br>1. Выбери раздел<br>2. Посмотри видео<br>3. Пройди игру и собери ⭐</div>
  <button class="link" onclick="resetP()">Сбросить прогресс</button>`,false);
  hero("wave");say((P.name?P.name+", давай":"Давай")+" проверим твои знания! Выбери раздел.")}
-function resetP(){if(confirm("Удалить все звёзды и прогресс?")){P={lessons:{}};save();home()}}
+async function sendProgress(){
+ const e=$("psent");
+ if(!initData){e.textContent="Откройте приложение через бота, и результат придёт в чат.";return}
+ e.textContent="Отправляю…";
+ const lessons=LESSONS.map(l=>{const p=P.lessons[l.id],d=!!(p&&p.done);return{t:l.title,s:d?Math.min(p.best||0,maxStars(l)):0,m:maxStars(l),d}});
+ const r=await api("/progress",{name:P.name||"",lessons,total:bests(""),max:totalMax(),videos:LESSONS.filter(l=>l.yt).map(l=>({t:l.title,u:"https://youtu.be/"+l.yt}))});
+ e.textContent=r&&r.ok?"✓ Результат отправлен в чат с ботом":"Не получилось отправить. Откройте чат с ботом и нажмите Start."}
+function resetP(){if(confirm("Удалить все звёзды и прогресс?")){P={lessons:{},v:2};save();home()}}
 function lesson(id){
  L=LESSONS.find(x=>x.id===id);R={id,stars:0,weak:new Set()};live=false;
  const v=L.yt?`<iframe src="https://www.youtube.com/embed/${L.yt}?rel=0&playsinline=1" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`:`Здесь будет видео урока.<br>Вставьте ID в настройках (yt)`;
@@ -173,15 +186,15 @@ function attempt(t,c){
  if(c.classList.contains("done")||t.classList.contains("done"))return;
  const l=t.dataset.l,p=PAIRS.find(x=>x[0]===l);document.querySelectorAll(".hint").forEach(x=>x.classList.remove("hint"));
  if(c.dataset.l===l){t.classList.add("done");t.classList.remove("sel");c.classList.add("done");sel=null;
-  const first=!A.tries[l],add=first?2:1;R.stars+=add;A.done++;speak(l+". "+p[2],l.toLowerCase()+"_"+p[2].toLowerCase());fly(c,add);
-  hero(first?"thumbs_up":"happy");say(`${l} — ${p[2]}! ${first?"Отлично!":"Молодец!"}`);
+  const first=!A.tries[l],add=first?1:0;R.stars+=add;A.done++;speak(l+". "+p[2],l.toLowerCase()+"_"+p[2].toLowerCase());if(add)fly(c,add);else $("sc").textContent=bankVal();
+  hero(first?"thumbs_up":"happy");say(`${l} — ${p[2]}! ${first?"Отлично! +1 ⭐":"Молодец!"}`);
   if(A.done===A.total)setTimeout(abcEnd,1200)}
  else{A.tries[l]=(A.tries[l]||0)+1;A.errs++;R.weak.add(l);sel=null;t.classList.remove("sel");
   c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");hero("try_again");say("Попробуй ещё раз!");
   if(A.tries[l]>=2)document.querySelector(`.card[data-l="${l}"]`).classList.add("hint")}}
 function abcEnd(){
- const perfect=A.errs===0;if(perfect)R.stars+=3;$("sc").textContent=bankVal();
- hero(perfect?"reward":"happy");say(perfect?"Без ошибок! Бонус +3 ⭐":"Раунд пройден! Молодцы!");
+ const perfect=A.errs===0;if(perfect)R.stars+=BONUS_PART;$("sc").textContent=bankVal();
+ hero(perfect?"reward":"happy");say(perfect?`Без ошибок! Бонус +${BONUS_PART} ⭐`:"Раунд пройден! Молодцы!");
  const last=A.r===ROUNDS.length-1;
  $("foot").innerHTML=`<button class="btn" onclick="${last?"abcResult()":`abcRound(${A.r+1})`}">${last?"Результат":"Дальше"}</button>`}
 function abcResult(){
@@ -202,16 +215,16 @@ function mcQ(){
 function mcPick(btn){
  const it=L.items[M.i],ok=btn.textContent===it[1],all=document.querySelectorAll(".opt");
  const nxt=()=>{const end=M.i===L.blocks[M.b][1]-1;$("foot").innerHTML=`<button class="btn" onclick="mcNext()">${end?"Дальше":"Следующий вопрос"}</button>`};
- if(ok){all.forEach(x=>x.disabled=true);btn.classList.add("ok");const add=M.tries===0?2:1;R.stars+=add;fly(btn,add);speak(it[0],slug(it[0]));
-  hero(M.tries===0?"thumbs_up":"happy");say(M.tries===0?"Отлично! +2 ⭐":"Молодец! +1 ⭐");nxt()}
+ if(ok){all.forEach(x=>x.disabled=true);btn.classList.add("ok");const add=M.tries===0?1:0;R.stars+=add;if(add)fly(btn,add);else $("sc").textContent=bankVal();speak(it[0],slug(it[0]));
+  hero(M.tries===0?"thumbs_up":"happy");say(M.tries===0?"Отлично! +1 ⭐":"Молодец!");nxt()}
  else{btn.classList.add("bad");btn.disabled=true;M.tries++;M.errs++;R.weak.add(it[0]);
   if(M.tries===1){hero("try_again");say("Hmm... Попробуй ещё раз!")}
   else{all.forEach(x=>{x.disabled=true;if(x.textContent===it[1])x.classList.add("ok")});hero("think");say(`Запомним: ${it[0]} — ${it[1]}`);nxt()}}}
 function mcNext(){
  const [a,b]=L.blocks[M.b];
  if(M.i===b-1&&!M.shown){ // конец части
-  const perfect=![...R.weak].some(w=>L.items.slice(a,b).some(x=>x[0]===w));if(perfect)R.stars+=3;$("sc").textContent=bankVal();
-  M.shown=true;hero(perfect?"reward":"happy");say(perfect?"Часть без ошибок! Бонус +3 ⭐":"Часть пройдена! Молодец!");
+  const perfect=![...R.weak].some(w=>L.items.slice(a,b).some(x=>x[0]===w));if(perfect)R.stars+=BONUS_PART;$("sc").textContent=bankVal();
+  M.shown=true;hero(perfect?"reward":"happy");say(perfect?`Часть без ошибок! Бонус +${BONUS_PART} ⭐`:"Часть пройдена! Молодец!");
   const last=M.b===L.blocks.length-1;$("foot").innerHTML=`<button class="btn" onclick="mcNext()">${last?"Результат":"Дальше"}</button>`;return}
  if(M.shown){M.shown=false;if(M.b===L.blocks.length-1)return finish("");M.b++}
  M.i++;mcQ()}
@@ -220,35 +233,41 @@ function mcNext(){
 const label=k=>L.id==="abc"?k+" — "+PAIRS.find(x=>x[0]===k)[2]:k;
 const link=k=>L.yt?`https://youtu.be/${L.yt}${k!=null&&L.moments[k]!=null?"?t="+L.moments[k]:""}`:"";
 function finish(extra){
- live=false;const p=P.lessons[R.id]||{};P.lessons[R.id]={done:true,best:Math.max(p.best||0,R.stars),weak:[...R.weak]};save();
+ live=false;const flawless=R.weak.size===0;if(flawless)R.stars+=BONUS_LESSON;const p=P.lessons[R.id]||{};P.lessons[R.id]={done:true,best:Math.max(p.best||0,R.stars),weak:[...R.weak]};save();
  const w=[...R.weak];
  api("/result",{name:P.name||"Ученик",lesson:L.title,stars:R.stars,max:maxStars(L),weak:w.map(k=>({t:label(k),u:link(k)})),all:link(null)})
   .then(r=>{const e=$("sent");if(e&&r&&r.ok)e.textContent="✓ Результат отправлен родителю"});
- frame(`<h1>Урок пройден!</h1><p class="center">Ты набрал ${R.stars} из ${maxStars(L)} ⭐<br><small>Лучший результат: ${P.lessons[R.id].best} из ${maxStars(L)}</small></p>${extra}<p id="sent" class="center"></p>
+ frame(`<h1>Урок пройден!</h1><p class="center">Ты набрал ${R.stars} из ${maxStars(L)} ⭐<br><small>Лучший результат: ${P.lessons[R.id].best} из ${maxStars(L)}</small></p>${flawless?`<p class="center">🎁 Суперприз за урок без ошибок: +${BONUS_LESSON} ⭐</p>`:""}${extra}<p id="sent" class="center"></p>
   ${w.length?`<div class="rep"><b>Повторим:</b><br>${w.map(k=>`<button onclick="watch('${k.replace(/'/g,"\\'")}')">${label(k)}</button>`).join("")}<div id="vid"></div></div>`:`<p class="center">Ни одной ошибки, супер!</p>`}
   <button class="btn" onclick="lesson('${R.id}')">Пройти ещё раз</button><button class="btn alt" onclick="home()">В меню</button>`);
  hero("reward");say("Ты большой молодец!")}
 function watch(k){const v=$("vid"),m=L.moments[k];
  v.innerHTML=L.yt&&m!=null?`<div class="video"><iframe src="https://www.youtube.com/embed/${L.yt}?start=${m}&autoplay=1&rel=0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`:`<p>Видео появится, когда добавим ID и тайминги.</p>`}
 /* ===== ВХОД: приветствие, имя, подписка ===== */
+let introState=0,pendingChoose=false;
 function voice(file,txt,next){
  const a=new Audio("audio/"+file+".mp3");snd=a;
  a.onended=()=>{if(next)next()};
- a.onerror=()=>{if(window.speechSynthesis){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="ru-RU";u.onend=()=>{if(next)next()};speechSynthesis.speak(u)}};
- a.play().catch(()=>{})}
+ a.onerror=()=>{if(window.speechSynthesis){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="ru-RU";u.onend=()=>{if(next)next()};speechSynthesis.speak(u)}else if(next)next()};
+ return a.play()}
+function introVoice(){ // сразу при запуске; если телефон не разрешает автозвук, сыграет при первом касании
+ if(introState)return;introState=1;
+ const p=voice("intro","Привет! Это Твинкл!",()=>{introState=2;if(pendingChoose){pendingChoose=false;chooseVoice()}});
+ if(p&&p.catch)p.catch(e=>{if(e&&e.name==="NotAllowedError"){introState=0;document.addEventListener("pointerdown",introVoice,{once:true})}})}
+function chooseVoice(){if(!document.querySelector(".lc"))return;const p=voice("choose","Давай проверим твои знания! Выбери раздел.");if(p&&p.catch)p.catch(()=>{})}
+function afterHome(){if(introState===1)pendingChoose=true;else chooseVoice()}
 function intro(){
  live=false;
  frame(`<h1>Привет!</h1><p class="center">Как зовут малыша?</p>
   <input id="nm" class="inp" maxlength="20" placeholder="Имя (необязательно)" value="${(P.name||"").replace(/"/g,"")}">
   <button class="btn" onclick="enter()">Начать</button>`,false);
- hero("wave");say("Привет! Это Твинкл!")}
+ hero("wave");say("Привет! Это Твинкл!");introVoice()}
 async function enter(){
  const n=$("nm").value.trim();
  P.name=n;save();
- voice("intro","Привет! Это Твинкл!",()=>{if(document.querySelector(".lc"))voice("choose","Давай проверим твои знания! Выбери раздел.")});
  const r=await api("/check",{});
  if(blocked(r))return gate(r);
- home()}
+ home();afterHome()}
 function blocked(r){
  if(!initData)return false;            // открыто не из Telegram: проверка невозможна
  if(r&&r.subscribed===true)return false;
@@ -265,11 +284,11 @@ function gate(r){
   <button class="btn" onclick="openCh()">Открыть канал</button><button class="btn alt" onclick="recheck()">Я подписался</button>${d}`,false);
  hero("think");say("Подпишись, и начнём!")}
 function openCh(){if(!CHANNEL_URL)return;tg&&tg.openTelegramLink?tg.openTelegramLink(CHANNEL_URL):window.open(CHANNEL_URL,"_blank")}
-async function recheck(){const r=await api("/check",{});if(!blocked(r))home();else{gate(r);hero("try_again");say("Пока не вижу подписки. Попробуй ещё раз!")}}
+async function recheck(){const r=await api("/check",{});if(!blocked(r)){home();afterHome()}else{gate(r);hero("try_again");say("Пока не вижу подписки. Попробуй ещё раз!")}}
 async function boot(){
  const v=await cloud.get();
  if(v){try{const c=JSON.parse(v);if(c.name&&!P.name)P.name=c.name;
-  for(const [k,x] of Object.entries(c.lessons||{})){const m=P.lessons[k];if(!m||(x.best||0)>(m.best||0))P.lessons[k]=x}}catch(e){}}
+  if(c.v===2)for(const [k,x] of Object.entries(c.lessons||{})){const m=P.lessons[k];if(!m||(x.best||0)>(m.best||0))P.lessons[k]=x}}catch(e){}}
  intro()}
 boot();
 </script>
