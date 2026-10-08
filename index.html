@@ -238,7 +238,7 @@ function voice(file,txt,next){
  a.play().catch(()=>{})}
 function intro(){
  live=false;
- frame(`<h1>Привет!</h1><p class="center">Как зовут малыша? <span style="font-size:13px;color:#999">Родитель может вписать имя или пропустить.</span></p>
+ frame(`<h1>Привет!</h1><p class="center">Как зовут малыша?</p>
   <input id="nm" class="inp" maxlength="20" placeholder="Имя (необязательно)" value="${(P.name||"").replace(/"/g,"")}">
   <button class="btn" onclick="enter()">Начать</button>`,false);
  hero("wave");say("Привет! Это Твинкл!")}
