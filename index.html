@@ -238,12 +238,12 @@ function voice(file,txt,next){
  a.play().catch(()=>{})}
 function intro(){
  live=false;
- frame(`<h1>Привет!</h1><p class="center">Как зовут малыша?</p>
-  <input id="nm" class="inp" maxlength="20" placeholder="Например: Миша" value="${(P.name||"").replace(/"/g,"")}">
+ frame(`<h1>Привет!</h1><p class="center">Как зовут малыша? <span style="font-size:13px;color:#999">Родитель может вписать имя или пропустить.</span></p>
+  <input id="nm" class="inp" maxlength="20" placeholder="Имя (необязательно)" value="${(P.name||"").replace(/"/g,"")}">
   <button class="btn" onclick="enter()">Начать</button>`,false);
  hero("wave");say("Привет! Это Твинкл!")}
 async function enter(){
- const n=$("nm").value.trim();if(!n){$("nm").focus();return}
+ const n=$("nm").value.trim();
  P.name=n;save();
  voice("intro","Привет! Это Твинкл!",()=>{if(document.querySelector(".lc"))voice("choose","Давай проверим твои знания! Выбери раздел.")});
  const r=await api("/check",{});
