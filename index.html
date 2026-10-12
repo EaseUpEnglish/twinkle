@@ -62,6 +62,22 @@ h1{font-size:30px;margin:8px 0;text-align:center}.center{text-align:center}
 iframe{width:100%;height:100%;border:0;border-radius:14px}
 .abc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}
 .abc .tile{height:48px;font-size:28px;cursor:default}.abc .tile.weak{opacity:.4;border-style:dashed;box-shadow:none}
+.bigem{font-size:96px;text-align:center;line-height:1.15;margin:6px 0;transition:filter .6s}
+.bigem.shadow{filter:brightness(0) invert(1)}
+.stars{font-size:34px;text-align:center;letter-spacing:4px;line-height:1.35;margin:8px 0}
+.seq{display:flex;justify-content:center;gap:14px;margin:12px 0}
+.seq span{width:72px;height:72px;display:grid;place-items:center;font-size:44px;font-weight:700;border-radius:18px;background:#150b3a;border:3px solid #6fb7ff;color:#6fb7ff}
+.seq span.q{border-style:dashed;color:#ffe45c;border-color:#ffe45c}
+.og{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.og .opt{text-align:center;font-size:42px;font-weight:700;margin:0;padding:8px;display:grid;place-items:center;min-height:88px}
+.og2{grid-template-columns:repeat(2,1fr)}
+.og .opt small{display:block;font-size:16px;font-weight:600;color:#c9bbf5;margin-top:2px}
+.dot{display:inline-block;width:56px;height:56px;border-radius:50%;border:3px solid #fff}
+.dot.lg{width:120px;height:120px;display:block;margin:10px auto}
+.pe{font-size:52px;line-height:1}
+.speaker{font-size:56px;width:112px;height:112px;border-radius:50%;border:0;background:#3fd6c9;box-shadow:0 5px 0 #1b8f86;cursor:pointer;display:block;margin:10px auto}
+.speaker:active{transform:translateY(3px)}
+.rep .chip{display:inline-block;margin:4px 4px 0 0;padding:6px 12px;border-radius:12px;background:#3a2a78;color:var(--ink)}
 .rep{background:var(--card);border:2px solid var(--gold);border-radius:18px;padding:12px;margin:8px 0}
 .rep button{font:inherit;margin:4px 4px 0 0;padding:6px 12px;border-radius:12px;border:0;background:#3fd6c9;color:#06312e;cursor:pointer}
 @media (prefers-reduced-motion:reduce){#sky i,.hint{animation:none}}
@@ -98,8 +114,14 @@ const LESSONS=[
   ["Can I go out?","Можно мне выйти?"],["I'm sorry I'm late","Извините, я опоздал"]]},
  {id:"hel",e:"👋",title:"Приветствия",sub:"Hello, How are you?",yt:"mdIPwY0P84M",moments:{},blocks:[[0,5],[5,11]],items:[
   ["Hello","Здравствуйте"],["Hi","Привет"],["My name is...","Меня зовут..."],["What's your name?","Как тебя зовут?"],["Nice to meet you","Приятно познакомиться"],
-  ["How are you?","Как дела?"],["I'm happy","Я счастлив"],["I'm sad","Мне грустно"],["I'm fine, thank you","У меня всё хорошо, спасибо"],["I'm so-so","Так себе"],["Goodbye","До свидания"]]}];
-const COMING=["Цифры","Животные","Цвета"];   // разделы «в разработке» (номера 4, 5, 6)
+  ["How are you?","Как дела?"],["I'm happy","Я счастлив"],["I'm sad","Мне грустно"],["I'm fine, thank you","У меня всё хорошо, спасибо"],["I'm so-so","Так себе"],["Goodbye","До свидания"]]},
+ {id:"num",kind:"vis",vt:"digit",e:"🔢",title:"Цифры",sub:"One, Two, Three...",moments:{},blocks:[[0,5],[5,10]],modes:["hear"],shuffle:true,nopts:4,items:[
+  ["One","Один","1"],["Two","Два","2"],["Three","Три","3"],["Four","Четыре","4"],["Five","Пять","5"],["Six","Шесть","6"],["Seven","Семь","7"],["Eight","Восемь","8"],["Nine","Девять","9"],["Ten","Десять","10"]]},
+ {id:"ani",kind:"vis",vt:"emoji",e:"🐾",title:"Животные",sub:"Dog, Cat, Bird...",moments:{},blocks:[[0,5],[5,10]],modes:["see","hear","shadow"],items:[
+  ["Dog","Собака","🐶"],["Cat","Кошка","🐱"],["Bird","Птица","🐦"],["Fish","Рыба","🐟"],["Rabbit","Кролик","🐰"],["Bear","Медведь","🐻"],["Horse","Лошадь","🐴"],["Cow","Корова","🐮"],["Pig","Свинья","🐷"],["Frog","Лягушка","🐸"]]},
+ {id:"col",kind:"vis",vt:"color",e:"🎨",title:"Цвета",sub:"Red, Blue, Green...",moments:{},blocks:[[0,4],[4,8]],modes:["see","hear"],items:[
+  ["Red","Красный","#e53935"],["Blue","Синий","#1e88e5"],["Yellow","Жёлтый","#fdd835"],["Green","Зелёный","#43a047"],["Orange","Оранжевый","#fb8c00"],["Pink","Розовый","#f48fb1"],["Black","Чёрный","#111111"],["White","Белый","#fafafa"]]}];
+const COMING=[];   // разделы «в разработке» (серые карточки в меню), например ["Новый раздел"]
 const SYN={"Hello":["Hi"],"Hi":["Hello"]};   // слова с близким переводом: не показываем друг у друга в вариантах
 const PAIRS=[["A","Эй","Apple","🍎"],["B","Би","Bus","🚌"],["C","Си","Cat","🐱"],["D","Ди","Dog","🐶"],["E","И","Elephant","🐘"],["F","Эф","Frog","🐸"],["G","Джи","Giraffe","🦒"],["H","Эйч","Horse","🐴"],["I","Ай","Ice","🧊"],["J","Джей","Jam","🍯"],["K","Кей","Kangaroo","🦘"],["L","Эл","Lemon","🍋"],["M","Эм","Mouse","🐭"],["N","Эн","Nut","🌰"],["O","Оу","Orange","🍊"],["P","Пи","Pig","🐷"],["Q","Кью","Queen","👑"],["R","Ар","Rocket","🚀"],["S","Эс","Snake","🐍"],["T","Ти","Telephone","☎️"],["U","Ю","Umbrella","☂️"],["V","Ви","Vase","🏺"],["W","Дабл-ю","Window","🪟"],["X","Экс","Fox","🦊"],["Y","Уай","Yellow","🟡"],["Z","Зэд","Zebra","🦓"]];
 const ROUNDS=[[0,4],[4,8],[8,12],[12,16],[16,20],[20,26]];
@@ -163,9 +185,9 @@ function resetP(){if(confirm("Удалить все звёзды и прогре
 function lesson(id){
  L=LESSONS.find(x=>x.id===id);R={id,stars:0,weak:new Set()};live=false;
  const v=L.yt?`<iframe src="https://www.youtube.com/embed/${L.yt}?rel=0&playsinline=1" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`:`Здесь будет видео урока.<br>Вставьте ID в настройках (yt)`;
- frame(`<h1>${L.title}</h1><div class="video">${v}</div><button class="btn" onclick="begin()">${id==="abc"?"Играть":"Пройти тест"}</button>`);
- hero("wave");say("Посмотри видео и проверь себя!")}
-function begin(){live=true;R={id:L.id,stars:0,weak:new Set()};L.id==="abc"?abcRound(0):mcStart()}
+ frame(`<h1>${L.title}</h1>${L.yt?`<div class="video">${v}</div>`:`<div class="bigem">${L.e}</div>`}<button class="btn" onclick="begin()">${id==="abc"||L.kind==="vis"?"Играть":"Пройти тест"}</button>`);
+ hero("wave");say(L.yt?"Посмотри видео и проверь себя!":"Давай играть!")}
+function begin(){live=true;R={id:L.id,stars:0,weak:new Set()};L.id==="abc"?abcRound(0):L.kind==="vis"?vsStart():mcStart()}
 
 /* ===== УРОК 1: БУКВЫ (перетаскивание) ===== */
 let A={},sel=null,drag=null;
@@ -229,10 +251,43 @@ function mcNext(){
   M.shown=true;hero(perfect?"reward":"happy");say(perfect?`Часть без ошибок! Бонус +${BONUS_PART} ⭐`:"Часть пройдена! Молодец!");
   const last=M.b===L.blocks.length-1;$("foot").innerHTML=`<button class="btn" onclick="mcNext()">${last?"Результат":"Дальше"}</button>`;return}
  if(M.shown){M.shown=false;if(M.b===L.blocks.length-1)return finish("");M.b++}
- M.i++;mcQ()}
+ M.i++;(L.kind==="vis"?vsQ:mcQ)()}
+
+/* ===== РАЗДЕЛЫ 4-6: ЦИФРЫ, ЖИВОТНЫЕ, ЦВЕТА (игры с картинками) ===== */
+const picOf=(l,it)=>l.vt==="color"?`<i class="dot" style="background:${it[2]}"></i>`:l.vt==="emoji"?`<span class="pe">${it[2]}</span>`:it[2];
+const PROMPT={count:"Сколько звёздочек?",missing:"Какой цифры не хватает?",shadow:"Кто спрятался?",
+ hear:{digit:"Какую цифру ты услышал?",emoji:"Кого ты услышал?",color:"Какой цвет ты услышал?"},
+ see:{emoji:"Кто это?",color:"Какого цвета?"}};
+function vsStart(){M={b:0,i:0,tries:0,errs:0};if(L.shuffle)L.items=shuffle(L.items);vsQ()}   // shuffle: слова спрашиваются в случайном порядке
+function vsQ(){
+ const it=L.items[M.i],[a,b]=L.blocks[M.b],mode=L.modes[M.i%L.modes.length],n=M.i+1;M.tries=0;M.mode=mode;
+ // варианты ответа: верный + два других (для цифр берём ближайшие числа)
+ let pool=L.items.map((x,k)=>k).filter(k=>k!==M.i);
+ pool=L.vt==="digit"?pool:pool.filter(k=>k>=a&&k<b).length>=2?pool.filter(k=>k>=a&&k<b):pool;
+ const ks=shuffle([M.i,...shuffle(pool).slice(0,(L.nopts||3)-1)]);
+ let stage="",asWord=mode==="see"||mode==="shadow";
+ if(mode==="count")stage=`<div class="stars">${"⭐".repeat(n)}</div>`;
+ else if(mode==="missing"){const seq=n===1?["?",2,3]:n===L.items.length?[n-2,n-1,"?"]:[n-1,"?",n+1];stage=`<div class="seq">${seq.map(x=>`<span class="${x==="?"?"q":""}">${x}</span>`).join("")}</div>`}
+ else if(mode==="hear")stage=`<button class="speaker" onclick="hear()" aria-label="Послушать">🔊</button>`;
+ else stage=L.vt==="color"?`<i class="dot lg" style="background:${it[2]}"></i>`:`<div class="bigem ${mode==="shadow"?"shadow":""}" id="stg">${it[2]}</div>`;
+ const q=mode==="hear"?PROMPT.hear[L.vt]:mode==="see"?PROMPT.see[L.vt]:PROMPT[mode];
+ const opts=ks.map(k=>`<button class="opt ${asWord?"":L.vt==="digit"?"dg":"pc"}" data-k="${k}" onclick="vsPick(this)">${asWord?L.items[k][0]:L.vt==="digit"?`${L.items[k][2]}<small>${L.items[k][1]}</small>`:picOf(L,L.items[k])}</button>`).join("");
+ frame(`<div class="prog"><i style="width:${M.i/L.items.length*100}%"></i></div><p class="center">Вопрос ${M.i+1} из ${L.items.length}</p>
+  ${stage}<p class="center">${q}</p><div class="${asWord?"":"og"}${ks.length===4?" og2":""}">${opts}</div><div id="foot"></div>`);
+ if(M.i===a){hero("surprise");say(a===0?"Поехали! Выбери ответ.":"Следующая часть!")}else{hero("think");say(mode==="hear"?"Слушай внимательно!":"Подумай хорошенько!")}
+ if(mode==="hear")speak(it[0],slug(it[0])+"_en")}
+function vsPick(btn){
+ const it=L.items[M.i],ok=+btn.dataset.k===M.i,all=document.querySelectorAll(".opt");
+ const nxt=()=>{const end=M.i===L.blocks[M.b][1]-1;$("foot").innerHTML=`<button class="btn" onclick="mcNext()">${end?"Дальше":"Следующий вопрос"}</button>`};
+ const reveal=()=>{const g=$("stg");if(g)g.classList.remove("shadow")};
+ if(ok){all.forEach(x=>x.disabled=true);btn.classList.add("ok");reveal();const add=M.tries===0?1:0;R.stars+=add;if(add)fly(btn,add);else $("sc").textContent=bankVal();speak(it[0],slug(it[0]));
+  hero(M.tries===0?"thumbs_up":"happy");say(M.tries===0?"Отлично! +1 ⭐":"Молодец!");nxt()}
+ else{btn.classList.add("bad");btn.disabled=true;M.tries++;M.errs++;R.weak.add(it[0]);
+  if(M.tries===1){hero("try_again");say("Hmm... Попробуй ещё раз!")}
+  else{all.forEach(x=>{x.disabled=true;if(+x.dataset.k===M.i)x.classList.add("ok")});reveal();hero("think");say(`Запомним: ${it[0]} — ${it[1]}`);speak(it[0],slug(it[0]));nxt()}}}
 
 /* ===== РЕЗУЛЬТАТ ===== */
-const label=k=>L.id==="abc"?k+" — "+PAIRS.find(x=>x[0]===k)[2]:k;
+const label=k=>L.id==="abc"?k+" — "+PAIRS.find(x=>x[0]===k)[2]:L.kind==="vis"?k+" — "+L.items.find(x=>x[0]===k)[1]:k;
 const link=k=>L.yt?`https://youtu.be/${L.yt}${k!=null&&L.moments[k]!=null?"?t="+L.moments[k]:""}`:"";
 function finish(extra){
  live=false;const flawless=R.weak.size===0;if(flawless)R.stars+=BONUS_LESSON;const p=P.lessons[R.id]||{};P.lessons[R.id]={done:true,best:Math.max(p.best||0,R.stars),weak:[...R.weak]};save();
@@ -240,7 +295,7 @@ function finish(extra){
  api("/result",{name:P.name||"",lesson:L.title,e:L.e,stars:R.stars,max:maxStars(L),weak:w.map(k=>label(k)),all:link(null)})
   .then(r=>{const e=$("sent");if(e&&r&&r.ok)e.textContent="✓ Результат отправлен родителю"});
  frame(`<h1>Урок пройден!</h1><p class="center">Ты набрал ${R.stars} из ${maxStars(L)} ⭐<br><small>Лучший результат: ${P.lessons[R.id].best} из ${maxStars(L)}</small></p>${flawless?`<p class="center">🎁 Суперприз за урок без ошибок: +${BONUS_LESSON} ⭐</p>`:""}${extra}<p id="sent" class="center"></p>
-  ${w.length?`<div class="rep"><b>Повторим:</b><br>${w.map(k=>`<button onclick="watch('${k.replace(/'/g,"\\'")}')">${label(k)}</button>`).join("")}<div id="vid"></div></div>`:`<p class="center">Ни одной ошибки, супер!</p>`}
+  ${w.length?`<div class="rep"><b>Повторим:</b><br>${w.map(k=>!L.yt?`<span class="chip">${label(k)}</span>`:`<button onclick="watch('${k.replace(/'/g,"\\'")}')">${label(k)}</button>`).join("")}<div id="vid"></div></div>`:`<p class="center">Ни одной ошибки, супер!</p>`}
   <button class="btn" onclick="lesson('${R.id}')">Пройти ещё раз</button><button class="btn alt" onclick="home()">В меню</button>`);
  hero("reward");say("Ты большой молодец!")}
 function watch(k){const v=$("vid"),m=L.moments[k];
@@ -282,7 +337,7 @@ function why(r){
  return ""}
 function gate(r){
  const d=(DEBUG&&r!==undefined&&why(r))?`<p class="center" style="font-size:11px;color:#999">${why(r).replace(/</g,"&lt;")}</p>`:"";
- frame(`<h1>Почти готово!</h1><p class="center">Чтобы пользоваться приложением, подпишитесь на наш канал.❤️</p>
+ frame(`<h1>Почти готово!</h1><p class="center">Чтобы пользоваться приложением, подпишитесь на наш канал. Мы очень ценим это ❤️</p>
   <button class="btn" onclick="openCh()">Открыть канал</button><button class="btn alt" onclick="recheck()">Я подписался(лась)</button>${d}`,false);
  hero("think");say("Подпишитесь, и начнём!")}
 function openCh(){if(!CHANNEL_URL)return;tg&&tg.openTelegramLink?tg.openTelegramLink(CHANNEL_URL):window.open(CHANNEL_URL,"_blank")}
