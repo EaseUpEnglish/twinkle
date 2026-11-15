@@ -86,7 +86,7 @@ iframe{width:100%;height:100%;border:0}
 @media (prefers-reduced-motion:reduce){.hint,.shake{animation:none}}
 
 body{background:radial-gradient(ellipse at 50% 0,#1b1050,#0a0622 60%,#050214) fixed}
-body::before{content:"";position:fixed;top:0;bottom:0;left:50%;width:min(100%,520px);transform:translateX(-50%);background:url(bg.jpg) center/cover;box-shadow:0 0 60px #000a;z-index:0}
+body::before{content:"";position:fixed;top:0;bottom:0;left:50%;width:min(100%,520px);transform:translateX(-50%);background:var(--bgimg,url(bg.jpg)) center/cover;box-shadow:0 0 60px #000a;z-index:0}
 #app{z-index:2}
 .galaxy{position:relative;margin:4px 0 0}.galaxy svg{position:absolute;inset:0;width:100%;height:100%}
 .gnode{position:absolute;width:150px;display:flex;flex-direction:column;align-items:center;background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;padding:0}
@@ -230,6 +230,19 @@ input::placeholder{font-size:17px}
 .rw{display:inline-block;margin-top:5px;background:linear-gradient(#ffe27a,#ffb300);color:#4a2c00;border:2px solid #fff1b8;border-radius:999px;padding:2px 12px;font:inherit;font-size:14px;font-weight:700}
 button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;color:#fff;border-color:#46d28a;animation:none}.rw.lock{background:#2a1766;color:#d4c8ff;border-color:#6a52c9;animation:none}
 .ar{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:2px solid #5a3fb066;text-align:left}.ar:first-child{border-top:0}.ar .ic{font-size:30px;width:42px;text-align:center}.ar.off .ic{filter:grayscale(1);opacity:.5}.ar div{flex:1}.ar b{display:block;font-size:16px}.ar small{font-size:13px;color:#d4c8ff}.ar .rw{margin:0;flex:none}
+.wsc .rkp{position:absolute;inset:0}.wsc .stk{font-size:0;width:11cqw}.wsc .stk .sk{display:block;width:100%}.wsc .stk .sk img{width:100%;height:auto}
+.rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:8px 4px 16px;margin:0 -4px;scrollbar-width:thin}
+.rail .sc{flex:0 0 31%;min-width:104px;scroll-snap-align:start}
+.sc.rare{border-color:#6ec6ff}.sc.epic{border-color:#d28bff;box-shadow:0 0 14px #c77dff99;animation:epg 2.4s ease-in-out infinite alternate}@keyframes epg{to{box-shadow:0 0 26px #e3a8ffcc}}
+.sc.on{border-color:#46d28a!important}.sc.pv{outline:3px solid #ffd23f;transform:translateY(-3px)}
+.sc .sk img{height:56px;width:auto}.sc .pd{height:56px;width:auto;max-width:100%}.sc .sw{background-size:cover;background-position:center}
+.sk{position:relative;display:inline-block;line-height:0;animation:skg 2.6s ease-in-out infinite alternate}.sk img{display:block}
+.sk::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.95) 48%,rgba(255,240,170,.85) 53%,transparent 70%);background-size:260% 100%;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;animation:shn 3.2s ease-in-out infinite}
+@keyframes shn{0%{background-position:130% 0}60%,100%{background-position:-60% 0}}@keyframes skg{from{filter:drop-shadow(0 0 3px rgba(255,255,255,.3))}to{filter:drop-shadow(0 0 10px rgba(255,230,140,.85))}}
+.sk.epic{animation:skg2 2.2s ease-in-out infinite alternate}.sk.epic::after{background:linear-gradient(115deg,transparent 22%,rgba(255,140,210,.8) 38%,rgba(130,230,255,.9) 50%,rgba(255,240,130,.8) 62%,transparent 78%);background-size:260% 100%}
+@keyframes skg2{from{filter:drop-shadow(0 0 4px rgba(190,130,255,.55))}to{filter:drop-shadow(0 0 13px rgba(120,220,255,.95))}}
+.pvb{display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}.pvb .btn{width:auto;padding:6px 16px;font-size:18px}
+@media (prefers-reduced-motion:reduce){.sk,.sk::after,.sc.epic{animation:none}}
 </style>
 </head>
 <body>
@@ -326,6 +339,7 @@ const hudHTML=click=>{const L=levelInfo(),n=streakNow(),fz=P.freeze||0,go=click?
  return `<div class="hud"><div class="hc hf"${go}><img src="img/icons/fire.png" alt="">${n}${fz?`<small>❄${fz}</small>`:""}</div><div class="hc hl"${go}>Ур.${L.n}<i style="width:${L.pct}%"></i></div><div id="bank"><img src="img/icons/star.png" alt=""><span id="sc">${bankVal()}</span></div></div>`};
 (function(){const w=document.createElement("div");w.id="twk";let h="";for(let i=0;i<34;i++){const x=i%3?Math.random()*100:(Math.random()<.5?Math.random()*10:90+Math.random()*10);h+=`<i style="left:${x.toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;font-size:${(8+Math.random()*10).toFixed(0)}px;animation-delay:${(Math.random()*3).toFixed(2)}s;animation-duration:${(1.8+Math.random()*2).toFixed(2)}s">✦</i>`}w.innerHTML=h;document.body.appendChild(w)})();
 function frame(inner,back=true,nav=""){
+ if(nav!=="shop"&&PV){PV=null;applyBg()}
  app.className=nav?"t-"+nav:"";
  app.innerHTML=`<div class="top">${back?'<button class="back" onclick="home()" aria-label="Назад"><img src="img/icons/back.png" alt=""></button>':'<b>Twinkle</b>'}${hudHTML(!back)}</div>
  <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`}
@@ -353,32 +367,76 @@ function home(){
  const dn=P.daily===dayKey(new Date());
  frame(`<div class="bar"><button class="daily ${dn?"done":""}" ${dn?"":'onclick="dayStart()"'}>${dn?"✓ Задание дня готово":"🎯 Задание дня"}</button></div><div class="galaxy" style="height:${H}px"><svg viewBox="0 0 100 ${H}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="#ffc83d" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 13" vector-effect="non-scaling-stroke" opacity=".85"/></svg>${nodes}</div>`,false,"map");
  hero("wave");say(P.saved===dayKey(new Date())?"❄️ Заморозка спасла твою серию!":(P.name?P.name+", давай":"Давай")+" проверим твои знания! Выбери планету.")}
-const SHOP={paint:[["p0","Классика","none",0],["p1","Фиолетовая","hue-rotate(70deg) saturate(1.2)",30],["p2","Зелёная","hue-rotate(-100deg)",30],["p3","Розовая","hue-rotate(130deg) saturate(1.3)",30],["p4","Золотая","sepia(1) saturate(2.5) hue-rotate(-10deg)",50]],
- sticker:[["s1","⭐","Звезда",15],["s2","🌈","Радуга",15],["s3","💖","Сердце",15],["s4","🦄","Единорог",20],["s5","👑","Корона",20]],
- bg:[["b0","Космос","none",0],["b1","Туманность","hue-rotate(50deg) saturate(1.3)",40],["b2","Изумруд","hue-rotate(-70deg)",40],["b3","Закат","hue-rotate(150deg) saturate(1.4)",60]]};
-const allShop=()=>Object.entries(SHOP).flatMap(([c,a])=>a.map(x=>c==="sticker"?{c,id:x[0],f:x[1],n:x[2],p:x[3]}:{c,id:x[0],n:x[1],f:x[2],p:x[3]}));
-const owned=it=>it.p===0||!!(P.own&&P.own[it.id]),eq=c=>(P.eq&&P.eq[c])||(c==="paint"?"p0":c==="bg"?"b0":"");
-function applyBg(){const it=allShop().find(x=>x.id===eq("bg"));document.body.style.setProperty("--bgf",it&&it.f!=="none"?it.f:"none")}
-function shopRefresh(){const y=scrollY;tabShop();scrollTo(0,y)}
-function shopTap(id){const it=allShop().find(x=>x.id===id);if(!it)return;P.own=P.own||{};P.eq=P.eq||{};
- if(owned(it)){if(it.c==="sticker"&&eq("sticker")===id)P.eq.sticker="";else P.eq[it.c]=id;save();applyBg();fb(1);return shopRefresh()}
- if((P.wallet||0)<it.p){fb(0);shopRefresh();hero("try_again");return say("Не хватает звёзд! Проходи планеты ⭐")}
- P.wallet-=it.p;P.own[id]=1;P.eq[it.c]=id;save();applyBg();fb(1);confetti();shopRefresh();hero("thumbs_up");say(`Куплено: ${it.n}!`)}
-function openBox(){const pool=allShop().filter(x=>!owned(x));P.own=P.own||{};P.eq=P.eq||{};
- if(!pool.length){shopRefresh();return say("У тебя уже всё есть!")}
- if((P.wallet||0)<25){fb(0);shopRefresh();hero("try_again");return say("Для сундука нужно 25 звёзд")}
- const it=pool[Math.floor(Math.random()*pool.length)];P.wallet-=25;P.own[it.id]=1;P.eq[it.c]=it.id;save();applyBg();fb(1);confetti();shopRefresh();hero("reward");say(`В сундуке: ${it.n}!`)}
-const shopCard=it=>{const o=owned(it),on=eq(it.c)===it.id,sw=it.c==="paint"?`<img src="img/rocket/rocket_small.png" style="filter:${it.f}" alt="">`:it.c==="sticker"?`<span class="se">${it.f}</span>`:`<div class="sw" style="filter:${it.f}"></div>`;
- return `<button class="sc ${on?"on":""}" onclick="shopTap('${it.id}')">${sw}<b>${it.n}</b><span class="pr">${on?"✓ Надето":o?"Надеть":"⭐ "+it.p}</span></button>`};
-
+let PV=null;
+const SHOP=[
+ {c:"paint",id:"p0",n:"Классика",f:"none",p:0},
+ {c:"paint",id:"p1",n:"Фиолетовая",f:"hue-rotate(70deg) saturate(1.2)",p:30},
+ {c:"paint",id:"p2",n:"Зелёная",f:"hue-rotate(-100deg)",p:30},
+ {c:"paint",id:"p3",n:"Розовая",f:"hue-rotate(130deg) saturate(1.3)",p:30},
+ {c:"paint",id:"p4",n:"Золотая",f:"sepia(1) saturate(2.5) hue-rotate(-10deg)",p:50},
+ {c:"pad",id:"d0",n:"Классика",f:"img/rocket2/pad.png",p:0,hb:45},
+ {c:"pad",id:"d1",n:"Лунная база",f:"img/pads/p1.webp",p:80,hb:47.7},
+ {c:"pad",id:"d2",n:"Ледяная",f:"img/pads/p2.webp",p:80,hb:49},
+ {c:"pad",id:"d3",n:"Радужная",f:"img/pads/p3.webp",p:120,hb:48},
+ {c:"pad",id:"d4",n:"Тропический пляж",f:"img/pads/p4.webp",p:100,hb:45},
+ {c:"pad",id:"d5",n:"Конфетная",f:"img/pads/p5.webp",p:100,hb:44.8},
+ {c:"pad",id:"d6",n:"Коралловая",f:"img/pads/p6.webp",p:120,hb:46.5},
+ {c:"sticker",id:"k_apple",n:"Яблоко",f:"img/stk/apple.webp",p:15},
+ {c:"sticker",id:"k_banana",n:"Банан",f:"img/stk/banana.webp",p:15},
+ {c:"sticker",id:"k_orange",n:"Апельсин",f:"img/stk/orange.webp",p:15},
+ {c:"sticker",id:"k_straw",n:"Клубника",f:"img/stk/straw.webp",p:15},
+ {c:"sticker",id:"k_star",n:"Звезда",f:"img/stk/star.webp",p:20},
+ {c:"sticker",id:"k_moon",n:"Луна",f:"img/stk/moon.webp",p:20},
+ {c:"sticker",id:"k_planet",n:"Планета",f:"img/stk/planet.webp",p:20},
+ {c:"sticker",id:"k_earth",n:"Земля",f:"img/stk/earth.webp",p:20},
+ {c:"sticker",id:"k_ufo",n:"НЛО",f:"img/stk/ufo.webp",p:30},
+ {c:"sticker",id:"k_rocket",n:"Ракета",f:"img/stk/rocket.webp",p:30},
+ {c:"sticker",id:"k_comet",n:"Комета",f:"img/stk/comet.webp",p:30},
+ {c:"sticker",id:"k_helmet",n:"Шлем",f:"img/stk/helmet.webp",p:30},
+ {c:"sticker",id:"k_alien",n:"Пришелец",f:"img/stk/alien.webp",p:60},
+ {c:"sticker",id:"k_alienh",n:"Пришелец-друг",f:"img/stk/alienh.webp",p:60},
+ {c:"sticker",id:"k_bear",n:"Космомишка",f:"img/stk/bear.webp",p:60},
+ {c:"sticker",id:"k_bearh",n:"Мишка-пилот",f:"img/stk/bearh.webp",p:60},
+ {c:"sticker",id:"k_cat",n:"Галакси-кот",f:"img/stk/cat.webp",p:120},
+ {c:"sticker",id:"k_snail",n:"Улитка-планета",f:"img/stk/snail.webp",p:120},
+ {c:"sticker",id:"k_hedge",n:"Кристальный ёжик",f:"img/stk/hedge.webp",p:120},
+ {c:"sticker",id:"k_sheep",n:"Облачная овечка",f:"img/stk/sheep.webp",p:120},
+ {c:"sticker",id:"k_moth",n:"Лунная бабочка",f:"img/stk/moth.webp",p:120},
+ {c:"sticker",id:"k_monster",n:"Звёздный монстрик",f:"img/stk/monster.webp",p:120},
+ {c:"bg",id:"g0",n:"Космос",f:"",t:"bg.jpg",p:0},
+ {c:"bg",id:"g1",n:"Закатная туманность",f:"img/bg/b1.jpg",t:"img/bg/t1.jpg",p:60},
+ {c:"bg",id:"g2",n:"Северное сияние",f:"img/bg/b2.jpg",t:"img/bg/t2.jpg",p:80},
+ {c:"bg",id:"g3",n:"Сатурн",f:"img/bg/b3.jpg",t:"img/bg/t3.jpg",p:80},
+ {c:"bg",id:"g4",n:"Подводный космос",f:"img/bg/b4.jpg",t:"img/bg/t4.jpg",p:100},
+ {c:"bg",id:"g5",n:"Конфетная планета",f:"img/bg/b5.jpg",t:"img/bg/t5.jpg",p:120},
+ {c:"bg",id:"g6",n:"Розовые облака",f:"img/bg/b6.jpg",t:"img/bg/t6.jpg",p:60}];
+const allShop=()=>SHOP,rar=p=>p>=100?"epic":p>=50?"rare":"common";
+const owned=it=>it.p===0||!!(P.own&&P.own[it.id]),eq=c=>(P.eq&&P.eq[c])||(c==="paint"?"p0":c==="bg"?"g0":c==="pad"?"d0":"");
+const cur=c=>PV&&PV.c===c?PV.id:eq(c),curItem=c=>SHOP.find(x=>x.id===cur(c));
+function applyBg(){const it=curItem("bg");document.body.style.setProperty("--bgimg",it&&it.f?`url(${it.f})`:"url(bg.jpg)")}
+function shopRefresh(){const y=scrollY,rs=[...document.querySelectorAll(".rail")].map(r=>r.scrollLeft);tabShop();scrollTo(0,y);document.querySelectorAll(".rail").forEach((r,i)=>r.scrollLeft=rs[i]||0)}
+function pvOff(){PV=null;applyBg();shopRefresh()}
+function shopTap(id){const it=SHOP.find(x=>x.id===id);if(!it)return;P.own=P.own||{};P.eq=P.eq||{};
+ if(owned(it)){PV=null;if(it.c==="sticker"&&P.eq.sticker===id)P.eq.sticker="";else P.eq[it.c]=id;save();applyBg();fb(1);return shopRefresh()}
+ if(!PV||PV.id!==id){PV=it;applyBg();fb(1);shopRefresh();hero("think");return say(`Примеряем: ${it.n}. Нажми ещё раз, чтобы купить!`)}
+ if((P.wallet||0)<it.p){fb(0);shopRefresh();hero("try_again");return say(`Нужно ещё ${it.p-(P.wallet||0)} ⭐. Проходи планеты!`)}
+ P.wallet-=it.p;P.own[id]=1;P.eq[it.c]=id;PV=null;save();applyBg();fb(1);confetti();shopRefresh();hero("thumbs_up");say(`Куплено: ${it.n}!`)}
+function openBox(){const pool=SHOP.filter(x=>x.p>0&&x.p<=60&&!owned(x));P.own=P.own||{};P.eq=P.eq||{};
+ if(!pool.length){shopRefresh();return say("Всё доступное уже есть!")}
+ if((P.wallet||0)<25){fb(0);shopRefresh();hero("try_again");return say("Для сундука нужно 25 ⭐")}
+ const it=pool[Math.floor(Math.random()*pool.length)];P.wallet-=25;P.own[it.id]=1;P.eq[it.c]=it.id;PV=null;save();applyBg();fb(1);confetti();shopRefresh();hero("reward");say(`В сундуке: ${it.n}!`)}
+const stk=it=>`<span class="sk ${rar(it.p)}" style="--m:url(${it.f})"><img src="${it.f}" alt=""></span>`;
+const shopCard=it=>{const o=owned(it),on=eq(it.c)===it.id,pv=!!(PV&&PV.id===it.id),th=it.c==="paint"?`<img src="img/rocket/rocket_small.png" style="filter:${it.f}" alt="">`:it.c==="sticker"?stk(it):it.c==="pad"?`<img class="pd" src="${it.f}" alt="">`:`<div class="sw" style="background-image:url(${it.t})"></div>`,
+ lb=on?"✓ Надето":o?"Надеть":pv?`Купить ⭐ ${it.p}`:`⭐ ${it.p}`;
+ return `<button class="sc ${rar(it.p)} ${on?"on":""} ${pv?"pv":""}" onclick="shopTap('${it.id}')">${th}<b>${it.n}</b><span class="pr">${lb}</span></button>`};
 /* ===== МАСТЕРСКАЯ РАКЕТЫ ===== */
 const RK={"face":{"l": 39.201, "t": 30.466, "w": 21.473},"flame":{"l": 49.84, "t": 79.46},"center":{"l": 49.84, "t": 41.16},"body":{"name":"Корпус","p":{"l":31.638,"t":28.394,"w":36.45},"g":{"l":30.638,"t":27.352,"w":38.45}},"nose":{"name":"Нос","p":{"l":35.288,"t":8.177,"w":29.2},"g":{"l":34.288,"t":7.135,"w":31.2}},"finl":{"name":"Левое крыло","p":{"l":24.988,"t":54.186,"w":16.2},"g":{"l":23.988,"t":53.144,"w":18.2}},"finr":{"name":"Правое крыло","p":{"l":59.438,"t":54.134,"w":15.25},"g":{"l":58.438,"t":53.092,"w":17.25}},"low":{"name":"Нижний отсек","p":{"l":35.938,"t":55.228,"w":28.05},"g":{"l":34.938,"t":54.186,"w":30.05}},"eng":{"name":"Двигатель","p":{"l":39.688,"t":70.599,"w":20.35},"g":{"l":38.688,"t":69.557,"w":22.35}},"_":{"stk":{"l":49.84,"t":41.16},"ratio":0.9596,"padT":4.77}};
 const RP=[["body",20],["nose",20],["finl",20],["finr",20],["low",30],["eng",50]];
 const hasPart=i=>!!(P.lessons[LESSONS[i].id]&&P.lessons[LESSONS[i].id].done)||!!(P.parts&&P.parts[RP[i][0]]);
 function rocketScene(cls,withHero){
- const pf=(allShop().find(x=>x.id===eq("paint"))||{f:"none"}).f,st=allShop().find(x=>x.id===eq("sticker")),sty=o=>`left:${o.l}%;top:${o.t}%;width:${o.w}%`;let g="",p="";
+ const pf=(curItem("paint")||{f:"none"}).f,st=curItem("sticker"),pd=curItem("pad")||SHOP.find(x=>x.id==="d0"),sty=o=>`left:${o.l}%;top:${o.t}%;width:${o.w}%`;let g="",p="";
  RP.forEach(([id],i)=>{if(hasPart(i))p+=`<img class="rp" data-p="${id}" src="img/rocket2/p_${id}.png" style="${sty(RK[id].p)}" alt="">`;else g+=`<img class="rg" src="img/rocket2/g_${id}.png" style="${sty(RK[id].g)}" alt="">`});
- return `<div class="wsc ${cls||""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="img/rocket2/pad.png" style="top:${RK._.padT}%" alt=""><div class="rkg" id="rkg" style="${pf==="none"?"":"filter:"+pf}">${g}${p}${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${st&&hasPart(0)?`<span class="stk" style="left:${RK._.stk.l}%;top:${(RK._.stk.t+22).toFixed(1)}%">${st.f}</span>`:""}</div>${withHero?'<div id="hero"></div>':""}</div>`}
+ return `<div class="wsc ${cls||""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="${pd.f}" style="top:${RK._.padT}%" alt=""><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${st&&hasPart(0)?`<span class="stk" style="left:${RK._.stk.l}%;top:${(RK._.stk.t+22).toFixed(1)}%">${stk(st)}</span>`:""}</div>${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
 function tabRocket(){
  live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6;
  frame(`${rocketScene("",1)}<p class="center"><b>Деталей собрано: ${n} из 6</b></p><div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`,false,"rocket");
@@ -402,14 +460,12 @@ function launch(){
  setTimeout(tabRocket,6300)}
 function soon(){fb(1);hero("surprise");say("Скоро! Оплата через Telegram Stars в разработке ✨")}
 function tabShop(){
- live=false;const has=i=>!!(P.lessons[LESSONS[i].id]&&P.lessons[LESSONS[i].id].done),done=LESSONS.filter((l,i)=>has(i)).length,
- pt=["nose","window","fin_left","fin_right","engine","flag"],nm=["Нос","Иллюминатор","Левое крыло","Правое крыло","Двигатель","Флаг"],
- pf=(allShop().find(x=>x.id===eq("paint"))||{f:"none"}).f,st=allShop().find(x=>x.id===eq("sticker")),g=c=>allShop().filter(x=>x.c===c).map(shopCard).join("");
+ live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`;
  frame(`<div class="panel wal"><img src="img/icons/star.png" alt=""><div>Мои звёзды: <b>${P.wallet||0}</b><small>Звёзды дают за уроки и задание дня</small></div></div>
- <div class="panel">${rocketScene("small")}</div>
- <h2 class="sh">🎨 Покраска ракеты</h2><div class="sg">${g("paint")}</div><h2 class="sh">✨ Наклейки</h2><div class="sg">${g("sticker")}</div><h2 class="sh">🌌 Фон приложения</h2><div class="sg">${g("bg")}</div>
- <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><div class="panel">🧥 Наряды Твинкла — скоро!</div>`,false,"shop");
- hero("happy");say(done>=6?"Ракета готова! Что купим?":"Собирай детали и покупай новое!")}
+ <div class="panel">${rocketScene("small")}${PV?`<div class="pvb"><span>Примерка: <b>${PV.n}</b></span><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`:""}</div>
+ <h2 class="sh">🛸 Площадки запуска</h2>${rail("pad")}<h2 class="sh">✨ Наклейки</h2>${rail("sticker")}<h2 class="sh">🌌 Фоны</h2>${rail("bg")}<h2 class="sh">🎨 Покраска ракеты</h2>${rail("paint")}
+ <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><p class="center" style="font-size:13px;opacity:.8;margin:6px 0">В сундуке предмет стоимостью до 60 ⭐</p><div class="panel">🧥 Наряды Твинкла — скоро!</div>`,false,"shop");
+ hero("happy");say(PV?`Примеряем: ${PV.n}!`:"Нажми на предмет, чтобы примерить!")}
 const MEDALS=[[3,"badge_3","3 дня",10],[7,"badge_7","7 дней",25],[14,"badge_14","14 дней",50],[30,"badge_30","30 дней",120]];
 const plur=(n,a,b,c)=>{const m=n%100,d=n%10;return m>10&&m<20?c:d===1?a:d>=2&&d<=4?b:c};
 const ACH=()=>{const done=LESSONS.filter(l=>P.lessons[l.id]&&P.lessons[l.id].done);return[
