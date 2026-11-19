@@ -214,7 +214,7 @@ input::placeholder{font-size:17px}
 .bar{margin-top:-10px}
 #app.t-rocket .hrow{justify-content:center}#app.t-rocket .bubble{flex:0 1 auto;margin:0 auto;text-align:center;max-width:92%}
 #app.t-rocket .wsc{margin:-44px auto 0}
-.wsc #hero{left:3%;bottom:45%;width:34%;height:42%}
+.wsc #hero{left:-2%;bottom:45%;width:42%;height:52%}
 .wsc .rkg{z-index:4}
 .wsc .rface{opacity:0;transition:opacity .5s}.wsc .rface.on{opacity:1}
 .wsc .flame{position:absolute;width:13%;aspect-ratio:.55;transform:translate(-50%,-6%) scaleY(.2);transform-origin:50% 0;opacity:0;border-radius:50% 50% 50% 50%/30% 30% 70% 70%;background:radial-gradient(ellipse at 50% 15%,#fff7b0 0%,#ffd23f 35%,#ff7a1a 65%,rgba(255,60,0,0) 100%);filter:blur(1px)}
@@ -226,7 +226,7 @@ input::placeholder{font-size:17px}
 .pb.big{display:block;width:100%;height:16px;margin:12px 0 6px}.rn{font-size:14px;margin:0}
 .sec{font-size:20px;margin:16px 4px 8px;text-align:left;text-shadow:0 2px 0 #0007}
 .wk{display:flex;justify-content:space-between;gap:4px;margin-top:8px}.wd{flex:1;text-align:center;font-size:12px;color:#d4c8ff}.wd i{display:grid;place-items:center;width:100%;aspect-ratio:1;max-width:44px;margin:0 auto 3px;border-radius:50%;background:#1c0f52;border:3px solid #4a3a99}.wd.on i{background:linear-gradient(#ffb347,#ff6a1a);border-color:#ffe08a}.wd i img{width:70%}.wd.today i{box-shadow:0 0 0 3px #ffd23f88}.wd.today span{color:#ffd23f;font-weight:700}
-.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mc{background:#1c0f52;border:3px solid #5a3fb0;border-radius:18px;padding:10px 6px;text-align:center;font-size:14px}.mc .mi{position:relative;display:inline-block;margin-top:2px}.mc img{height:76px;width:76px;object-fit:contain}.mc.off img{filter:grayscale(.85) brightness(.8) opacity(.55)}.mc .lk2{position:absolute;right:-8px;bottom:-4px;width:28px;height:28px;filter:none!important;opacity:1!important}.mc.ok .mi{filter:drop-shadow(0 0 10px #ffc400aa)}.mc b{display:block;font-size:17px;margin-top:2px}.mc.ok{border-color:#ffd23f;box-shadow:0 0 16px #ffc40066}.mc.got{border-color:#46d28a}.mc small{color:#d4c8ff}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mc{background:#1c0f52;border:3px solid #5a3fb0;border-radius:18px;padding:10px 6px;text-align:center;font-size:14px}.mc img{height:62px;object-fit:contain}.mc.off img{filter:grayscale(1) brightness(.55)}.mc b{display:block;font-size:17px;margin-top:2px}.mc.ok{border-color:#ffd23f;box-shadow:0 0 16px #ffc40066}.mc.got{border-color:#46d28a}.mc small{color:#d4c8ff}
 .rw{display:inline-block;margin-top:5px;background:linear-gradient(#ffe27a,#ffb300);color:#4a2c00;border:2px solid #fff1b8;border-radius:999px;padding:2px 12px;font:inherit;font-size:14px;font-weight:700}
 button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;color:#fff;border-color:#46d28a;animation:none}.rw.lock{background:#2a1766;color:#d4c8ff;border-color:#6a52c9;animation:none}
 .ar{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:2px solid #5a3fb066;text-align:left}.ar:first-child{border-top:0}.ar .ic{font-size:30px;width:42px;text-align:center}.ar.off .ic{filter:grayscale(1);opacity:.5}.ar div{flex:1}.ar b{display:block;font-size:16px}.ar small{font-size:13px;color:#d4c8ff}.ar .rw{margin:0;flex:none}
@@ -243,7 +243,6 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 @keyframes skg2{from{filter:drop-shadow(0 0 4px rgba(190,130,255,.55))}to{filter:drop-shadow(0 0 13px rgba(120,220,255,.95))}}
 .pvb{display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}.pvb .btn{width:auto;padding:6px 16px;font-size:18px}
 @media (prefers-reduced-motion:reduce){.sk,.sk::after,.sc.epic{animation:none}}
-.wsc .rkg .dk img{position:static}
 .dk{position:absolute;transform:translate(-50%,-50%);font-size:0;z-index:3}.dk .sk{display:block;width:100%}.dk .sk img{width:100%;height:auto}.dk.tmp{opacity:.9}
 .wsc.ed .dk{cursor:grab;touch-action:none;outline:2px dashed rgba(255,255,255,.55);outline-offset:3px;border-radius:10px}.wsc.ed .dk.sel{outline:3px solid #ffd23f}
 .wsc .pet{position:absolute;width:11.5cqw;height:auto;transform:translateX(-50%);z-index:2;animation:pbo 2.8s ease-in-out infinite;filter:drop-shadow(0 3px 4px #0007)}@keyframes pbo{50%{translate:0 -5%}}
@@ -348,7 +347,7 @@ const hudHTML=click=>{const L=levelInfo(),n=streakNow(),fz=P.freeze||0,go=click?
 (function(){const w=document.createElement("div");w.id="twk";let h="";for(let i=0;i<34;i++){const x=i%3?Math.random()*100:(Math.random()<.5?Math.random()*10:90+Math.random()*10);h+=`<i style="left:${x.toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;font-size:${(8+Math.random()*10).toFixed(0)}px;animation-delay:${(Math.random()*3).toFixed(2)}s;animation-duration:${(1.8+Math.random()*2).toFixed(2)}s">✦</i>`}w.innerHTML=h;document.body.appendChild(w)})();
 function frame(inner,back=true,nav=""){
  if(nav!=="shop"&&PV){PV=null;applyBg()}
- if(nav!=="shop"&&ED){ED=false;SEL=-1}
+ if(nav!=="rocket"&&ED){ED=false;SEL=-1}
  app.className=nav?"t-"+nav:"";
  app.innerHTML=`<div class="top">${back?'<button class="back" onclick="home()" aria-label="Назад"><img src="img/icons/back.png" alt=""></button>':'<b>Twinkle</b>'}${hudHTML(!back)}</div>
  <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`}
@@ -451,19 +450,19 @@ const decList=()=>{const d=(P.dec||[]).map((x,i)=>({...x,i}));if(PV&&PV.c==="sti
 function rocketScene(cls,withHero){
  const pf=(curItem("paint")||{f:"none"}).f,pet=curItem("pet"),pd=curItem("pad")||SHOP.find(x=>x.id==="d0"),sty=o=>`left:${o.l}%;top:${o.t}%;width:${o.w}%`;let g="",p="";
  RP.forEach(([id],i)=>{if(hasPart(i))p+=`<img class="rp" data-p="${id}" src="img/rocket2/p_${id}.png" style="${sty(RK[id].p)}" alt="">`;else g+=`<img class="rg" src="img/rocket2/g_${id}.png" style="${sty(RK[id].g)}" alt="">`});
- const dec=hasPart(0)&&hasPart(4)?decList().map(d=>{const it=SHOP.find(x=>x.id===d.id);return it?`<span class="dk ${ED&&d.i===SEL?"sel":""} ${d.tmp?"tmp":""}" data-i="${d.i}" style="left:${d.x}%;top:${d.y}%;width:${d.s}cqw">${stk(it)}</span>`:""}).join(""):"";
+ const dec=hasPart(0)?decList().map(d=>{const it=SHOP.find(x=>x.id===d.id);return it?`<span class="dk ${ED&&d.i===SEL?"sel":""} ${d.tmp?"tmp":""}" data-i="${d.i}" style="left:${d.x}%;top:${d.y}%;width:${d.s}cqw">${stk(it)}</span>`:""}).join(""):"";
  return `<div class="wsc ${cls||""} ${ED?"ed":""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="${pd.f}" style="top:${RK._.padT}%" alt=""><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${dec}</div>${pet?`<img class="pet ${rar(pet.p)}" src="${pet.f}" style="left:${pd.px||86}%;bottom:${pd.pb||87}%" alt="">`:""}${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
 /* редактор наклеек: тянуть пальцем, менять размер */
-function edOn(){ED=true;SEL=(P.dec&&P.dec.length)?P.dec.length-1:-1;tabShop();say("Тяни наклейку по ракете. Размер меняй кнопками!")}
-function edDone(){ED=false;SEL=-1;save();tabShop()}
+function edOn(){ED=true;SEL=(P.dec&&P.dec.length)?P.dec.length-1:-1;tabRocket();say("Тяни наклейку по ракете. Размер меняй кнопками!")}
+function edDone(){ED=false;SEL=-1;save();tabRocket()}
 function edSize(d){const o=P.dec&&P.dec[SEL];if(!o)return say("Сначала нажми на наклейку");o.s=Math.max(6,Math.min(28,o.s+d));save();const el=document.querySelector(`.dk[data-i="${SEL}"]`);if(el)el.style.width=o.s+"cqw"}
-function edDel(){if(SEL<0||!P.dec||!P.dec[SEL])return say("Сначала нажми на наклейку");P.dec.splice(SEL,1);SEL=-1;save();tabShop()}
+function edDel(){if(SEL<0||!P.dec||!P.dec[SEL])return say("Сначала нажми на наклейку");P.dec.splice(SEL,1);SEL=-1;save();tabRocket()}
 document.addEventListener("pointerdown",e=>{if(!ED)return;const d=e.target.closest&&e.target.closest(".dk");if(!d)return;const i=+d.dataset.i;if(i<0)return;SEL=i;DRAG={i,el:d};try{d.setPointerCapture(e.pointerId)}catch(_){}document.querySelectorAll(".dk").forEach(x=>x.classList.toggle("sel",+x.dataset.i===i));e.preventDefault()});
 document.addEventListener("pointermove",e=>{if(!DRAG)return;const o=P.dec&&P.dec[DRAG.i],g=$("rkg");if(!o||!g)return;const r=g.getBoundingClientRect();o.x=+Math.max(18,Math.min(82,(e.clientX-r.left)/r.width*100)).toFixed(1);o.y=+Math.max(16,Math.min(84,(e.clientY-r.top)/r.height*100)).toFixed(1);DRAG.el.style.left=o.x+"%";DRAG.el.style.top=o.y+"%"});
 document.addEventListener("pointerup",()=>{if(DRAG){DRAG=null;save()}});
 function tabRocket(){
  live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6;
- frame(`${rocketScene("",1)}<p class="center"><b>Деталей собрано: ${n} из 6</b></p>${ED?`<div class="edb"><p>Тяни наклейку по ракете</p><div class="edr"><button onclick="edSize(-2)">−</button><span>Размер</span><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button></div><button class="btn" onclick="edDone()">Готово</button></div>`:`<div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`}`,false,"rocket");
+ frame(`${rocketScene("",1)}<p class="center"><b>Деталей собрано: ${n} из 6</b></p>${ED?`<div class="edb"><p>Тяни наклейку по ракете</p><div class="edr"><button onclick="edSize(-2)">−</button><span>Размер</span><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button></div><button class="btn" onclick="edDone()">Готово</button></div>`:`${(P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x))?'<button class="btn alt" style="margin:8px 0" onclick="edOn()">✏️ Украсить ракету</button>':""}<div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`}`,false,"rocket");
  if(!ED){hero("happy");say(all?"Ракета готова! Нажми «Запуск»!":"Собирай ракету! Нажми на деталь.")}}
 function partTap(i){const [id,price]=RP[i];
  if(hasPart(i)){fb(1);hero("happy");return say(RK[id].name+" уже на месте!")}
@@ -485,13 +484,11 @@ function launch(){
  setTimeout(tabRocket,6300)}
 function soon(){fb(1);hero("surprise");say("Скоро! Оплата через Telegram Stars в разработке ✨")}
 function tabShop(){
- live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`,
- ready=hasPart(0)&&hasPart(4),mine=(P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x)),
- under=ED?`<div class="edb"><p>Тяни наклейку по ракете</p><div class="edr"><button onclick="edSize(-2)">−</button><span>Размер</span><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button></div><button class="btn" onclick="edDone()">Готово</button></div>`:PV?`<div class="pvb"><span>Примерка: <b>${PV.n}</b></span><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`:mine?(ready?'<button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button>':'<p class="center" style="font-size:13px;opacity:.8;margin:8px 0 0">Собери корпус и нижний отсек, чтобы украшать наклейками</p>'):"";
+ live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`;
  frame(`<div class="panel wal"><img src="img/icons/star.png" alt=""><div>Мои звёзды: <b>${P.wallet||0}</b><small>Звёзды дают за уроки и задание дня</small></div></div>
- <div class="panel">${rocketScene(ED?"":"small")}${under}</div>${ED?"":`
+ <div class="panel">${rocketScene("small")}${PV?`<div class="pvb"><span>Примерка: <b>${PV.n}</b></span><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`:""}</div>
  <h2 class="sh">🛸 Площадки запуска</h2>${rail("pad")}<h2 class="sh">✨ Наклейки</h2>${rail("sticker")}<h2 class="sh">🐾 Питомцы</h2>${rail("pet")}<h2 class="sh">🌌 Фоны</h2>${rail("bg")}<h2 class="sh">🎨 Покраска ракеты</h2>${rail("paint")}
- <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><p class="center" style="font-size:13px;opacity:.8;margin:6px 0">В сундуке предмет стоимостью до 60 ⭐</p><div class="panel">🧥 Наряды Твинкла — скоро!</div>`}`,false,"shop");
+ <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><p class="center" style="font-size:13px;opacity:.8;margin:6px 0">В сундуке предмет стоимостью до 60 ⭐</p><div class="panel">🧥 Наряды Твинкла — скоро!</div>`,false,"shop");
  hero("happy");say(PV?`Примеряем: ${PV.n}!`:"Нажми на предмет, чтобы примерить!")}
 const MEDALS=[[3,"badge_3","3 дня",10],[7,"badge_7","7 дней",25],[14,"badge_14","14 дней",50],[30,"badge_30","30 дней",120]];
 const plur=(n,a,b,c)=>{const m=n%100,d=n%10;return m>10&&m<20?c:d===1?a:d>=2&&d<=4?b:c};
@@ -511,7 +508,7 @@ function tabAwards(){
  live=false;P.claimed=P.claimed||{};const best=(P.streak&&P.streak.best)||0,n=streakNow(),L=levelInfo(),A=ACH(),
  pend=MEDALS.filter(m=>best>=m[0]&&!P.claimed["m"+m[0]]).length+A.filter(a=>a[5]&&!P.claimed[a[0]]).length,nb=MEDALS.find(m=>best<m[0]);
  const medal=m=>{const id="m"+m[0],ok=best>=m[0],got=!!P.claimed[id];
-  return `<div class="mc ${got?"got":ok?"ok":"off"}"><div class="mi"><img src="img/words/${m[1]}.png" alt="">${ok?"":'<img class="lk2" src="img/icons/lock.png" alt="">'}</div><b>${m[2]}</b>${got?'<span class="rw done">✓ Получено</span>':ok?`<button class="rw" onclick="claim('${id}',${m[3]})">Забрать +${m[3]} ⭐</button>`:`<span class="rw lock">🔒 +${m[3]} ⭐</span><br><small>Ещё ${m[0]-best} ${plur(m[0]-best,"день","дня","дней")}</small>`}</div>`};
+  return `<div class="mc ${got?"got":ok?"ok":"off"}"><img src="img/words/${m[1]}.png" alt=""><b>${m[2]}</b>${got?'<span class="rw done">✓ Получено</span>':ok?`<button class="rw" onclick="claim('${id}',${m[3]})">Забрать +${m[3]} ⭐</button>`:`<span class="rw lock">🔒 +${m[3]} ⭐</span><br><small>Ещё ${m[0]-best} ${plur(m[0]-best,"день","дня","дней")}</small>`}</div>`};
  const ach=a=>{const got=!!P.claimed[a[0]];return `<div class="ar ${a[5]?"":"off"}"><span class="ic">${a[1]}</span><div><b>${a[2]}</b><small>${a[3]}</small></div>${got?'<span class="rw done">✓</span>':a[5]?`<button class="rw" onclick="claim('${a[0]}',${a[4]})">+${a[4]} ⭐</button>`:`<span class="rw lock">+${a[4]} ⭐</span>`}</div>`};
  frame(`<div class="panel"><div class="rank"><div class="rb">${L.n}</div><div class="rt"><small>Твоё звание</small><b>${L.name}</b></div></div><div class="pb big"><i style="width:${L.pct}%"></i></div><p class="rn">${L.nx?`До звания «${L.nx}» ещё ${L.left} ⭐`:"Высшее звание!"}</p></div>
  <div class="panel"><h2 class="sec" style="margin-top:0">🔥 ${n} ${plur(n,"день","дня","дней")} подряд</h2>${weekStrip()}<p class="rn" style="margin-top:10px">${nb?`Ещё ${nb[0]-n>0?nb[0]-n:1} ${plur(Math.max(nb[0]-n,1),"день","дня","дней")} до медали «${nb[2]}»`:"Все медали за серию получены!"}</p></div>
