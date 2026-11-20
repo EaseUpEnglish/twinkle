@@ -7,13 +7,13 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#ffc83d;--ink:#fff7e0;--card:#3b2290;--teal:#27d6c6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--gold:#ffc83d;--ink:#fff7e0;--card:#3b2290;--teal:#27d6c6;--ztop:env(safe-area-inset-top,0px);--zbot:env(safe-area-inset-bottom,0px);box-sizing:border-box;padding-top:var(--ztop)}
+html{scroll-padding-top:var(--ztop)}
 *{box-sizing:border-box}
 html,body{overscroll-behavior:none}
 body{margin:0;min-height:100vh;background:#0c0630 url(bg.jpg) center top/cover fixed;color:var(--ink);font-family:Fredoka,system-ui,sans-serif;font-weight:500;user-select:none;-webkit-user-select:none;overflow-x:hidden}
 #sky{display:none}
-#app{position:relative;max-width:520px;margin:0 auto;padding:12px 14px calc(104px + env(safe-area-inset-bottom,0px))}
+#app{position:relative;max-width:520px;margin:0 auto;padding:12px 14px calc(104px + var(--zbot))}
 .top{display:flex;justify-content:space-between;align-items:center;min-height:46px}
 .top b{font-size:24px;color:var(--gold);text-shadow:0 2px 0 #7a4a00}
 .back{background:linear-gradient(#5a3bc0,#3b2290);border:3px solid var(--gold);border-radius:14px;width:48px;height:44px;display:grid;place-items:center;cursor:pointer;padding:0}
@@ -40,7 +40,7 @@ body{margin:0;min-height:100vh;background:#0c0630 url(bg.jpg) center top/cover f
 .tt b{display:block;font-size:22px;line-height:1.1;text-shadow:0 2px 0 #0007}.tt small{display:block;font-size:14px;color:#d4c8ff}
 .st{display:inline-block;margin-top:4px;background:#1f6b4d;border:2px solid #46d28a;border-radius:999px;padding:1px 10px;font-size:15px;font-weight:700}
 .node.locked{opacity:.6;cursor:default}.node.locked .pl img{filter:grayscale(.7) brightness(.6)}.node.locked .pl b{display:none}.node.locked .pl:after{content:"";position:absolute;width:46px;height:46px;background:url(img/icons/lock.png) center/contain no-repeat}
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:linear-gradient(#2c1a73,#1c0f52);border-top:3px solid var(--gold);border-radius:24px 24px 0 0}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;gap:6px;padding:8px 10px calc(8px + var(--zbot));background:linear-gradient(#2c1a73,#1c0f52);border-top:3px solid var(--gold);border-radius:24px 24px 0 0}
 .tab{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;border-radius:16px;padding:6px 2px;font:inherit;font-size:13px;color:#cdbfff;cursor:pointer}
 .tab img{width:38px;height:38px;object-fit:contain}.tab.on{background:linear-gradient(#35e0cf,#13a89b);color:#fff;box-shadow:0 3px 0 #0b6b63}
 .panel{background:linear-gradient(#3b2290,#2a1766);border:3px solid var(--gold);border-radius:22px;padding:14px;margin:12px 0;text-align:center}
@@ -112,7 +112,7 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:50%;width:min(100%,52
 #app.intro{position:fixed;inset:0;max-width:none;margin:0;padding:0;display:block;background:#0b0c4f;overflow:hidden;z-index:2;min-height:0}
 .scene{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(100vw,520px,calc(100vh*.558));aspect-ratio:937/1679;background:url(bg_intro.jpg) center/100% 100%}
 .scene:before{content:"";position:absolute;left:0;right:0;bottom:100%;height:60vh;background:#0b0c4f}
-.scene .top{position:absolute;left:4%;right:4%;top:1.5%;z-index:3}
+.scene .top{position:absolute;left:4%;right:4%;top:calc(1.5% + max(0px,var(--ztop) - (100vh - min(100vw,520px,calc(100vh*.558))*1.7918)));z-index:3}
 .scene .bubble{position:absolute;left:8%;width:64%;top:19%;margin:0;padding:12px 10px;text-align:center;font-size:clamp(18px,5.4vw,26px);z-index:3}
 .scene .bubble:before{left:50%;top:auto;bottom:-14px;margin:0 0 0 -9px;border:9px solid transparent;border-bottom:0;border-top-color:var(--gold)}
 .scene #hero{position:absolute;left:3%;bottom:29%;width:74%;height:auto;aspect-ratio:10/11;z-index:2;filter:drop-shadow(0 5px 5px #0006)}
@@ -254,7 +254,7 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 #app.t-rocket .wsc{margin:-36px auto 0}
 .ldr{position:relative;height:28px;border-radius:15px;background:#120a3a;border:3px solid #ffcf4a;overflow:hidden;margin-bottom:12px}.ldr i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(#6dffb0,#1fbf73);transition:width .25s}.ldr span{position:relative;display:block;text-align:center;font-size:14px;font-weight:700;line-height:22px;color:#fff;text-shadow:0 1px 0 #0008}.ldr.ok{opacity:0;transition:opacity .6s .3s}
 .play[disabled]{opacity:.55;filter:grayscale(.3);pointer-events:none}
-#app.t-rocket .bubble{z-index:6}#app.t-rocket .wsc{max-width:345px;margin:-8px auto 0}.panel .wsc{margin-top:26px}
+#app.t-rocket .bubble{z-index:6}#app.t-rocket .wsc{max-width:clamp(150px,calc((var(--tg-viewport-stable-height,100dvh) - 520px - var(--ztop) - var(--zbot))*.96),345px);margin:-8px auto 0}.panel .wsc{margin-top:26px}
 </style>
 </head>
 <body>
@@ -271,6 +271,13 @@ const BONUS_PART=1;    // бонус за часть (раунд) без оши�
 const BONUS_LESSON=2;  // бонус за весь урок без ошибок
 const CHANNEL_URL="https://t.me/EaseUpEnglish";  // ссылка на ваш канал, например https://t.me/ваш_канал
 const tg=window.Telegram&&Telegram.WebApp; if(tg){tg.ready();tg.expand();
+ function insets(){try{const s=tg.safeAreaInset||{},c=tg.contentSafeAreaInset||{},r=document.documentElement.style;
+  if(tg.isFullscreen){r.setProperty("--ztop",((s.top||0)+(c.top||0))+"px");r.setProperty("--zbot",(s.bottom||0)+"px")}
+  else{r.removeProperty("--ztop");r.removeProperty("--zbot")}}catch(e){}}
+ try{["fullscreenChanged","safeAreaChanged","contentSafeAreaChanged"].forEach(n=>tg.onEvent(n,insets))}catch(e){}
+ try{if(tg.isVersionAtLeast&&tg.isVersionAtLeast("8.0")&&tg.requestFullscreen&&!tg.isFullscreen)tg.requestFullscreen()}catch(e){}
+ try{if(tg.isVersionAtLeast&&tg.isVersionAtLeast("8.0")&&tg.lockOrientation)tg.lockOrientation()}catch(e){}
+ insets();
  try{if(tg.disableVerticalSwipes)tg.disableVerticalSwipes()}catch(e){}
  try{tg.onEvent("viewportChanged",()=>{if(!tg.isExpanded)tg.expand()})}catch(e){}}
 const initData=tg?tg.initData:"";
@@ -350,7 +357,7 @@ function hear(){const w=L.items[M.i][0];speak(w,slug(w)+"_en")}
 const hudHTML=click=>{const L=levelInfo(),n=streakNow(),fz=P.freeze||0,go=click?' onclick="tabAwards()"':"";
  return `<div class="hud"><div class="hc hf"${go}><img src="img/icons/fire.png" alt="">${n}${fz?`<small>❄${fz}</small>`:""}</div><div class="hc hl"${go}>Ур.${L.n}<i style="width:${L.pct}%"></i></div><div id="bank"><img src="img/icons/star.png" alt=""><span id="sc">${bankVal()}</span></div></div>`};
 (function(){const w=document.createElement("div");w.id="twk";let h="";for(let i=0;i<34;i++){const x=i%3?Math.random()*100:(Math.random()<.5?Math.random()*10:90+Math.random()*10);h+=`<i style="left:${x.toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;font-size:${(8+Math.random()*10).toFixed(0)}px;animation-delay:${(Math.random()*3).toFixed(2)}s;animation-duration:${(1.8+Math.random()*2).toFixed(2)}s">✦</i>`}w.innerHTML=h;document.body.appendChild(w)})();
-const PRE=["img/medals/m3.webp","img/medals/m7.webp","img/medals/m14.webp","img/medals/m30.webp","bg.jpg", "img/rocket2/face.png", "img/rocket2/g_body.png", "img/rocket2/g_eng.png", "img/rocket2/g_finl.png", "img/rocket2/g_finr.png", "img/rocket2/g_low.png", "img/rocket2/g_nose.png", "img/rocket2/p_body.png", "img/rocket2/p_eng.png", "img/rocket2/p_finl.png", "img/rocket2/p_finr.png", "img/rocket2/p_low.png", "img/rocket2/p_nose.png", "img/rocket2/pad.png", "img/rocket2/t_body.png", "img/rocket2/t_eng.png", "img/rocket2/t_finl.png", "img/rocket2/t_finr.png", "img/rocket2/t_low.png", "img/rocket2/t_nose.png", "img/planets/planet1.png", "img/planets/planet2.png", "img/planets/planet3.png", "img/planets/planet4.png", "img/planets/planet5.png", "img/planets/planet6.png", "img/planets/planet7.png", "img/planets/planet8.png", "img/icons/back.png", "img/icons/check.png", "img/icons/chest_closed.png", "img/icons/chest_open.png", "img/icons/fire.png", "img/icons/gear.png", "img/icons/heart.png", "img/icons/lock.png", "img/icons/mic.png", "img/icons/speaker.png", "img/icons/star.png", "img/icons/tab_awards.png", "img/icons/tab_map.png", "img/icons/tab_parents.png", "img/icons/tab_rocket.png", "img/icons/trophy.png", "img/words/badge_14.png", "img/words/badge_3.png", "img/words/badge_30.png", "img/words/badge_30_b.png", "img/words/badge_7.png"];
+const PRE=["img/medals/m3.webp","img/medals/m7.webp","img/medals/m14.webp","img/medals/m30.webp","bg.jpg", "img/rocket2/face.png", "img/rocket2/g_body.png", "img/rocket2/g_eng.png", "img/rocket2/g_finl.png", "img/rocket2/g_finr.png", "img/rocket2/g_low.png", "img/rocket2/g_nose.png", "img/rocket2/p_body.png", "img/rocket2/p_eng.png", "img/rocket2/p_finl.png", "img/rocket2/p_finr.png", "img/rocket2/p_low.png", "img/rocket2/p_nose.png", "img/rocket2/pad.png", "img/rocket2/t_body.png", "img/rocket2/t_eng.png", "img/rocket2/t_finl.png", "img/rocket2/t_finr.png", "img/rocket2/t_low.png", "img/rocket2/t_nose.png", "img/planets/planet1.png", "img/planets/planet2.png", "img/planets/planet3.png", "img/planets/planet4.png", "img/planets/planet5.png", "img/planets/planet6.png", "img/planets/planet7.png", "img/planets/planet8.png", "img/icons/back.png", "img/icons/check.png", "img/icons/chest_closed.png", "img/icons/chest_open.png", "img/icons/fire.png", "img/icons/gear.png", "img/icons/heart.png", "img/icons/lock.png", "img/icons/mic.png", "img/icons/speaker.png", "img/icons/star.png", "img/icons/tab_awards.png", "img/icons/tab_map.png", "img/icons/tab_parents.png", "img/icons/tab_rocket.png", "img/icons/trophy.png"];
 function startLoader(){const pb=document.querySelector(".play"),f=document.querySelector(".form");if(!pb||!f)return;
  f.insertAdjacentHTML("afterbegin",'<div class="ldr" id="ldr"><i id="ldb"></i><span id="ldt">Загрузка 0%</span></div>');pb.disabled=true;
  let n=0,fin=false;const done=()=>{if(fin)return;fin=true;pb.disabled=false;const l=$("ldr");if(l){$("ldb").style.width="100%";$("ldt").textContent="Готово!";l.classList.add("ok");setTimeout(()=>l.remove(),1000)}};
@@ -394,12 +401,12 @@ const SHOP=[
  {c:"paint",id:"p3",n:"Розовая",f:"hue-rotate(130deg) saturate(1.3)",p:30},
  {c:"paint",id:"p4",n:"Золотая",f:"sepia(1) saturate(2.5) hue-rotate(-10deg)",p:50},
  {c:"pad",id:"d0",n:"Классика",f:"img/rocket2/pad.png",t:"img/rocket2/pad.png",p:0,hb:45.0,pb:83.9,px:86.4},
- {c:"pad",id:"d1",n:"Лунная база",f:"img/pads/p1.webp",t:"img/tads/t1.webp",p:80,hb:55.0,pb:99.3,px:84.8},
- {c:"pad",id:"d2",n:"Ледяная",f:"img/pads/p2.webp",t:"img/tads/t2.webp",p:80,hb:54.8,pb:95.4,px:83.8},
- {c:"pad",id:"d3",n:"Радужная",f:"img/pads/p3.webp",t:"img/tads/t3.webp",p:120,hb:56.0,pb:99.9,px:84.5},
- {c:"pad",id:"d4",n:"Тропический пляж",f:"img/pads/p4.webp",t:"img/tads/t4.webp",p:100,hb:64.8,pb:100.4,px:85.0},
- {c:"pad",id:"d5",n:"Конфетная",f:"img/pads/p5.webp",t:"img/tads/t5.webp",p:100,hb:58.5,pb:98.8,px:84.8},
- {c:"pad",id:"d6",n:"Коралловая",f:"img/pads/p6.webp",t:"img/tads/t6.webp",p:120,hb:60.2,pb:99.7,px:83.5},
+ {c:"pad",id:"d1",n:"Лунная база",f:"img/pads/p1.webp",t:"img/pads/t1.webp",p:80,hb:55.0,pb:99.3,px:84.8},
+ {c:"pad",id:"d2",n:"Ледяная",f:"img/pads/p2.webp",t:"img/pads/t2.webp",p:80,hb:54.8,pb:95.4,px:83.8},
+ {c:"pad",id:"d3",n:"Радужная",f:"img/pads/p3.webp",t:"img/pads/t3.webp",p:120,hb:56.0,pb:99.9,px:84.5},
+ {c:"pad",id:"d4",n:"Тропический пляж",f:"img/pads/p4.webp",t:"img/pads/t4.webp",p:100,hb:64.8,pb:100.4,px:85.0},
+ {c:"pad",id:"d5",n:"Конфетная",f:"img/pads/p5.webp",t:"img/pads/t5.webp",p:100,hb:58.5,pb:98.8,px:84.8},
+ {c:"pad",id:"d6",n:"Коралловая",f:"img/pads/p6.webp",t:"img/pads/t6.webp",p:120,hb:60.2,pb:99.7,px:83.5},
  {c:"sticker",id:"k_apple",n:"Яблоко",f:"img/stk/apple.webp",p:15},
  {c:"sticker",id:"k_banana",n:"Банан",f:"img/stk/banana.webp",p:15},
  {c:"sticker",id:"k_orange",n:"Апельсин",f:"img/stk/orange.webp",p:15},
@@ -665,9 +672,11 @@ function openChest(){const c=$("chest");if(!c||c.classList.contains("open"))retu
  c.innerHTML=p?`<img class="part" src="img/rocket2/t_${p[0]}.png" alt=""><b>Новая деталь ракеты: ${p[1]}!</b><small>Смотри на вкладке «Ракета»</small>`:`<b>Молодец!</b>`;hero("reward");say("Деталь для ракеты твоя!")}
 /* ===== ЗАДАНИЕ ДНЯ ===== */
 let D={};
-const dailyPool=()=>{const a=[];LESSONS.forEach(l=>{if(l.items)l.items.forEach(it=>a.push([it[0],it[1]]))});return a};
+const LETTER_RU={Apple:"Яблоко",Bus:"Автобус",Elephant:"Слон",Giraffe:"Жираф",Ice:"Лёд",Jam:"Джем",Kangaroo:"Кенгуру",Lemon:"Лимон",Mouse:"Мышь",Nut:"Орех",Queen:"Королева",Rocket:"Ракета",Snake:"Змея",Telephone:"Телефон",Umbrella:"Зонт",Vase:"Ваза",Window:"Окно",Fox:"Лиса",Zebra:"Зебра"};
+const dailyPool=()=>{const a=[],seen=new Set();LESSONS.forEach(l=>{if(l.items)l.items.forEach(it=>{a.push([it[0],it[1]]);seen.add(it[0].toLowerCase())})});
+ PAIRS.forEach(p=>{const w=p[2],ru=LETTER_RU[w];if(ru&&!seen.has(w.toLowerCase())){seen.add(w.toLowerCase());a.push([w,ru,1])}});return a};
 function dayStart(){D={q:shuffle(dailyPool()).slice(0,3),i:0,ok:0,tries:0};live=false;dayQ()}
-function dayHear(){const w=D.q[D.i][0];speak(w,slug(w)+"_en")}
+function dayHear(){const q=D.q[D.i],w=q[0];speak(w,q[2]?null:slug(w)+"_en")}
 function dayQ(){
  const it=D.q[D.i],pool=dailyPool().filter(x=>x[1]!==it[1]&&!(SYN[it[0]]||[]).includes(x[0])),opts=shuffle([it[1],...shuffle(pool).slice(0,2).map(x=>x[1])]);D.tries=0;
  frame(`<div class="prog"><i style="width:${D.i/3*100}%"></i></div><p class="center">Задание дня · вопрос ${D.i+1} из 3</p><div class="word">${it[0]}</div><p class="center"><button class="link" onclick="dayHear()"><img src="img/icons/speaker.png" width="34" style="vertical-align:middle" alt=""> Послушать</button></p><p class="center">Что это значит?</p>${opts.map(o=>`<button class="opt" onclick="dayPick(this)">${o}</button>`).join("")}<div id="foot"></div>`);
@@ -694,7 +703,7 @@ function introVoice(){ // сразу при запуске; если телеф�
  if(introState)return;introState=1;
  const p=voice("intro","Привет! Это Твинкл!",()=>{introState=2;if(pendingChoose){pendingChoose=false;chooseVoice()}});
  if(p&&p.catch)p.catch(e=>{if(e&&e.name==="NotAllowedError"){introState=0;document.addEventListener("pointerdown",introVoice,{once:true})}})}
-function chooseVoice(){if(!document.querySelector(".lc"))return;const p=voice("choose","Давай проверим твои знания! Выбери раздел.");if(p&&p.catch)p.catch(()=>{})}
+function chooseVoice(){if(!document.querySelector(".gnode"))return;const p=voice("choose","Давай проверим твои знания! Выбери раздел.");if(p&&p.catch)p.catch(()=>{})}
 function afterHome(){if(introState===1)pendingChoose=true;else chooseVoice()}
 function intro(){
  live=false;app.className="intro";
