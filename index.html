@@ -171,7 +171,7 @@ body::before{filter:var(--bgf,none)}
 .wsc{position:relative;width:100%;max-width:420px;margin:0 auto;container-type:inline-size}.wsc.small{max-width:310px}
 .wsc .pad{position:absolute;left:0;width:100%}.wsc .rkg{position:absolute;inset:0}.wsc .rkg img{position:absolute;height:auto}
 .rp{filter:drop-shadow(0 3px 4px #0005)}.rp.new{animation:pop .7s cubic-bezier(.2,1.6,.4,1)}.rg{filter:drop-shadow(0 0 5px #ffe9a8);animation:gl 1.8s ease-in-out infinite alternate}@keyframes gl{from{opacity:.5}to{opacity:1}}
-.rkg.fly{animation:lift 2.4s cubic-bezier(.5,0,1,.6) forwards}@keyframes lift{to{transform:translateY(-135%)}}
+.rkg.fly{animation:lift 2.4s cubic-bezier(.5,0,1,.6) forwards}@keyframes lift{70%{opacity:1}to{transform:translateY(var(--lift,-135%));opacity:0}}
 .wsc .stk{font-size:38px;font-size:10cqw;z-index:3}
 .tray{display:flex;gap:12px;background:#3a1f8c;border:4px solid var(--gold);border-radius:26px;padding:14px 12px 20px;margin-top:8px}.tg{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px 8px}
 .pc{position:relative;aspect-ratio:1;border-radius:50%;border:4px solid #fff1b8;background:#fff6dd;padding:9px;font:inherit;cursor:pointer}.pc:not(.own){background:#8d8aa0;border-color:#6a6590}
@@ -254,7 +254,32 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 #app.t-rocket .wsc{margin:-36px auto 0}
 .ldr{position:relative;height:28px;border-radius:15px;background:#120a3a;border:3px solid #ffcf4a;overflow:hidden;margin-bottom:12px}.ldr i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(#6dffb0,#1fbf73);transition:width .25s}.ldr span{position:relative;display:block;text-align:center;font-size:14px;font-weight:700;line-height:22px;color:#fff;text-shadow:0 1px 0 #0008}.ldr.ok{opacity:0;transition:opacity .6s .3s}
 .play[disabled]{opacity:.55;filter:grayscale(.3);pointer-events:none}
-#app.t-rocket .bubble{z-index:6}#app.t-rocket .wsc{max-width:clamp(150px,calc((var(--tg-viewport-stable-height,100dvh) - 520px - var(--ztop) - var(--zbot))*.96),345px);margin:-8px auto 0}.panel .wsc{margin-top:26px}
+#app.t-rocket .bubble{z-index:6}#app.t-rocket .wsc{max-width:clamp(230px,calc((var(--tg-viewport-stable-height,100dvh) - 470px - var(--ztop) - var(--zbot))*.96),345px);margin:-8px auto 0}.panel .wsc{margin-top:26px}
+
+/* ===== ПРАВКИ v6 ===== */
+.spp{position:absolute;border-radius:50%;pointer-events:none;z-index:7}
+.dk.spray{-webkit-mask:radial-gradient(circle,#000 52%,rgba(0,0,0,0) 70%) center/0% 0% no-repeat;mask:radial-gradient(circle,#000 52%,rgba(0,0,0,0) 70%) center/0% 0% no-repeat;animation:sprin 1s cubic-bezier(.2,.8,.3,1) both}
+@keyframes sprin{0%{opacity:0;filter:blur(14px) brightness(1.9) saturate(2.2);-webkit-mask-size:0% 0%;mask-size:0% 0%}25%{opacity:1}100%{opacity:1;filter:blur(0) brightness(1) saturate(1);-webkit-mask-size:290% 290%;mask-size:290% 290%}}
+.tab{position:relative}.tab .nb{position:absolute;top:2px;left:calc(50% + 8px);width:14px;height:14px;border-radius:50%;background:#ff4d5a;border:2px solid #fff;box-shadow:0 0 8px #ff4d5a;animation:nbp 1.2s ease-in-out infinite;z-index:2}
+@keyframes nbp{50%{transform:scale(1.35);box-shadow:0 0 14px #ff4d5a}}
+.mi .msh{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.9) 47%,rgba(255,244,180,.8) 53%,transparent 70%);background-size:260% 100%;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;animation:mshn 3s ease-in-out infinite}
+@keyframes mshn{0%{background-position:130% 0}60%,100%{background-position:-60% 0}}
+.mi .msh.t3{background:linear-gradient(115deg,transparent 30%,rgba(255,225,170,.95) 48%,rgba(255,190,110,.8) 54%,transparent 70%);background-size:260% 100%}
+.mi .msh.t7{background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.98) 47%,rgba(190,220,255,.85) 54%,transparent 70%);background-size:260% 100%}
+.mi .msh.t30{background:linear-gradient(115deg,transparent 22%,rgba(255,140,210,.85) 38%,rgba(130,230,255,.95) 50%,rgba(255,240,130,.85) 62%,transparent 78%);background-size:260% 100%;animation-duration:2.2s}
+.mi .msp{position:absolute;transform:translate(-50%,-50%);font-size:.085em;line-height:1;font-style:normal;color:#fff8cf;text-shadow:0 0 .03em #ffd23f,0 0 .07em #ffc400;pointer-events:none;opacity:0;animation:msp 2.4s ease-in-out infinite}
+@keyframes msp{0%,100%{opacity:0;scale:.3}50%{opacity:1;scale:1.25}}
+.mc.ok,.mc.got{position:relative;overflow:hidden}
+.mc.ok::before,.mc.got::before{content:"";position:absolute;left:50%;top:34%;width:250px;height:250px;margin:-125px 0 0 -125px;background:repeating-conic-gradient(rgba(255,226,122,.24) 0 8deg,transparent 8deg 16deg);-webkit-mask:radial-gradient(circle,#000 14%,transparent 68%);mask:radial-gradient(circle,#000 14%,transparent 68%);animation:mrot 18s linear infinite;pointer-events:none}
+.mc.ok>*,.mc.got>*{position:relative;z-index:1}
+.mc.ok{animation:mcg 2s ease-in-out infinite}@keyframes mcg{50%{box-shadow:0 0 28px #ffd23fcc}}
+.mc.got .mi{filter:drop-shadow(0 0 9px rgba(255,200,60,.55));animation:okp 2.4s ease-in-out infinite alternate}
+.mc.ok .mimg.m30,.mc.got .mimg.m30,#mv .mimg.m30{animation:mhue 4.5s ease-in-out infinite alternate}
+@keyframes mhue{from{filter:hue-rotate(-20deg) saturate(1.1)}to{filter:hue-rotate(24deg) saturate(1.3)}}
+.mvb{position:relative}.mvb::before{content:"";position:absolute;left:50%;top:180px;width:440px;height:440px;margin:-220px 0 0 -220px;background:repeating-conic-gradient(rgba(255,226,122,.3) 0 9deg,transparent 9deg 18deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 66%);mask:radial-gradient(circle,#000 18%,transparent 66%);animation:mrot 16s linear infinite;z-index:-1;pointer-events:none}
+@keyframes mrot{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.mi .msh,.mi .msp,.mvb::before,.mc.ok::before,.mc.got::before,.mc.ok,.mc.got .mi,.tab .nb,.mc .mimg,.dk.spray{animation:none}.mi .msp{opacity:.8}}
+.edb .rail{margin:0 -4px;padding:4px 4px 8px}.edr .btn{margin:0;width:auto;flex:1;font-size:20px;padding:0 10px;height:46px;border-width:3px;box-shadow:0 4px 0 #0b6b63}
 </style>
 </head>
 <body>
@@ -365,12 +390,13 @@ function startLoader(){const pb=document.querySelector(".play"),f=document.query
  setTimeout(done,8000)}
 function frame(inner,back=true,nav=""){
  if(nav!=="shop"&&PV){PV=null;applyBg()}
- if(nav!=="shop"&&ED){ED=false;SEL=-1}
+ if(nav!=="shop"&&nav!=="rocket"&&ED){ED=false;SEL=-1}
  app.className=nav?"t-"+nav:"";
  app.innerHTML=`<div class="top">${back?'<button class="back" onclick="home()" aria-label="Назад"><img src="img/icons/back.png" alt=""></button>':'<b>Twinkle</b>'}${hudHTML(!back)}</div>
  <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`}
 const TABS=[["map","Карта","home()"],["rocket","Ракета","tabRocket()"],["shop","Магазин","tabShop()"],["awards","Награды","tabAwards()"],["parents","Родителям","tabParents()"]];
-const navBar=on=>`<nav class="nav">${TABS.map(t=>`<button class="tab ${t[0]===on?"on":""}" onclick="${t[2]}"><img src="${t[0]==="shop"?"img/icons/chest_closed.png":"img/icons/tab_"+t[0]+".png"}" alt="">${t[1]}</button>`).join("")}</nav>`;
+const pendAwards=()=>{const best=(P.streak&&P.streak.best)||0,cl=P.claimed||{};return MEDALS.filter(m=>best>=m[0]&&!cl["m"+m[0]]).length+ACH().filter(a=>a[5]&&!cl[a[0]]).length};
+const navBar=on=>`<nav class="nav">${TABS.map(t=>`<button class="tab ${t[0]===on?"on":""}" onclick="${t[2]}">${t[0]==="awards"&&pendAwards()?'<i class="nb"></i>':""}<img src="${t[0]==="shop"?"img/icons/chest_closed.png":"img/icons/tab_"+t[0]+".png"}" alt="">${t[1]}</button>`).join("")}</nav>`;
 const AIMG={Dog:"dog",Cat:"cat",Bird:"bird",Fish:"fish",Rabbit:"rabbit",Bear:"bear"},CIMG={Red:"ball_red",Blue:"ball_blue",Yellow:"ball_yellow",Green:"ball_green",Orange:"ball_orange",Pink:"ball_pink",Black:"ball_black"};
 function vis(l,it){const f=l.vt==="color"?CIMG[it[0]]:l.vt==="emoji"?AIMG[it[0]]:null;
  return f?`<img class="pi" src="img/words/${f}.png" alt="">`:l.vt==="color"?`<i class="dot" style="background:${it[2]}"></i>`:l.vt==="emoji"?`<span class="pe">${it[2]}</span>`:it[2]}
@@ -440,7 +466,7 @@ const allShop=()=>SHOP,rar=p=>p>=100?"epic":p>=50?"rare":"common";
 const owned=it=>it.p===0||!!(P.own&&P.own[it.id]),eq=c=>(P.eq&&P.eq[c])||(c==="paint"?"p0":c==="bg"?"g0":c==="pad"?"d0":"");
 const cur=c=>PV&&PV.c===c?PV.id:eq(c),curItem=c=>SHOP.find(x=>x.id===cur(c));
 function applyBg(){const it=curItem("bg");document.body.style.setProperty("--bgimg",it&&it.f?`url(${it.f})`:"url(bg.jpg)")}
-function shopRefresh(){const y=scrollY,rs=[...document.querySelectorAll(".rail")].map(r=>r.scrollLeft);tabShop();scrollTo(0,y);document.querySelectorAll(".rail").forEach((r,i)=>r.scrollLeft=rs[i]||0)}
+function shopRefresh(){const y=scrollY,rs=[...document.querySelectorAll(".rail")].map(r=>r.scrollLeft);app.classList.contains("t-rocket")?tabRocket():tabShop();scrollTo(0,y);document.querySelectorAll(".rail").forEach((r,i)=>r.scrollLeft=rs[i]||0)}
 function pvOff(){PV=null;applyBg();shopRefresh()}
 const SPOTS=[[50,63],[38,52],[62,52],[40,72],[60,72],[50,44]];
 function equipItem(it){P.eq=P.eq||{};if(it.c==="sticker"){P.dec=P.dec||[];if(!P.dec.some(x=>x.id===it.id)&&P.dec.length<6){const q=SPOTS[P.dec.length];P.dec.push({id:it.id,x:q[0],y:q[1],s:12})}}else P.eq[it.c]=it.id}
@@ -468,20 +494,45 @@ const decList=()=>{const d=(P.dec||[]).map((x,i)=>({...x,i}));if(PV&&PV.c==="sti
 function rocketScene(cls,withHero){
  const pf="none",pet=curItem("pet"),pd=curItem("pad")||SHOP.find(x=>x.id==="d0"),sty=o=>`left:${o.l}%;top:${o.t}%;width:${o.w}%`;let g="",p="";
  RP.forEach(([id],i)=>{if(hasPart(i))p+=`<img class="rp" data-p="${id}" src="img/rocket2/p_${id}.png" style="${sty(RK[id].p)}" alt="">`;else g+=`<img class="rg" src="img/rocket2/g_${id}.png" style="${sty(RK[id].g)}" alt="">`});
- const dec=hasPart(0)&&hasPart(4)?decList().map(d=>{const it=SHOP.find(x=>x.id===d.id);return it?`<span class="dk ${ED&&d.i===SEL?"sel":""} ${d.tmp?"tmp":""}" data-i="${d.i}" style="left:${d.x}%;top:${d.y}%;width:${d.s}cqw">${stk(it)}</span>`:""}).join(""):"";
+ const dec=hasPart(0)&&hasPart(4)?decList().map(d=>{const it=SHOP.find(x=>x.id===d.id);return it?`<span class="dk ${ED&&d.i===SEL?"sel":""} ${d.tmp?"tmp":""} ${d.i===FXI?"spray":""}" data-i="${d.i}" style="left:${d.x}%;top:${d.y}%;width:${d.s}cqw">${stk(it)}</span>`:""}).join(""):"";
  return `<div class="wsc ${cls||""} ${ED?"ed":""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="${pd.f}" style="bottom:.13%" alt=""><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${dec}</div>${pet?`<img class="pet ${rar(pet.p)}" src="${pet.f}" style="left:${pd.px||86}%;bottom:${pd.pb||87}%" alt="">`:""}${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
 /* редактор наклеек: тянуть пальцем, менять размер */
-function edOn(){ED=true;SEL=(P.dec&&P.dec.length)?P.dec.length-1:-1;tabShop();say("Тяни наклейку по ракете. Размер меняй кнопками!")}
-function edDone(){ED=false;SEL=-1;save();tabShop()}
+const rerender=()=>app.classList.contains("t-rocket")?tabRocket():tabShop();
+function edOn(){if(!(hasPart(0)&&hasPart(4))){fb(0);hero("think");return say("Сначала собери Корпус и Нижний отсек!")}
+ if(!((P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x)))){fb(0);hero("think");return say("Сначала купи наклейки в магазине!")}
+ ED=true;SEL=-1;rerender();say("Выбери наклейку и нанеси её на ракету!")}
+function edDone(){ED=false;SEL=-1;save();rerender()}
+let FXI=-1;
+function spraySnd(){try{const h=tg&&tg.HapticFeedback;if(h&&h.impactOccurred)h.impactOccurred("light")}catch(e){}
+ try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime,n=Math.floor(AC.sampleRate*.45),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);
+  for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,1.5);
+  const sr=AC.createBufferSource();sr.buffer=b;const f=AC.createBiquadFilter();f.type="highpass";f.frequency.value=3200;const g=AC.createGain();g.gain.value=.14;sr.connect(f);f.connect(g);g.connect(AC.destination);sr.start(t)}catch(e){}}
+function sprayFx(){
+ if(FXI<0)return;const dk=document.querySelector(`.dk[data-i="${FXI}"]`),w=document.querySelector(".wsc");FXI=-1;if(!dk||!w)return;
+ const a=dk.getBoundingClientRect(),b=w.getBoundingClientRect(),cx=a.left+a.width/2-b.left,cy=a.top+a.height/2-b.top,cs=["#ff4d8d","#39e6ff","#ffd23f","#7dff6a","#c77dff","#ff8a3d"],
+  mk=(css,anim,dur,delay)=>{const e=document.createElement("i");e.className="spp";e.style.cssText=css;w.appendChild(e);e.animate(anim,{duration:dur,delay:delay||0,easing:"cubic-bezier(.2,.7,.3,1)",fill:"forwards"}).onfinish=()=>e.remove()};
+ const c0=cs[Math.floor(Math.random()*cs.length)];
+ mk(`left:${cx}px;top:${cy}px;width:${a.width*1.5}px;height:${a.width*1.5}px;margin:${-a.width*.75}px 0 0 ${-a.width*.75}px;background:radial-gradient(circle,${c0}cc,${c0}00 68%);filter:blur(5px)`,[{transform:"scale(.2)",opacity:.9},{transform:"scale(1.6)",opacity:0}],650);
+ for(let i=0;i<22;i++){const an=Math.random()*6.283,dist=a.width*(.5+Math.random()*.9),sz=3+Math.random()*6,c=cs[i%cs.length];
+  mk(`left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;margin:${-sz/2}px 0 0 ${-sz/2}px;background:${c};box-shadow:0 0 6px ${c}`,[{transform:"translate(0,0) scale(1)",opacity:1},{transform:`translate(${Math.cos(an)*dist}px,${Math.sin(an)*dist+14}px) scale(.2)`,opacity:0}],500+Math.random()*350,Math.random()*120)}}
+function edAdd(id){const it=SHOP.find(x=>x.id===id);if(!it)return;P.dec=P.dec||[];const k=P.dec.findIndex(x=>x.id===id);
+ if(k>=0){SEL=k;fb(1);shopRefresh();return say("Тяни наклейку и меняй размер кнопками!")}
+ if(P.dec.length>=6){fb(0);return say("На ракете уже 6 наклеек. Сними одну!")}
+ equipItem(it);SEL=P.dec.length-1;FXI=SEL;save();fb(1);spraySnd();shopRefresh();hero("thumbs_up");say("Ух ты! Тяни наклейку и меняй размер!")}
+const edBox=()=>`<div class="edb"><p>Нажми наклейку и тяни по ракете. «−» и «+» меняют размер</p>${edPick()}<div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div></div>`;
+const edPick=()=>{const l=SHOP.filter(x=>x.c==="sticker"&&owned(x));return `<div class="rail">${l.length?l.map(it=>{const on=!!(P.dec&&P.dec.some(x=>x.id===it.id));return `<button class="sc ${rar(it.p)} ${on?"on":""}" onclick="edAdd('${it.id}')">${stk(it)}<b>${it.n}</b><span class="pr">${on?"✓ На ракете":"Нанести"}</span></button>`}).join(""):'<p class="center" style="width:100%;opacity:.85">Наклеек пока нет. Купи в магазине!</p>'}</div>`};
 function edSize(d){const o=P.dec&&P.dec[SEL];if(!o)return say("Сначала нажми на наклейку");o.s=Math.max(6,Math.min(28,o.s+d));save();const el=document.querySelector(`.dk[data-i="${SEL}"]`);if(el)el.style.width=o.s+"cqw"}
-function edDel(){if(SEL<0||!P.dec||!P.dec[SEL])return say("Сначала нажми на наклейку");P.dec.splice(SEL,1);SEL=-1;save();tabShop()}
+function edDel(){if(SEL<0||!P.dec||!P.dec[SEL])return say("Сначала нажми на наклейку");P.dec.splice(SEL,1);SEL=-1;save();rerender()}
 document.addEventListener("pointerdown",e=>{if(!ED)return;const d=e.target.closest&&e.target.closest(".dk");if(!d)return;const i=+d.dataset.i;if(i<0)return;SEL=i;DRAG={i,el:d};try{d.setPointerCapture(e.pointerId)}catch(_){}document.querySelectorAll(".dk").forEach(x=>x.classList.toggle("sel",+x.dataset.i===i));e.preventDefault()});
 document.addEventListener("pointermove",e=>{if(!DRAG)return;const o=P.dec&&P.dec[DRAG.i],g=$("rkg");if(!o||!g)return;const r=g.getBoundingClientRect();o.x=+Math.max(18,Math.min(82,(e.clientX-r.left)/r.width*100)).toFixed(1);o.y=+Math.max(16,Math.min(84,(e.clientY-r.top)/r.height*100)).toFixed(1);DRAG.el.style.left=o.x+"%";DRAG.el.style.top=o.y+"%"});
 document.addEventListener("pointerup",()=>{if(DRAG){DRAG=null;save()}});
 function tabRocket(){
- live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6;
- frame(`${rocketScene("",1)}<p class="center"><b>Деталей собрано: ${n} из 6</b></p>${ED?`<div class="edb"><p>Тяни наклейку по ракете</p><div class="edr"><button onclick="edSize(-2)">−</button><span>Размер</span><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button></div><button class="btn" onclick="edDone()">Готово</button></div>`:`<div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`}`,false,"rocket");
- if(!ED){hero("happy");say(all?"Ракета готова! Нажми «Запуск»!":"Собирай ракету! Нажми на деталь.")}}
+ live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6,ready=hasPart(0)&&hasPart(4),mine=!!((P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x)));
+ frame(`${rocketScene("",1)}${ED?"":`<p class="center"><b>Деталей собрано: ${n} из 6</b></p>`}${ED?edBox():`<div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div>
+ ${ready&&mine?'<button class="btn alt" style="margin-top:14px" onclick="edOn()">✏️ Украсить ракету</button>':'<p class="center" style="font-size:13px;opacity:.8;margin:10px 0 0">Собери корпус и нижний отсек и купи наклейки, чтобы украшать ракету</p>'}
+ <p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`}`,false,"rocket");
+ if(!ED){hero("happy");say(all?"Ракета готова! Нажми «Запуск»!":"Собирай ракету! Нажми на деталь.")}else{hero("happy")}
+ sprayFx()}
 function partTap(i){const [id,price]=RP[i];
  if(hasPart(i)){fb(1);hero("happy");return say(RK[id].name+" уже на месте!")}
  if((P.wallet||0)<price){fb(0);hero("try_again");return say(`Нужно ещё ${price-(P.wallet||0)} ⭐. Проходи планеты!`)}
@@ -497,22 +548,23 @@ function launch(){
  setTimeout(()=>{tw.style.zIndex=3},900);
  setTimeout(()=>{const f=g.querySelector(".rface");if(f)f.classList.add("on");fb(1);say("3… 2… 1…")},1500);
  setTimeout(()=>{g.classList.add("shake");const fl=g.querySelector(".flame");if(fl)fl.classList.add("on")},1950);
- setTimeout(()=>{g.classList.remove("shake");g.classList.add("fly");say("Поехали!")},2800);
+ setTimeout(()=>{g.classList.remove("shake");const r=g.getBoundingClientRect();g.style.setProperty("--lift",-(r.bottom+40)+"px");g.classList.add("fly");say("Поехали!")},2800);
  setTimeout(()=>{confetti();const first=!P.launched;P.launched=(P.launched||0)+1;if(first)P.wallet=(P.wallet||0)+30;save();$("sc").textContent=bankVal();say(first?"Ура! Ракета в космосе! +30 ⭐":"Ракета в космосе!")},3900);
  setTimeout(tabRocket,6300)}
 function soon(){fb(1);hero("surprise");say("Скоро! Оплата через Telegram Stars в разработке ✨")}
 function tabShop(){
  live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`,
  ready=hasPart(0)&&hasPart(4),mine=(P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x)),
- under=ED?`<div class="edb"><p>Тяни наклейку по ракете</p><div class="edr"><button onclick="edSize(-2)">−</button><span>Размер</span><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button></div><button class="btn" onclick="edDone()">Готово</button></div>`:PV?`<div class="pvb"><span>Примерка: <b>${PV.n}</b></span><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`:mine?(ready?'<button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button>':'<p class="center" style="font-size:13px;opacity:.8;margin:8px 0 0">Собери корпус и нижний отсек, чтобы украшать наклейками</p>'):"";
+ under=ED?edBox():PV?`<div class="pvb"><span>Примерка: <b>${PV.n}</b></span><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`:mine?(ready?'<button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button>':'<p class="center" style="font-size:13px;opacity:.8;margin:8px 0 0">Собери корпус и нижний отсек, чтобы украшать наклейками</p>'):"";
  frame(`<div class="panel wal"><img src="img/icons/star.png" alt=""><div>Мои звёзды: <b>${P.wallet||0}</b><small>Звёзды дают за уроки и задание дня</small></div></div>
  <div class="panel">${rocketScene(ED?"":"small")}${under}</div>${ED?"":`
  <h2 class="sh">🛸 Площадки запуска</h2>${rail("pad")}<h2 class="sh">✨ Наклейки</h2>${rail("sticker")}<h2 class="sh">🐾 Питомцы</h2>${rail("pet")}<h2 class="sh">🌌 Фоны</h2>${rail("bg")}
  <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><p class="center" style="font-size:13px;opacity:.8;margin:6px 0">В сундуке предмет стоимостью до 60 ⭐</p>`}`,false,"shop");
- hero("happy");say(PV?`Примеряем: ${PV.n}!`:"Нажми на предмет, чтобы примерить!")}
+ sprayFx();hero("happy");say(ED?"Выбери наклейку и нанеси её на ракету!":PV?`Примеряем: ${PV.n}!`:"Нажми на предмет, чтобы примерить!")}
 const MEDALS=[[3,"badge_3","3 дня",10],[7,"badge_7","7 дней",25],[14,"badge_14","14 дней",50],[30,"badge_30","30 дней",120]];
 const MD={"3": [318, 360, 0, 0], "7": [316, 360, 0, 0], "14": [345, 360, 0, 0], "30": [308, 360, 0, 0]},MS={"3": ["#fff3d6", "#ffb347", "#5a2d0c", 0.17], "7": ["#ffffff", "#cfd8ea", "#2b3f6b", 0.17], "14": ["#fffbe0", "#ffd23f", "#6b3a00", 0.15], "30": ["#ffffff", "#ffd6f7", "#5b2b8f", 0.13]};
-const medalImg=(m,h,off)=>{const k=m[0],d=MD[k],w=Math.round(h*d[0]/d[1]),c=MS[k];return `<div class="mi" style="height:${h}px;width:${w}px;font-size:${w}px"><img class="mimg" src="img/medals/m${k}.webp" alt="">${off?'<img class="lk2" src="img/icons/lock.png" alt="">':""}</div>`};
+const SPK=[[16,22,0],[84,30,.7],[24,74,1.3],[80,80,1.9],[50,10,.35],[92,56,1.1]];
+const medalImg=(m,h,off)=>{const k=m[0],d=MD[k],w=Math.round(h*d[0]/d[1]);return `<div class="mi" style="height:${h}px;width:${w}px;font-size:${w}px"><img class="mimg m${k}" src="img/medals/m${k}.webp" alt="">${off?'<img class="lk2" src="img/icons/lock.png" alt="">':`<i class="msh t${k}" style="--m:url(img/medals/m${k}.webp)"></i>${SPK.map(q=>`<b class="msp" style="left:${q[0]}%;top:${q[1]}%;animation-delay:${q[2]}s">✦</b>`).join("")}`}</div>`};
 function showMedal(m){const o=document.createElement("div");o.id="mv";o.innerHTML=`<div class="mvb"><div class="mvh">Новая медаль!</div>${medalImg(m,300,false)}<div class="mvt">${m[2]} подряд</div><div class="mvr">+${m[3]} ⭐</div><button class="btn" onclick="this.closest('#mv').remove()">Отлично!</button></div>`;document.body.appendChild(o);confetti();fb(1)}
 const plur=(n,a,b,c)=>{const m=n%100,d=n%10;return m>10&&m<20?c:d===1?a:d>=2&&d<=4?b:c};
 const ACH=()=>{const done=LESSONS.filter(l=>P.lessons[l.id]&&P.lessons[l.id].done);return[
