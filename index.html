@@ -300,6 +300,26 @@ body.dev #app .lsel{outline:3px solid #ffd23f}
 #layout{position:fixed;left:8%;right:8%;top:20%;z-index:10000;background:#1c0f52;border:3px solid var(--gold);border-radius:18px;padding:12px;color:#fff;font-size:14px}
 #layout textarea{width:100%;height:160px;font-size:12px;margin:8px 0;background:#fff;color:#000;border-radius:8px}
 #layout button{width:100%;padding:10px;border-radius:12px;border:0;background:var(--gold);font:inherit;font-weight:700}
+
+/* ===== РАКЕТА: один экран без прокрутки ===== */
+html:has(#app.t-rocket:not(.deco)),html:has(#app.t-rocket:not(.deco)) body{height:100%;min-height:0;overflow:hidden}
+#app.t-rocket:not(.deco){display:flex;flex-direction:column;height:calc(var(--tg-viewport-stable-height,100dvh) - var(--ztop));padding-top:8px;padding-bottom:calc(96px + var(--zbot));overflow:hidden}
+#app.t-rocket:not(.deco)>*{flex:none}
+#app.t-rocket:not(.deco) .hrow{margin:8px 0 4px}
+#app.t-rocket:not(.deco)>.rstage{flex:1 1 0;min-height:0;container-type:size;display:flex;align-items:center;justify-content:center}
+#app.t-rocket:not(.deco) .rstage .wsc{flex:none;width:min(100cqw,90cqh,380px);max-width:none;margin:0;translate:0 4.5%}
+#app.t-rocket:not(.deco) .btn.alt{margin:8px 0 0}
+#app.t-rocket:not(.deco) .tray{margin:12px 0 0}
+@media (max-height:700px){
+#app.t-rocket:not(.deco){padding-bottom:calc(94px + var(--zbot))}
+#app.t-rocket:not(.deco) .hrow{margin:4px 0 2px}
+#app.t-rocket:not(.deco) .bubble{font-size:13px;padding:3px 10px}
+#app.t-rocket:not(.deco) .btn.alt{margin-top:4px;padding:3px;font-size:17px;border-width:3px}
+#app.t-rocket:not(.deco) .tray{margin-top:8px;padding:6px 8px 12px;border-width:3px}
+#app.t-rocket:not(.deco) .tg{gap:10px 6px}
+#app.t-rocket:not(.deco) .pc{width:min(100%,46px);border-width:3px}
+#app.t-rocket:not(.deco) .pc img:not(.lk){inset:6px;width:calc(100% - 12px);height:calc(100% - 12px)}
+}
 </style>
 </head>
 <body>
@@ -615,7 +635,7 @@ document.addEventListener("pointermove",e=>{if(!DRAG)return;const o=P.dec&&P.dec
 document.addEventListener("pointerup",()=>{if(DRAG){DRAG=null;save()}});
 function tabRocket(){
  live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6;
- frame(`${rocketScene("",1)}<button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button><div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`,false,"rocket");
+ frame(`<div class="rstage">${rocketScene("",1)}</div><button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button><div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`,false,"rocket");scrollTo(0,0);
  hero("happy");say(all?"Ракета готова! Нажми «Запуск»!":`Собери ракету: ${n} из 6. Нажми на деталь.`)}
 function partTap(i){const [id,price]=RP[i];
  if(hasPart(i)){fb(1);hero("happy");return say(RK[id].name+" уже на месте!")}
