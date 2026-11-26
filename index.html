@@ -310,10 +310,12 @@ html:has(#app.t-rocket:not(.deco)),html:has(#app.t-rocket:not(.deco)) body{heigh
 #app.t-rocket:not(.deco) .rstage .wsc{flex:none;width:min(100cqw,90cqh,380px);max-width:none;margin:0;translate:0 4.5%}
 #app.t-rocket:not(.deco) .btn.alt{margin:8px 0 0}
 #app.t-rocket:not(.deco) .tray{margin:12px 0 0}
+/* облачко всегда одного размера, чтобы ракета не прыгала */
+#app.t-rocket:not(.deco) .bubble{flex:0 0 92%;width:92%;height:calc(2.5em + 18px);display:flex;align-items:center;justify-content:center;line-height:1.25;overflow:hidden}
 @media (max-height:700px){
 #app.t-rocket:not(.deco){padding-bottom:calc(94px + var(--zbot))}
 #app.t-rocket:not(.deco) .hrow{margin:4px 0 2px}
-#app.t-rocket:not(.deco) .bubble{font-size:13px;padding:3px 10px}
+#app.t-rocket:not(.deco) .bubble{font-size:13px;padding:3px 10px;height:calc(2.5em + 12px)}
 #app.t-rocket:not(.deco) .btn.alt{margin-top:4px;padding:3px;font-size:17px;border-width:3px}
 #app.t-rocket:not(.deco) .tray{margin-top:8px;padding:6px 8px 12px;border-width:3px}
 #app.t-rocket:not(.deco) .tg{gap:10px 6px}
