@@ -257,7 +257,7 @@ html:has(#app.deco),html:has(#app.deco) body{height:100%;min-height:0;overflow:h
 #app.deco .decobox .wsc{max-width:clamp(130px,calc((var(--tg-viewport-stable-height,100dvh) - 440px - var(--ztop) - var(--zbot))*.8),215px);margin:0 auto}
 #app.deco .rail{padding:6px 4px 10px}
 .rstage{position:relative}
-.rstage .moonwrap{position:absolute;left:50%;top:64%;transform:translateX(-50%);width:142%;aspect-ratio:1;pointer-events:none;z-index:0}
+.rstage .moonwrap{position:absolute;left:50%;top:68%;transform:translateX(-50%);width:148%;aspect-ratio:1;pointer-events:none;z-index:0}
 .rstage .moonwrap::before{content:"";position:absolute;inset:-14%;border-radius:50%;background:radial-gradient(circle,rgba(140,195,255,.55) 0%,rgba(120,100,255,.35) 45%,transparent 72%);filter:blur(18px);animation:mglow2 3.5s ease-in-out infinite alternate}
 @keyframes mglow2{from{opacity:.75;transform:scale(.96)}to{opacity:1;transform:scale(1.04)}}
 .rstage .moonbg{position:relative;width:100%;height:100%;display:block;border-radius:50%;filter:drop-shadow(0 -6px 18px rgba(200,225,255,.45))}
@@ -266,7 +266,7 @@ html:has(#app.deco),html:has(#app.deco) body{height:100%;min-height:0;overflow:h
 #app.t-rocket:not(.deco)>*{position:relative;z-index:2}
 .chests{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 12px}
 .chb{background:linear-gradient(#3558c8,#1e3282);border:3px solid var(--gold);border-radius:18px;padding:10px 4px;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;box-shadow:0 4px 0 #121d54}
-.chb:active{transform:translateY(2px)}.chb .ci{font-size:34px;line-height:1}.chb b{font-size:13px}.chb .pr{font-size:13px;background:linear-gradient(#ffe27a,#ffb300);color:#4a2c00;border-radius:999px;padding:1px 9px;font-weight:700}
+.chb:active{transform:translateY(2px)}.chb img{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 4px 8px #0006)}.chb b{font-size:13px}.chb .pr{font-size:13px;background:linear-gradient(#ffe27a,#ffb300);color:#4a2c00;border-radius:999px;padding:1px 9px;font-weight:700}
 .chb.rare{border-color:#6ec6ff}.chb.epic{border-color:#d28bff;box-shadow:0 4px 0 #121d54,0 0 14px #c77dff66}
 .edb{text-align:center;margin:8px 0}.edb p{margin:4px 0 8px;font-size:15px;color:#ffe9a0}.edr{display:flex;gap:8px;justify-content:center;align-items:center;margin-bottom:10px}.edr button{width:52px;height:46px;border-radius:14px;border:3px solid #fff1b8;background:linear-gradient(#5a3bc0,#3b2290);color:#fff;font:inherit;font-size:24px;font-weight:700;cursor:pointer}.edr span{font-weight:700;min-width:70px}
 .tray .tg{grid-template-columns:repeat(3,minmax(0,1fr));min-width:0}.pc{position:relative;min-width:0;padding:0}.pc img:not(.lk){position:absolute;inset:9px;width:calc(100% - 18px);height:calc(100% - 18px);object-fit:contain}.pc .pr{font-size:12px;padding:0 7px}.launch{min-width:0;flex:0 0 26%}
@@ -327,7 +327,7 @@ html:has(#app.t-rocket:not(.deco)),html:has(#app.t-rocket:not(.deco)) body{heigh
 #app.t-rocket:not(.deco)>*{flex:none}
 #app.t-rocket:not(.deco) .hrow{margin:8px 0 4px}
 #app.t-rocket:not(.deco)>.rstage{flex:1 1 0;min-height:0;container-type:size;display:flex;align-items:center;justify-content:center}
-#app.t-rocket:not(.deco) .rstage .wsc{flex:none;width:min(100cqw,90cqh,380px);max-width:none;margin:0;translate:0 4.5%}
+#app.t-rocket:not(.deco) .rstage .wsc{flex:none;width:min(100cqw,102cqh,390px);max-width:none;margin:0;translate:0 2%}
 #app.t-rocket:not(.deco) .btn.alt{margin:8px 0 0}
 #app.t-rocket:not(.deco) .tray{margin:12px 0 0}
 /* облачко всегда одного размера, чтобы ракета не прыгала */
@@ -566,13 +566,14 @@ function fly(el,n){
    .onfinish=()=>{s.remove();if(i===0){$("sc").textContent=bankVal();$("bank").classList.add("bump");setTimeout(()=>$("bank").classList.remove("bump"),300)}}}}
 
 /* ===== МЕНЮ И УРОК ===== */
+const PL=[9,10,11,12,13,14,15,16,1,2];
 function home(){
  live=false;
  const all=[...LESSONS.map(l=>[l.title,l.sub,l.id]),...COMING.map(t=>[t,"Скоро",0])],N=all.length;
  const X=[28,70,30,68,28,70,34,64,28,70,30,68],Y=i=>70+i*150,H=N*150+40;
  let d=`M ${X[0]} ${Y(0)}`;for(let i=1;i<N;i++)d+=` C ${X[i-1]} ${Y(i-1)+70}, ${X[i]} ${Y(i)-70}, ${X[i]} ${Y(i)}`;
  const cur=LESSONS.findIndex(l=>!(P.lessons[l.id]&&P.lessons[l.id].done));
- const nodes=all.map((a,i)=>{const l=LESSONS[i],p=l&&P.lessons[l.id],lock=!a[2],pl=(i%8)+1;
+ const nodes=all.map((a,i)=>{const l=LESSONS[i],p=l&&P.lessons[l.id],lock=!a[2],pl=PL[i%PL.length];
   return `<button class="gnode ${lock?"locked":""} ${i===cur?"cur":""}" style="left:calc(${X[i%X.length]}% - 75px);top:${Y(i)-56}px" ${lock?"":`onclick="lesson('${a[2]}')"`}>${i===cur?'<span class="arr">▼</span>':""}<span class="pl" style="--m:url(img/planets/planet${pl}.png);--d:-${i*.7}s"><img src="img/planets/planet${pl}.png" alt="">${l?`<i class="aura${i===cur?" cur":""}"></i>`:""}<b>${i+1}</b></span><span class="tt"><b>${a[0]}</b><small>${a[1]}</small>${l?`<span class="st ${p&&p.done?"":"zero"}"><img class="si" src="img/icons/star.png" alt=""> ${p?p.best||0:0} / ${maxStars(l)}</span>`:""}</span></button>`}).join("");
  const dn=P.daily===dayKey(new Date());
  frame(`<div class="bar"><button class="daily ${dn?"done":""}" ${dn?"":'onclick="dayStart()"'}>${dn?"✓ Задание дня готово":"🎯 Задание дня"}</button></div><div class="galaxy" style="height:${H}px"><svg viewBox="0 0 100 ${H}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="#ffc83d" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 13" vector-effect="non-scaling-stroke" opacity=".85"/></svg>${nodes}</div>`,false,"map");
@@ -637,9 +638,9 @@ function shopTap(id){const it=SHOP.find(x=>x.id===id);if(!it)return;P.own=P.own|
  if((P.wallet||0)<it.p){fb(0);shopRefresh();hero("try_again");return say(`Нужно ещё ${it.p-(P.wallet||0)} ⭐. Проходи планеты!`)}
  P.wallet-=it.p;P.own[id]=1;equipItem(it);PV=null;save();applyBg();fb(1);confetti();shopRefresh();hero("thumbs_up");say(`Куплено: ${it.n}!`)}
 const CHESTS=[
- {ic:"🎁",n:"Обычный",p:15,min:1,max:30,cls:""},
- {ic:"💎",n:"Редкий",p:45,min:31,max:80,cls:"rare"},
- {ic:"👑",n:"Эпический",p:85,min:81,max:200,cls:"epic"}];
+ {ic:"img/icons/chest1.webp",n:"Обычный",p:15,min:1,max:30,cls:""},
+ {ic:"img/icons/chest2.webp",n:"Редкий",p:45,min:31,max:80,cls:"rare"},
+ {ic:"img/icons/chest3.webp",n:"Эпический",p:85,min:81,max:200,cls:"epic"}];
 function openBox(idx=0){const ch=CHESTS[idx]||CHESTS[0];
  const pool=SHOP.filter(x=>x.p>=ch.min&&x.p<=ch.max&&x.c!=="paint"&&!owned(x));P.own=P.own||{};P.eq=P.eq||{};
  if(!pool.length){shopRefresh();return say(`Всё из сундука «${ch.n}» уже собрано!`)}
@@ -733,7 +734,7 @@ function pvSheet(){
  document.body.appendChild(o)}
 function tabShop(){
  live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`;
- const chests=`<div class="chests">${CHESTS.map((c,i)=>`<button class="chb ${c.cls}" onclick="openBox(${i})"><span class="ci">${c.ic}</span><b>${c.n}</b><span class="pr">⭐ ${c.p}</span></button>`).join("")}</div>`;
+ const chests=`<div class="chests">${CHESTS.map((c,i)=>`<button class="chb ${c.cls}" onclick="openBox(${i})"><img src="${c.ic}" alt=""><b>${c.n}</b><span class="pr">⭐ ${c.p}</span></button>`).join("")}</div>`;
  frame(`${chests}<h2 class="sh">🛸 Площадки запуска</h2>${rail("pad")}<h2 class="sh">✨ Наклейки</h2>${rail("sticker")}<h2 class="sh">🐾 Питомцы</h2>${rail("pet")}<h2 class="sh">🌌 Фоны</h2>${rail("bg")}`,false,"shop");
  pvSheet();hero("happy");say(PV?`Примеряем: ${PV.n}! (У тебя ${P.wallet||0} ⭐)`:`У тебя ${P.wallet||0} ⭐! Нажми на предмет, чтобы примерить!`)}
 const MEDALS=[[3,"badge_3","3 дня",10],[7,"badge_7","7 дней",25],[14,"badge_14","14 дней",50],[30,"badge_30","30 дней",120]];
@@ -781,7 +782,7 @@ function resetP(){if(confirm("Удалить все звёзды и прогре
 function lesson(id){
  L=LESSONS.find(x=>x.id===id);R={id,stars:0,weak:new Set()};live=false;
  const v=L.yt?`<iframe src="https://www.youtube.com/embed/${L.yt}?rel=0&playsinline=1" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`:`Здесь будет видео урока.<br>Вставьте ID в настройках (yt)`;
- frame(`<h1>${L.title}</h1>${L.yt?`<div class="video">${v}</div>`:`<img class="lessonpl" src="img/planets/planet${(LESSONS.indexOf(L)%8)+1}.png" alt="">`}<button class="btn" onclick="begin()">${id==="abc"||L.kind==="vis"||L.kind==="combo"?"Играть":"Пройти тест"}</button>`);
+ frame(`<h1>${L.title}</h1>${L.yt?`<div class="video">${v}</div>`:`<img class="lessonpl" src="img/planets/planet${PL[LESSONS.indexOf(L)%PL.length]}.png" alt="">`}<button class="btn" onclick="begin()">${id==="abc"||L.kind==="vis"||L.kind==="combo"?"Играть":"Пройти тест"}</button>`);
  hero("wave");say(L.yt?"Посмотри видео и проверь себя!":"Давай играть!")}
 function begin(){touchDay();live=true;R={id:L.id,stars:0,weak:new Set()};L.id==="abc"?abcRound(0):L.kind==="vis"?vsStart():L.kind==="combo"?comboStart():mcStart()}
 
