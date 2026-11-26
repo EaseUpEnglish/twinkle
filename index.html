@@ -322,6 +322,15 @@ html:has(#app.t-rocket:not(.deco)),html:has(#app.t-rocket:not(.deco)) body{heigh
 #app.t-rocket:not(.deco) .pc{width:min(100%,46px);border-width:3px}
 #app.t-rocket:not(.deco) .pc img:not(.lk){inset:6px;width:calc(100% - 12px);height:calc(100% - 12px)}
 }
+.tile.sm{font-size:18px;padding:0 10px;text-align:center;line-height:1.15;text-shadow:none;cursor:pointer}
+.card.sm{font-size:17px;padding:0 10px;cursor:pointer}.card.sm .em{font-size:24px}
+.gapw{font-size:44px;font-weight:700;text-align:center;letter-spacing:3px;color:var(--gold);text-shadow:0 3px 0 #7a4a00;margin:10px 0}.gapw u{text-decoration:none;display:inline-block;min-width:34px;border-bottom:4px solid #27d6c6;color:#27d6c6}
+.slot{min-height:70px;background:#150b3a;border:3px dashed var(--gold);border-radius:18px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:12px 0}
+.slot.ok{border-style:solid;border-color:#46d28a;background:#1f6b4d}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.chipbtn{font:inherit;font-size:20px;font-weight:600;color:var(--ink);background:linear-gradient(#4a2db0,#35207a);border:3px solid var(--gold);border-radius:14px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 0 #1a0d4d}
+.chipbtn:active{transform:translateY(2px)}.chipbtn.used{opacity:.25;pointer-events:none}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.cats .opt{text-align:center;font-size:24px;font-weight:700;padding:18px 10px;margin:0}
 </style>
 </head>
 <body>
@@ -355,7 +364,7 @@ const cloud={
  get:()=>new Promise(r=>{if(!(tg&&tg.CloudStorage))return r(null);setTimeout(()=>r(null),1500);try{tg.CloudStorage.getItem("p",(e,v)=>r(e||!v?null:v))}catch(e){r(null)}}),
  set:v=>{try{if(tg&&tg.CloudStorage)tg.CloudStorage.setItem("p",v)}catch(e){}}};
 const LESSONS=[
- {id:"abc",e:"🔤",title:"Буквы",sub:"Алфавит A-Z",yt:"RI79dG0v3nQ",moments:{}},   // yt: ID видео, moments: {"A":12}
+ {id:"abc",e:"🔤",title:"Буквы",sub:"Алфавит A-Z",yt:"RI79dG0v3nQ",moments:{}},
  {id:"cls",e:"🏫",title:"Фразы урока",sub:"Stand up, Sit down, Open...",yt:"H635jhX5pNk",moments:{},blocks:[[0,6],[6,13],[13,15]],items:[
   ["Stand up","Встаньте"],["Sit down","Сядьте"],["Open","Открой"],["Close","Закрой"],["Take","Возьми"],["Put","Положи"],
   ["Listen","Слушай"],["Speak","Говори"],["Read","Читай"],["Write","Пиши"],["Draw","Рисуй"],["Point","Покажи, укажи"],["Sing","Пой"],
@@ -363,14 +372,46 @@ const LESSONS=[
  {id:"hel",e:"👋",title:"Приветствия",sub:"Hello, How are you?",yt:"mdIPwY0P84M",moments:{},blocks:[[0,5],[5,11]],items:[
   ["Hello","Здравствуйте"],["Hi","Привет"],["My name is...","Меня зовут..."],["What's your name?","Как тебя зовут?"],["Nice to meet you","Приятно познакомиться"],
   ["How are you?","Как дела?"],["I'm happy","Я счастлив"],["I'm sad","Мне грустно"],["I'm fine, thank you","У меня всё хорошо, спасибо"],["I'm so-so","Так себе"],["Goodbye","До свидания"]]},
- {id:"num",kind:"vis",vt:"digit",e:"🔢",title:"Цифры",sub:"One, Two, Three...",moments:{},blocks:[[0,5],[5,10]],modes:["hear"],shuffle:true,nopts:4,items:[
+ {id:"num",kind:"vis",vt:"digit",e:"🔢",title:"Цифры",sub:"One, Two, Three...",yt:"ts63sycD_Hw",moments:{},blocks:[[0,5],[5,10]],modes:["hear"],shuffle:true,nopts:4,items:[
   ["One","Один","1"],["Two","Два","2"],["Three","Три","3"],["Four","Четыре","4"],["Five","Пять","5"],["Six","Шесть","6"],["Seven","Семь","7"],["Eight","Восемь","8"],["Nine","Девять","9"],["Ten","Десять","10"]]},
  {id:"ani",kind:"vis",vt:"emoji",e:"🐾",title:"Животные",sub:"Dog, Cat, Bird...",moments:{},blocks:[[0,5],[5,10]],modes:["see","hear","shadow"],items:[
   ["Dog","Собака","🐶"],["Cat","Кошка","🐱"],["Bird","Птица","🐦"],["Fish","Рыба","🐟"],["Rabbit","Кролик","🐰"],["Bear","Медведь","🐻"],["Horse","Лошадь","🐴"],["Cow","Корова","🐮"],["Pig","Свинья","🐷"],["Frog","Лягушка","🐸"]]},
- {id:"col",kind:"vis",vt:"color",e:"🎨",title:"Цвета",sub:"Red, Blue, Green...",moments:{},blocks:[[0,4],[4,8]],modes:["see","hear"],items:[
-  ["Red","Красный","#e53935"],["Blue","Синий","#1e88e5"],["Yellow","Жёлтый","#fdd835"],["Green","Зелёный","#43a047"],["Orange","Оранжевый","#fb8c00"],["Pink","Розовый","#f48fb1"],["Black","Чёрный","#111111"],["White","Белый","#fafafa"]]}];
-const COMING=[];   // разделы «в разработке» (серые карточки в меню), например ["Новый раздел"]
-const SYN={"Hello":["Hi"],"Hi":["Hello"]};   // слова с близким переводом: не показываем друг у друга в вариантах
+ {id:"col",kind:"vis",vt:"color",e:"🎨",title:"Цвета",sub:"Red, Blue, Green...",yt:"9TNKpwtkFnU",moments:{},blocks:[[0,4],[4,8]],modes:["see","hear"],items:[
+  ["Red","Красный","#e53935"],["Blue","Синий","#1e88e5"],["Yellow","Жёлтый","#fdd835"],["Green","Зелёный","#43a047"],["Orange","Оранжевый","#fb8c00"],["Pink","Розовый","#f48fb1"],["Black","Чёрный","#111111"],["White","Белый","#fafafa"]]},
+ {id:"food",kind:"combo",e:"🍎",title:"Еда",sub:"Apple, Bread, Milk...",yt:"",moments:{},blocks:[[0,6],[6,12],[12,18]],
+  classify:{label:"Eat или Drink?",cats:["🍽 Eat","🥤 Drink"],items:[["Bread","Eat"],["Chicken","Eat"],["Pizza","Eat"],["Sweet","Eat"],["Cake","Eat"],["Fish","Eat"],["Tea","Drink"],["Milk","Drink"],["Coffee","Drink"],["Juice","Drink"],["Water","Drink"],["Soup","Drink"]]},
+  gap:{items:[["Piz_a","z","Pizza"],["Wat_r","e","Water"],["Chic_en","k","Chicken"],["Banan_","a","Banana"],["Lemo_","n","Lemon"],["Chees_","e","Cheese"]]},
+  sort:{items:[["I like ice cream.","I / like / ice cream ."],["I drink milk.","I / drink / milk ."],["I eat fish.","I / eat / fish ."],["I like cake.","I / like / cake ."],["I eat bread.","I / eat / bread ."],["Do you like pizza?","Do / you / like / pizza ?"]]},
+  items:[
+  ["Apple","Яблоко","🍎"],["Banana","Банан","🍌"],["Cheese","Сыр","🧀"],["Egg","Яйцо","🥚"],["Carrot","Морковь","🥕"],["Lemon","Лимон","🍋"],
+  ["Tomato","Помидор","🍅"],["Bread","Хлеб","🍞"],["Milk","Молоко","🥛"],["Juice","Сок","🧃"],["Soup","Суп","🍲"],["Pizza","Пицца","🍕"],
+  ["Chicken","Курица","🍗"],["Cake","Торт","🎂"],["Water","Вода","💧"],["Chocolate","Шоколад","🍫"],["Ice cream","Мороженое","🍦"],["Fish","Рыба","🐟"]]},
+ {id:"fam",kind:"combo",e:"👨‍👩‍👧",title:"Семья",sub:"Mum, Dad, Brother...",yt:"",moments:{},blocks:[[0,6],[6,10],[10,14]],
+  classify:{label:"He или She?",cats:["👦 He","👧 She"],items:[["Dad","He"],["Brother","He"],["Grandad","He"],["Son","He"],["Mum","She"],["Sister","She"],["Granny","She"],["Baby girl","She"]]},
+  gap:{items:[["Fam_ly","i","Family"],["Si_ter","s","Sister"],["Gra_ny","n","Granny"],["Bro_her","t","Brother"],["Gr_ndad","a","Grandad"],["Ba_y","b","Baby"]]},
+  sort:{items:[["This is my mum.","This / is / my / mum ."],["I love my family.","I / love / my / family ."],["He is my brother.","He / is / my / brother ."],["She is my sister.","She / is / my / sister ."],["He is my dad.","He / is / my / dad ."],["I have a sister.","I / have / a / sister ."]]},
+  items:[
+  ["Mum","Мама","👩"],["Dad","Папа","👨"],["Brother","Брат","👦"],["Sister","Сестра","👧"],["Granny","Бабушка","👵"],["Grandad","Дедушка","👴"],
+  ["Baby","Малыш","👶"],["Family","Семья","👨‍👩‍👧"],["Son","Сын","🧒"],["Daughter","Дочь","👧"],["Uncle","Дядя","🧔"],["Aunt","Тётя","👩"],
+  ["Cousin","Двоюродный брат","🤝"],["Pet","Питомец","🐾"]]},
+ {id:"where",kind:"combo",e:"🌍",title:"Страны",sub:"Where are you from?",yt:"",moments:{},blocks:[[0,5],[5,9],[9,13]],
+  classify:{label:"He или She?",cats:["👦 He's from...","👧 She's from..."],items:[["He 🇺🇸","He"],["He 🇬🇧","He"],["She 🌍","She"],["She 🇧🇾","She"],["He 🇷🇺","He"],["She 🇫🇷","She"],["He 🇩🇪","He"],["She 🇯🇵","She"]]},
+  gap:{items:[["Bel_rus","a","Belarus"],["Brit_in","a","Britain"],["Afr_ca","i","Africa"],["Ameri_a","c","America"],["Russ_a","i","Russia"],["Chin_","a","China"]]},
+  sort:{items:[["Where are you from?","Where / are / you / from ?"],["I'm from Belarus.","I'm / from / Belarus ."],["She's from Britain.","She's / from / Britain ."],["He's from America.","He's / from / America ."],["I'm from Russia.","I'm / from / Russia ."],["Are you from Africa?","Are / you / from / Africa ?"]]},
+  items:[
+  ["Belarus","Беларусь","🇧🇾"],["Britain","Британия","🇬🇧"],["America","Америка","🇺🇸"],["Africa","Африка","🌍"],["Russia","Россия","🇷🇺"],
+  ["France","Франция","🇫🇷"],["Germany","Германия","🇩🇪"],["Japan","Япония","🇯🇵"],["China","Китай","🇨🇳"],
+  ["Where are you from?","Откуда ты?","❓"],["I'm from...","Я из...","🗣️"],["He's from...","Он из...","👦"],["She's from...","Она из...","👧"]]},
+ {id:"body",kind:"combo",e:"👀",title:"Части тела",sub:"Eyes, Nose, Hair...",yt:"",moments:{},blocks:[[0,5],[5,10],[10,14]],
+  classify:{label:"Singular или Plural?",cats:["1️⃣ One","✌️ Two+"],items:[["Nose","One"],["Mouth","One"],["Head","One"],["Neck","One"],["Eye","Two+"],["Ear","Two+"],["Hand","Two+"],["Leg","Two+"]]},
+  gap:{items:[["No_e","s","Nose"],["Mou_h","t","Mouth"],["Ha_r","i","Hair"],["Ea_s","r","Ears"],["Ar_","m","Arm"],["Fac_","e","Face"]]},
+  sort:{items:[["I've got blue eyes.","I've / got / blue / eyes ."],["She's got brown hair.","She's / got / brown / hair ."],["He's got big ears.","He's / got / big / ears ."],["I've got a small nose.","I've / got / a / small / nose ."],["She's got long hair.","She's / got / long / hair ."],["He's got green eyes.","He's / got / green / eyes ."]]},
+  items:[
+  ["Eyes","Глаза","👀"],["Nose","Нос","👃"],["Mouth","Рот","👄"],["Hair","Волосы","💇"],["Ears","Уши","👂"],
+  ["Head","Голова","🤯"],["Neck","Шея","🦒"],["Arm","Рука","💪"],["Hand","Ладонь","✋"],["Leg","Нога","🦵"],
+  ["Foot","Стопа","🦶"],["Teeth","Зубы","🦷"],["Face","Лицо","😊"],["Finger","Палец","☝️"]]}];
+const COMING=[];
+const SYN={"Hello":["Hi"],"Hi":["Hello"],"Eyes":["Ears"],"Ears":["Eyes"],"Mum":["Granny"],"Dad":["Grandad"],"He's from...":["She's from..."],"She's from...":["He's from..."]};
 const PAIRS=[["A","Эй","Apple","🍎"],["B","Би","Bus","🚌"],["C","Си","Cat","🐱"],["D","Ди","Dog","🐶"],["E","И","Elephant","🐘"],["F","Эф","Frog","🐸"],["G","Джи","Giraffe","🦒"],["H","Эйч","Horse","🐴"],["I","Ай","Ice","🧊"],["J","Джей","Jam","🍯"],["K","Кей","Kangaroo","🦘"],["L","Эл","Lemon","🍋"],["M","Эм","Mouse","🐭"],["N","Эн","Nut","🌰"],["O","Оу","Orange","🍊"],["P","Пи","Pig","🐷"],["Q","Кью","Queen","👑"],["R","Ар","Rocket","🚀"],["S","Эс","Snake","🐍"],["T","Ти","Telephone","☎️"],["U","Ю","Umbrella","☂️"],["V","Ви","Vase","🏺"],["W","Дабл-ю","Window","🪟"],["X","Экс","Fox","🦊"],["Y","Уай","Yellow","🟡"],["Z","Зэд","Zebra","🦓"]];
 const ROUNDS=[[0,4],[4,8],[8,12],[12,16],[16,20],[20,26]];
 const COLORS=["#ff8fb8","#5ff0c0","#6fb7ff","#7dff8a","#ffa65c","#d08cff","#ffe45c","#b8a4ff"];
@@ -404,7 +445,7 @@ const LV=[[0,"Юнга"],[15,"Космонавт"],[40,"Пилот"],[70,"Кап
 function levelInfo(){const v=bests(""),i=LV.reduce((a,l,k)=>v>=l[0]?k:a,0),nx=LV[i+1];return{name:LV[i][1],n:i+1,nx:nx&&nx[1],left:nx?nx[0]-v:0,pct:nx?Math.round((v-LV[i][0])/(nx[0]-LV[i][0])*100):100}}
 const bests=ex=>Object.entries(P.lessons).reduce((s,[k,v])=>k===ex?s:s+(v.best||0),0);
 let R={id:"",stars:0,weak:new Set()}, L=null, live=false;
-const maxStars=l=>(l.id==="abc"?PAIRS.length+ROUNDS.length*BONUS_PART:l.items.length+l.blocks.length*BONUS_PART)+BONUS_LESSON;
+const maxStars=l=>(l.id==="abc"?PAIRS.length+ROUNDS.length*BONUS_PART:l.kind==="combo"?23+6*BONUS_PART:l.items.length+l.blocks.length*BONUS_PART)+BONUS_LESSON;
 const totalMax=()=>LESSONS.reduce((a,l)=>a+maxStars(l),0);
 const bankVal=()=>String((P.wallet||0)+(live?R.stars:0));
 
@@ -507,11 +548,12 @@ function fly(el,n){
 /* ===== МЕНЮ И УРОК ===== */
 function home(){
  live=false;
- const X=[28,70,30,68,28,70,34,64],Y=i=>70+i*150,H=8*150+40,all=[...LESSONS.map(l=>[l.title,l.sub,l.id]),["Еда","Скоро",0],["Семья","Скоро",0]];
- let d=`M ${X[0]} ${Y(0)}`;for(let i=1;i<8;i++)d+=` C ${X[i-1]} ${Y(i-1)+70}, ${X[i]} ${Y(i)-70}, ${X[i]} ${Y(i)}`;
+ const all=[...LESSONS.map(l=>[l.title,l.sub,l.id]),...COMING.map(t=>[t,"Скоро",0])],N=all.length;
+ const X=[28,70,30,68,28,70,34,64,28,70,30,68],Y=i=>70+i*150,H=N*150+40;
+ let d=`M ${X[0]} ${Y(0)}`;for(let i=1;i<N;i++)d+=` C ${X[i-1]} ${Y(i-1)+70}, ${X[i]} ${Y(i)-70}, ${X[i]} ${Y(i)}`;
  const cur=LESSONS.findIndex(l=>!(P.lessons[l.id]&&P.lessons[l.id].done));
- const nodes=all.map((a,i)=>{const l=LESSONS[i],p=l&&P.lessons[l.id],lock=!a[2];
-  return `<button class="gnode ${lock?"locked":""} ${i===cur?"cur":""}" style="left:calc(${X[i]}% - 75px);top:${Y(i)-56}px" ${lock?"":`onclick="lesson('${a[2]}')"`}>${i===cur?'<span class="arr">▼</span>':""}<span class="pl" style="--m:url(img/planets/planet${i+1}.png);--d:-${i*.7}s"><img src="img/planets/planet${i+1}.png" alt="">${l?`<i class="aura${i===cur?" cur":""}"></i>`:""}<b>${i+1}</b></span><span class="tt"><b>${a[0]}</b><small>${a[1]}</small>${l?`<span class="st ${p&&p.done?"":"zero"}"><img class="si" src="img/icons/star.png" alt=""> ${p?p.best||0:0} / ${maxStars(l)}</span>`:""}</span></button>`}).join("");
+ const nodes=all.map((a,i)=>{const l=LESSONS[i],p=l&&P.lessons[l.id],lock=!a[2],pl=(i%8)+1;
+  return `<button class="gnode ${lock?"locked":""} ${i===cur?"cur":""}" style="left:calc(${X[i%X.length]}% - 75px);top:${Y(i)-56}px" ${lock?"":`onclick="lesson('${a[2]}')"`}>${i===cur?'<span class="arr">▼</span>':""}<span class="pl" style="--m:url(img/planets/planet${pl}.png);--d:-${i*.7}s"><img src="img/planets/planet${pl}.png" alt="">${l?`<i class="aura${i===cur?" cur":""}"></i>`:""}<b>${i+1}</b></span><span class="tt"><b>${a[0]}</b><small>${a[1]}</small>${l?`<span class="st ${p&&p.done?"":"zero"}"><img class="si" src="img/icons/star.png" alt=""> ${p?p.best||0:0} / ${maxStars(l)}</span>`:""}</span></button>`}).join("");
  const dn=P.daily===dayKey(new Date());
  frame(`<div class="bar"><button class="daily ${dn?"done":""}" ${dn?"":'onclick="dayStart()"'}>${dn?"✓ Задание дня готово":"🎯 Задание дня"}</button></div><div class="galaxy" style="height:${H}px"><svg viewBox="0 0 100 ${H}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="#ffc83d" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 13" vector-effect="non-scaling-stroke" opacity=".85"/></svg>${nodes}</div>`,false,"map");
  hero("wave");say(P.saved===dayKey(new Date())?"❄️ Заморозка спасла твою серию!":(P.name?P.name+", давай":"Давай")+" проверим твои знания! Выбери планету.")}
@@ -716,9 +758,9 @@ function resetP(){if(confirm("Удалить все звёзды и прогре
 function lesson(id){
  L=LESSONS.find(x=>x.id===id);R={id,stars:0,weak:new Set()};live=false;
  const v=L.yt?`<iframe src="https://www.youtube.com/embed/${L.yt}?rel=0&playsinline=1" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`:`Здесь будет видео урока.<br>Вставьте ID в настройках (yt)`;
- frame(`<h1>${L.title}</h1>${L.yt?`<div class="video">${v}</div>`:`<img class="lessonpl" src="img/planets/planet${LESSONS.indexOf(L)+1}.png" alt="">`}<button class="btn" onclick="begin()">${id==="abc"||L.kind==="vis"?"Играть":"Пройти тест"}</button>`);
+ frame(`<h1>${L.title}</h1>${L.yt?`<div class="video">${v}</div>`:`<img class="lessonpl" src="img/planets/planet${(LESSONS.indexOf(L)%8)+1}.png" alt="">`}<button class="btn" onclick="begin()">${id==="abc"||L.kind==="vis"||L.kind==="combo"?"Играть":"Пройти тест"}</button>`);
  hero("wave");say(L.yt?"Посмотри видео и проверь себя!":"Давай играть!")}
-function begin(){touchDay();live=true;R={id:L.id,stars:0,weak:new Set()};L.id==="abc"?abcRound(0):L.kind==="vis"?vsStart():mcStart()}
+function begin(){touchDay();live=true;R={id:L.id,stars:0,weak:new Set()};L.id==="abc"?abcRound(0):L.kind==="vis"?vsStart():L.kind==="combo"?comboStart():mcStart()}
 
 /* ===== УРОК 1: БУКВЫ (перетаскивание) ===== */
 let A={},sel=null,drag=null;
@@ -817,8 +859,146 @@ function vsPick(btn){
   if(M.tries===1){hero("try_again");say("Hmm... Попробуй ещё раз!")}
   else{all.forEach(x=>{x.disabled=true;if(+x.dataset.k===M.i)x.classList.add("ok")});reveal();hero("think");say(`Запомним: ${it[0]} — ${it[1]}`);speak(it[0],slug(it[0]));nxt()}}}
 
+/* ===== НОВЫЕ УРОКИ (3 КЛАСС, 6 РАУНДОВ) ===== */
+let C={};
+function comboStart(){C={r:0,errs:0};comboRound()}
+function comboRound(){
+ C.errs=0;C.qi=0;C.tries=0;
+ if(C.r===0)return cmPairs(0);
+ if(C.r===1)return cmPairs(1);
+ if(C.r===2)return cmPicStart();
+ if(C.r===3)return cmGapStart();
+ if(C.r===4)return cmSortStart();
+ return cmCatStart()}
+function cmRoundEnd(){
+ const perfect=C.errs===0;if(perfect)R.stars+=BONUS_PART;$("sc").textContent=bankVal();
+ hero(perfect?"reward":"happy");say(perfect?`Раунд ${C.r+1} без ошибок! Бонус +${BONUS_PART} ⭐`:`Раунд ${C.r+1} пройден! Молодец!`);
+ const last=C.r===5;
+ $("foot").innerHTML=`<button class="btn" onclick="${last?"finish('')":"C.r++;comboRound()"}">${last?"Результат":"Дальше"}</button>`}
+
+function cmPairs(mode){
+ let pool=[];
+ if(mode===0){
+  const used=new Set();
+  for(const it of shuffle(L.items)){
+   if(it[0].includes(" "))continue;
+   const key=L.id==="where"?it[2]:it[0][0];
+   if(!used.has(key)){used.add(key);pool.push(it);if(pool.length===4)break}
+  }
+ }else{
+  pool=shuffle(L.items).slice(0,4);
+ }
+ C.pairs=pool;C.done=0;C.triesMap={};C.sel=null;
+ frame(`<p class="center">Раунд ${C.r+1} из 6 · Найди пары</p><div class="board"><div class="col" id="Lc"></div><div class="col" id="Rc"></div></div><div id="foot"></div>`);
+ hero("surprise");say(mode===0?(L.id==="where"?"Соедини флаг и страну!":"Соедини букву и слово!"):"Соедини слово и перевод!");
+ shuffle(pool).forEach((it,idx)=>{
+  const i=L.items.indexOf(it),t=document.createElement("div");
+  t.className="tile"+(mode===1?" sm":"");t.dataset.k=it[0];t.style.setProperty("--c",col(i));
+  t.textContent=mode===0?(L.id==="where"?it[2]:it[0][0]):it[1];
+  t.onclick=()=>{if(t.classList.contains("done"))return;document.querySelectorAll(".tile.sel").forEach(x=>x.classList.remove("sel"));if(C.sel===t)C.sel=null;else{C.sel=t;t.classList.add("sel")}};
+  $("Lc").appendChild(t)});
+ shuffle(pool).forEach(it=>{
+  const i=L.items.indexOf(it),c=document.createElement("div");
+  c.className="card sm";c.dataset.k=it[0];c.style.setProperty("--c",col(i));
+  c.innerHTML=`<span class="em">${mode===0&&L.id==="where"?"🌍":it[2]}</span><span>${it[0]}</span><span class="bd">✓</span>`;
+  c.onclick=()=>cmPairPick(c);
+  $("Rc").appendChild(c)})}
+function cmPairPick(c){
+ const t=C.sel;if(!t||c.classList.contains("done")||t.classList.contains("done"))return;
+ const k=t.dataset.k;
+ if(c.dataset.k===k){
+  fb(1);t.classList.add("done");t.classList.remove("sel");c.classList.add("done");C.sel=null;
+  const first=!C.triesMap[k],add=first?1:0;R.stars+=add;C.done++;
+  speak(k,slug(k));if(add)fly(c,add);else $("sc").textContent=bankVal();
+  hero(first?"thumbs_up":"happy");say(first?"Отлично! +1 ⭐":"Верно!");
+  if(C.done===C.pairs.length)setTimeout(cmRoundEnd,700);
+ }else{
+  fb(0);C.triesMap[k]=(C.triesMap[k]||0)+1;C.errs++;R.weak.add(k);C.sel=null;t.classList.remove("sel");
+  c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");
+  hero("try_again");say("Не совпало, попробуй ещё!")}}
+
+function cmPicStart(){C.qs=shuffle(L.items.filter(x=>!x[0].includes(" "))).slice(0,4);C.qi=0;cmPicQ()}
+function cmPicQ(){
+ const it=C.qs[C.qi];C.tries=0;
+ const pool=shuffle(L.items.filter(x=>x[0]!==it[0]&&!x[0].includes(" ")&&!(SYN[it[0]]||[]).includes(x[0]))).slice(0,2);
+ const opts=shuffle([it,...pool]);
+ const q=L.id==="where"?"Where are you from?":L.id==="fam"?"Кто на картинке?":"Что на картинке?";
+ frame(`<div class="prog"><i style="width:${C.qi/4*100}%"></i></div><p class="center">Раунд 3 из 6 · Вопрос ${C.qi+1} из 4</p>
+  <div class="bigem">${it[2]}</div><p class="center">${q}</p>
+  ${opts.map(o=>`<button class="opt" onclick="cmPicPick(this,'${o[0].replace(/'/g,"\\'")}')">${L.id==="where"?"I'm from "+o[0]:o[0]}</button>`).join("")}<div id="foot"></div>`);
+ hero("think");say(q)}
+function cmPicPick(btn,val){
+ const it=C.qs[C.qi],ok=val===it[0],all=document.querySelectorAll(".opt");
+ const nxt=()=>{$("foot").innerHTML=`<button class="btn" onclick="${C.qi<3?"C.qi++;cmPicQ()":"cmRoundEnd()"}">${C.qi<3?"Следующий":"Дальше"}</button>`};
+ if(ok){fb(1);all.forEach(x=>x.disabled=true);btn.classList.add("ok");const add=C.tries===0?1:0;R.stars+=add;if(add)fly(btn,add);else $("sc").textContent=bankVal();
+  speak(L.id==="where"?"I'm from "+it[0]:it[0]);hero(C.tries===0?"thumbs_up":"happy");say(C.tries===0?"Супер! +1 ⭐":"Молодец!");nxt()}
+ else{fb(0);btn.classList.add("bad");btn.disabled=true;C.tries++;C.errs++;R.weak.add(it[0]);
+  if(C.tries===1){hero("try_again");say("Подумай ещё!")}
+  else{all.forEach(x=>{x.disabled=true;if(x.textContent.endsWith(it[0]))x.classList.add("ok")});hero("think");say(`Это ${it[0]} — ${it[1]}`);nxt()}}}
+
+function cmGapStart(){C.qs=shuffle(L.gap.items).slice(0,4);C.qi=0;cmGapQ()}
+function cmGapQ(){
+ const [mask,ans,full]=C.qs[C.qi];C.tries=0;
+ const f=L.items.find(x=>x[0].toLowerCase()===full.toLowerCase());
+ const abc="aeiounstrklmcbpf";
+ const dist=shuffle([...abc].filter(ch=>ch!==ans)).slice(0,3);
+ const opts=shuffle([ans,...dist]);
+ frame(`<div class="prog"><i style="width:${C.qi/4*100}%"></i></div><p class="center">Раунд 4 из 6 · Вставь букву (${C.qi+1}/4)</p>
+  ${f?`<div class="bigem" style="font-size:64px">${f[2]}</div>`:""}
+  <div class="gapw" id="gw">${mask.replace("_","<u>_</u>")}</div>
+  <div class="og og2">${opts.map(ch=>`<button class="opt" onclick="cmGapPick(this,'${ch}')">${ch}</button>`).join("")}</div><div id="foot"></div>`);
+ hero("think");say("Какой буквы не хватает?")}
+function cmGapPick(btn,ch){
+ const [mask,ans,full]=C.qs[C.qi],ok=ch===ans,all=document.querySelectorAll(".opt");
+ const nxt=()=>{$("foot").innerHTML=`<button class="btn" onclick="${C.qi<3?"C.qi++;cmGapQ()":"cmRoundEnd()"}">${C.qi<3?"Следующее":"Дальше"}</button>`};
+ if(ok){fb(1);all.forEach(x=>x.disabled=true);btn.classList.add("ok");$("gw").innerHTML=full;
+  const add=C.tries===0?1:0;R.stars+=add;if(add)fly(btn,add);else $("sc").textContent=bankVal();
+  speak(full);hero(C.tries===0?"thumbs_up":"happy");say(C.tries===0?`${full}! +1 ⭐`:full);nxt()}
+ else{fb(0);btn.classList.add("bad");btn.disabled=true;C.tries++;C.errs++;R.weak.add(full);
+  if(C.tries===1){hero("try_again");say("Попробуй другую букву!")}
+  else{all.forEach(x=>{x.disabled=true;if(x.textContent===ans)x.classList.add("ok")});$("gw").innerHTML=full;hero("think");say(`Правильно: ${full}`);nxt()}}}
+
+function cmSortStart(){C.qs=shuffle(L.sort.items).slice(0,3);C.qi=0;cmSortQ()}
+function cmSortQ(){
+ const [target,raw]=C.qs[C.qi];C.tries=0;C.words=shuffle(raw.split(" / ").map((w,i)=>({w,i})));C.picked=[];
+ frame(`<div class="prog"><i style="width:${C.qi/3*100}%"></i></div><p class="center">Раунд 5 из 6 · Собери фразу (${C.qi+1}/3)</p>
+  <div class="slot" id="slot"><span style="opacity:.6">Нажимай на слова ниже…</span></div>
+  <div class="chips" id="chips"></div><div id="foot"></div>`);
+ cmSortRender();hero("think");say("Собери предложение по порядку!")}
+function cmSortRender(){
+ const sl=$("slot"),ch=$("chips");if(!sl||!ch)return;
+ sl.innerHTML=C.picked.length?C.picked.map((x,idx)=>`<button class="chipbtn" onclick="cmSortUnpick(${idx})">${x.w}</button>`).join(""):'<span style="opacity:.6">Нажимай на слова ниже…</span>';
+ ch.innerHTML=C.words.map((x,idx)=>`<button class="chipbtn ${C.picked.includes(x)?"used":""}" onclick="cmSortPick(${idx})">${x.w}</button>`).join("")}
+function cmSortUnpick(idx){if($("slot").classList.contains("ok"))return;C.picked.splice(idx,1);cmSortRender()}
+function cmSortPick(idx){
+ const x=C.words[idx];if(C.picked.includes(x))return;C.picked.push(x);cmSortRender();
+ if(C.picked.length===C.words.length){
+  const [target]=C.qs[C.qi],built=C.picked.map(p=>p.w).join(" ").replace(/ ([.?])/g,"$1");
+  if(built===target){
+   fb(1);$("slot").classList.add("ok");const add=C.tries===0?1:0;R.stars+=add;if(add)fly($("slot"),add);else $("sc").textContent=bankVal();
+   speak(target);hero(C.tries===0?"thumbs_up":"happy");say(C.tries===0?"Отлично! +1 ⭐":"Собрано верно!");
+   $("foot").innerHTML=`<button class="btn" onclick="${C.qi<2?"C.qi++;cmSortQ()":"cmRoundEnd()"}">${C.qi<2?"Следующая":"Дальше"}</button>`;
+  }else{
+   fb(0);C.tries++;C.errs++;R.weak.add(target);
+   $("slot").classList.remove("shake");void $("slot").offsetWidth;$("slot").classList.add("shake");
+   hero("try_again");say("Порядок не тот! Нажми на слово, чтобы убрать.");}}}
+
+function cmCatStart(){C.qs=shuffle(L.classify.items).slice(0,4);C.qi=0;cmCatQ()}
+function cmCatQ(){
+ const [word,ans]=C.qs[C.qi],f=L.items.find(x=>x[0].toLowerCase()===word.toLowerCase());C.tries=0;
+ frame(`<div class="prog"><i style="width:${C.qi/4*100}%"></i></div><p class="center">Раунд 6 из 6 · ${L.classify.label} (${C.qi+1}/4)</p>
+  ${f?`<div class="bigem" style="font-size:64px">${f[2]}</div>`:""}<div class="word">${word}</div>
+  <div class="cats">${L.classify.cats.map(ct=>`<button class="opt" onclick="cmCatPick(this,'${ct.replace(/'/g,"\\'")}')">${ct}</button>`).join("")}</div><div id="foot"></div>`);
+ hero("think");say(L.classify.label)}
+function cmCatPick(btn,ct){
+ const [word,ans]=C.qs[C.qi],ok=ct.includes(ans),all=document.querySelectorAll(".opt");
+ const nxt=()=>{$("foot").innerHTML=`<button class="btn" onclick="${C.qi<3?"C.qi++;cmCatQ()":"cmRoundEnd()"}">${C.qi<3?"Дальше":"Финиш!"}</button>`};
+ if(ok){fb(1);all.forEach(x=>x.disabled=true);btn.classList.add("ok");const add=C.tries===0?1:0;R.stars+=add;if(add)fly(btn,add);else $("sc").textContent=bankVal();
+  speak(word.replace(/[^a-zA-Z' ]/g,""));hero(C.tries===0?"thumbs_up":"happy");say(C.tries===0?"Верно! +1 ⭐":"Молодец!");nxt()}
+ else{fb(0);btn.classList.add("bad");btn.disabled=true;C.tries++;C.errs++;R.weak.add(word);hero("try_again");say("Не совсем! Выбери другой вариант.")}}
+
 /* ===== РЕЗУЛЬТАТ ===== */
-const label=k=>L.id==="abc"?k+" — "+PAIRS.find(x=>x[0]===k)[2]:L.kind==="vis"?k+" — "+L.items.find(x=>x[0]===k)[1]:k;
+const label=k=>{if(L.id==="abc")return k+" — "+PAIRS.find(x=>x[0]===k)[2];if(L.kind==="vis"||L.kind==="combo"){const f=L.items.find(x=>x[0]===k);return f?k+" — "+f[1]:k}return k};
 const link=k=>L.yt?`https://youtu.be/${L.yt}${k!=null&&L.moments[k]!=null?"?t="+L.moments[k]:""}`:"";
 function finish(extra){
  live=false;const flawless=R.weak.size===0;if(flawless)R.stars+=BONUS_LESSON;const p=P.lessons[R.id]||{},first=!p.done;NP=LESSONS.findIndex(l=>l.id===R.id);P.lessons[R.id]={done:true,best:Math.max(p.best||0,R.stars),weak:[...R.weak]};const earn=first?R.stars:Math.floor(R.stars/2);P.wallet=(P.wallet||0)+earn;save();
@@ -834,7 +1014,7 @@ function openChest(){const c=$("chest");if(!c||c.classList.contains("open"))retu
  c.innerHTML=p?`<img class="part" src="img/rocket2/t_${p[0]}.png" alt=""><b>Новая деталь ракеты: ${p[1]}!</b><small>Смотри на вкладке «Ракета»</small>`:`<b>Молодец!</b>`;hero("reward");say("Деталь для ракеты твоя!")}
 /* ===== ЗАДАНИЕ ДНЯ ===== */
 let D={};
-const LETTER_RU={Apple:"Яблоко",Bus:"Автобус",Elephant:"Слон",Giraffe:"Жираф",Ice:"Лёд",Jam:"Джем",Kangaroo:"Кенгуру",Lemon:"Лимон",Mouse:"Мышь",Nut:"Орех",Queen:"Королева",Rocket:"Ракета",Snake:"Змея",Telephone:"Телефон",Umbrella:"Зонт",Vase:"Ваза",Window:"Окно",Fox:"Лиса",Zebra:"Зебра"};
+const LETTER_RU={Apple:"Яблоко",Bus:"Автобус",Elephant:"Слон",Giraffe:"Жираф",Ice:"Лёд",Jam:"Джем",Kangaroo:"Кенгуру",Lemon:"Лимон",Mouse:"Мышь",Nut:"Орех",Queen:"Королева",Rocket:"Ракета",Snake:"Змея",Telephone:"Телефон",Umbrella:"Зонт",Vase:"Ваза",Window:"Окно",Fox:"Лиса",Zebra:"Зебра",Banana:"Банан",Cheese:"Сыр",Carrot:"Морковь",Tomato:"Помидор",Bread:"Хлеб",Milk:"Молоко",Juice:"Сок",Soup:"Суп",Pizza:"Пицца",Chicken:"Курица",Cake:"Торт",Water:"Вода",Chocolate:"Шоколад",Mum:"Мама",Dad:"Папа",Brother:"Брат",Sister:"Сестра",Granny:"Бабушка",Grandad:"Дедушка",Baby:"Малыш",Family:"Семья",Son:"Сын",Daughter:"Дочь",Belarus:"Беларусь",Britain:"Британия",America:"Америка",Africa:"Африка",Russia:"Россия",France:"Франция",Germany:"Германия",Japan:"Япония",Eyes:"Глаза",Nose:"Нос",Mouth:"Рот",Hair:"Волосы",Ears:"Уши",Head:"Голова",Arm:"Рука",Hand:"Ладонь",Leg:"Нога",Foot:"Стопа",Face:"Лицо"};
 const dailyPool=()=>{const a=[],seen=new Set();LESSONS.forEach(l=>{if(l.items)l.items.forEach(it=>{a.push([it[0],it[1]]);seen.add(it[0].toLowerCase())})});
  PAIRS.forEach(p=>{const w=p[2],ru=LETTER_RU[w];if(ru&&!seen.has(w.toLowerCase())){seen.add(w.toLowerCase());a.push([w,ru,1])}});return a};
 function dayStart(){D={q:shuffle(dailyPool()).slice(0,3),i:0,ok:0,tries:0};live=false;dayQ()}
