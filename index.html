@@ -220,7 +220,7 @@ input::placeholder{font-size:17px}
 .wsc .flame{position:absolute;width:13%;aspect-ratio:.55;transform:translate(-50%,-6%) scaleY(.2);transform-origin:50% 0;opacity:0;border-radius:50% 50% 50% 50%/30% 30% 70% 70%;background:radial-gradient(ellipse at 50% 15%,#fff7b0 0%,#ffd23f 35%,#ff7a1a 65%,rgba(255,60,0,0) 100%);filter:blur(1px)}
 .wsc .flame.on{opacity:1;animation:fk .12s linear infinite alternate}@keyframes fk{from{transform:translate(-50%,-6%) scaleY(1)}to{transform:translate(-50%,-6%) scaleY(1.4)}}
 .rkg.shake{animation:shk .08s linear infinite alternate}@keyframes shk{from{translate:-2px 0}to{translate:2px 1px}}
-.wsc .rkg{inset:auto;left:0;top:-9%;width:100%;height:100%}
+.wsc .rkg{inset:auto;left:0;top:-15%;width:100%;height:100%}
 .rank{display:flex;align-items:center;gap:14px;justify-content:center}.rb{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:46px;font-weight:800;color:#5a3300;background:radial-gradient(circle at 35% 30%,#fff3b0,#ffc83d 55%,#d88a00);border:5px solid #fff1b8;box-shadow:0 0 22px #ffc40099,inset 0 -6px 0 #b8740055}
 .rt small{display:block;font-size:13px;color:#d4c8ff;text-align:left}.rt b{display:block;font-size:30px;color:var(--gold);text-align:left}
 .pb.big{display:block;width:100%;height:16px;margin:12px 0 6px}.rn{font-size:14px;margin:0}
@@ -284,30 +284,14 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 /* ===== ПРАВКИ v7 ===== */
 #pvs{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,520px);z-index:40;padding:10px 12px calc(12px + var(--zbot));background:linear-gradient(#2c1a73,#1c0f52);border:3px solid var(--gold);border-bottom:0;border-radius:24px 24px 0 0;text-align:center;box-shadow:0 -8px 24px #000a}
 #pvs .wsc{max-width:220px;margin:4px auto}#pvs .pvt{font-size:17px}#pvs .pvn{font-size:12px;opacity:.8;margin:2px 0}
-#app.t-rocket:not(.deco) .hrow{min-height:0;margin:12px 0 2px}#app.t-rocket:not(.deco) .wsc{max-width:clamp(210px,calc((var(--tg-viewport-stable-height,100dvh) - 520px - var(--ztop) - var(--zbot))*.96),330px)}#app.t-rocket:not(.deco) .tray+.center{margin-bottom:96px}
+#app.t-rocket:not(.deco) .hrow{min-height:0;margin:10px 0 12px}#app.t-rocket:not(.deco) .wsc{max-width:clamp(230px,calc((var(--tg-viewport-stable-height,100dvh) - 395px - var(--ztop) - var(--zbot))*.96),380px)}#app.t-rocket:not(.deco) .tray+.center{display:none}#app.t-rocket:not(.deco) .tray{padding:10px 10px 18px;margin-top:10px;margin-bottom:96px}#app.t-rocket:not(.deco) .tg{gap:14px 6px}#app.t-rocket:not(.deco) .pc{width:min(100%,58px);justify-self:center}#app.t-rocket:not(.deco) .launch{flex-basis:30%}#app.t-rocket:not(.deco) .btn.alt{margin-top:6px;padding:7px;font-size:21px}
 #app.t-rocket:not(.deco) .bubble{font-size:15px;padding:6px 12px;border-radius:18px;max-width:86%}
-#app.t-rocket:not(.deco) .wsc{margin:-4px auto 0}
+#app.t-rocket:not(.deco) .wsc{margin:0 auto -26px}
 #app.deco .hrow{display:none}
 #app.deco .wsc{max-width:clamp(190px,calc((var(--tg-viewport-stable-height,100dvh) - 400px - var(--ztop) - var(--zbot))*.96),340px);margin:2px auto 0}
 .decp{text-align:center;font-size:13px;opacity:.85;margin:4px 0 6px}
 .edr{margin:6px 0 0}.edr .btn{margin:0;width:auto;flex:1;font-size:20px;padding:0 10px;height:46px;border-width:3px;box-shadow:0 4px 0 #0b6b63}
 .myt{display:flex;gap:6px;overflow-x:auto;margin:0 0 2px;padding-bottom:2px}.myt button{flex:1 0 auto;font:inherit;font-size:14px;color:var(--ink);background:#1c0f52;border:3px solid #5a3fb0;border-radius:14px;padding:6px 10px;cursor:pointer;white-space:nowrap}.myt button.on{background:linear-gradient(#35e0cf,#13a89b);border-color:#fff1b8;color:#fff}
-
-/* ===== ПРАВКИ v8 ===== */
-/* шапка: одинаковые плашки (огонь, уровень, звёзды) */
-.hud{gap:6px}
-.hud .hc,.hud #bank{height:40px;min-width:64px;padding:0 12px;justify-content:center;border-radius:999px;font-size:18px;line-height:1;gap:5px}
-.hud .hf img,.hud #bank img{width:24px;height:24px;object-fit:contain}
-@media (max-width:400px){.hud .hc,.hud #bank{padding:0 9px;font-size:16px;min-width:56px}}
-/* детали ракеты: кружки крупнее */
-.tray{gap:8px;padding:12px 10px 20px}
-.tray .tg{gap:18px 6px}
-.pc img:not(.lk){inset:6px;width:calc(100% - 12px);height:calc(100% - 12px)}
-.launch{flex:0 0 21%;padding:6px 2px;font-size:15px}.launch img:not(.lk){width:40px}
-/* «Украсить ракету»: ракета в синем квадрате */
-#app.deco .dstage{position:relative;overflow:hidden;aspect-ratio:1/1;width:min(100%,clamp(240px,calc(var(--tg-viewport-stable-height,100dvh) - 410px - var(--ztop) - var(--zbot)),440px));margin:8px auto 4px;border-radius:26px;border:4px solid var(--gold);background:radial-gradient(ellipse at 50% 28%,#58a8ff 0%,#2f6be6 52%,#1a3aa6 100%);box-shadow:0 6px 0 #b98400,0 12px 22px #0007,inset 0 0 40px #0a1f7a88}
-#app.deco .dstage:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background:radial-gradient(circle,#fffc 1.2px,transparent 2px) 0 0/46px 46px,radial-gradient(circle,#fff8 1px,transparent 2px) 23px 23px/46px 46px}
-#app.deco .dstage .wsc{position:absolute;left:11%;bottom:5%;width:78%;max-width:none;margin:0}
 </style>
 </head>
 <body>
@@ -410,7 +394,7 @@ function hear(){const w=L.items[M.i][0];speak(w,slug(w)+"_en")}
 const hudHTML=click=>{const L=levelInfo(),n=streakNow(),fz=P.freeze||0,go=click?' onclick="tabAwards()"':"";
  return `<div class="hud"><div class="hc hf"${go}><img src="img/icons/fire.png" alt="">${n}${fz?`<small>❄${fz}</small>`:""}</div><div class="hc hl"${go}>Ур.${L.n}<i style="width:${L.pct}%"></i></div><div id="bank"><img src="img/icons/star.png" alt=""><span id="sc">${bankVal()}</span></div></div>`};
 (function(){const w=document.createElement("div");w.id="twk";let h="";for(let i=0;i<34;i++){const x=i%3?Math.random()*100:(Math.random()<.5?Math.random()*10:90+Math.random()*10);h+=`<i style="left:${x.toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;font-size:${(8+Math.random()*10).toFixed(0)}px;animation-delay:${(Math.random()*3).toFixed(2)}s;animation-duration:${(1.8+Math.random()*2).toFixed(2)}s">✦</i>`}w.innerHTML=h;document.body.appendChild(w)})();
-const PRE=["img/medals/m3.webp","img/medals/m7.webp","img/medals/m14.webp","img/medals/m30.webp","bg.jpg", "img/rocket2/face.png", "img/rocket2/g_body.png", "img/rocket2/g_eng.png", "img/rocket2/g_finl.png", "img/rocket2/g_finr.png", "img/rocket2/g_low.png", "img/rocket2/g_nose.png", "img/rocket2/p_body.png", "img/rocket2/p_eng.png", "img/rocket2/p_finl.png", "img/rocket2/p_finr.png", "img/rocket2/p_low.png", "img/rocket2/p_nose.png", "img/pads/p0.webp", "img/rocket2/t_body.png", "img/rocket2/t_eng.png", "img/rocket2/t_finl.png", "img/rocket2/t_finr.png", "img/rocket2/t_low.png", "img/rocket2/t_nose.png", "img/planets/planet1.png", "img/planets/planet2.png", "img/planets/planet3.png", "img/planets/planet4.png", "img/planets/planet5.png", "img/planets/planet6.png", "img/planets/planet7.png", "img/planets/planet8.png", "img/icons/back.png", "img/icons/check.png", "img/icons/chest_closed.png", "img/icons/chest_open.png", "img/icons/fire.png", "img/icons/gear.png", "img/icons/heart.png", "img/icons/lock.png", "img/icons/mic.png", "img/icons/speaker.png", "img/icons/star.png", "img/icons/tab_awards.png", "img/icons/tab_map.png", "img/icons/tab_parents.png", "img/icons/tab_rocket.png", "img/icons/trophy.png"];
+const PRE=["img/medals/m3.webp","img/medals/m7.webp","img/medals/m14.webp","img/medals/m30.webp","bg.jpg", "img/rocket2/face.png", "img/rocket2/g_body.png", "img/rocket2/g_eng.png", "img/rocket2/g_finl.png", "img/rocket2/g_finr.png", "img/rocket2/g_low.png", "img/rocket2/g_nose.png", "img/rocket2/p_body.png", "img/rocket2/p_eng.png", "img/rocket2/p_finl.png", "img/rocket2/p_finr.png", "img/rocket2/p_low.png", "img/rocket2/p_nose.png", "img/rocket2/pad.png", "img/rocket2/t_body.png", "img/rocket2/t_eng.png", "img/rocket2/t_finl.png", "img/rocket2/t_finr.png", "img/rocket2/t_low.png", "img/rocket2/t_nose.png", "img/planets/planet1.png", "img/planets/planet2.png", "img/planets/planet3.png", "img/planets/planet4.png", "img/planets/planet5.png", "img/planets/planet6.png", "img/planets/planet7.png", "img/planets/planet8.png", "img/icons/back.png", "img/icons/check.png", "img/icons/chest_closed.png", "img/icons/chest_open.png", "img/icons/fire.png", "img/icons/gear.png", "img/icons/heart.png", "img/icons/lock.png", "img/icons/mic.png", "img/icons/speaker.png", "img/icons/star.png", "img/icons/tab_awards.png", "img/icons/tab_map.png", "img/icons/tab_parents.png", "img/icons/tab_rocket.png", "img/icons/trophy.png"];
 function startLoader(){const pb=document.querySelector(".play"),f=document.querySelector(".form");if(!pb||!f)return;
  f.insertAdjacentHTML("afterbegin",'<div class="ldr" id="ldr"><i id="ldb"></i><span id="ldt">Загрузка 0%</span></div>');pb.disabled=true;
  let n=0,fin=false;const done=()=>{if(fin)return;fin=true;pb.disabled=false;const l=$("ldr");if(l){$("ldb").style.width="100%";$("ldt").textContent="Готово!";l.classList.add("ok");setTimeout(()=>l.remove(),1000)}};
@@ -455,7 +439,7 @@ const SHOP=[
  {c:"paint",id:"p2",n:"Зелёная",f:"hue-rotate(-100deg)",p:30},
  {c:"paint",id:"p3",n:"Розовая",f:"hue-rotate(130deg) saturate(1.3)",p:30},
  {c:"paint",id:"p4",n:"Золотая",f:"sepia(1) saturate(2.5) hue-rotate(-10deg)",p:50},
- {c:"pad",id:"d0",n:"Классика",f:"img/pads/p0.webp",t:"img/pads/t0.webp",p:0,hb:51.5,pb:97.4,px:86.4},
+ {c:"pad",id:"d0",n:"Классика",f:"img/rocket2/pad.png",t:"img/rocket2/pad.png",p:0,hb:45.0,pb:83.9,px:86.4},
  {c:"pad",id:"d1",n:"Лунная база",f:"img/pads/p1.webp",t:"img/pads/t1.webp",p:80,hb:55.0,pb:99.3,px:84.8},
  {c:"pad",id:"d2",n:"Ледяная",f:"img/pads/p2.webp",t:"img/pads/t2.webp",p:80,hb:54.8,pb:95.4,px:83.8},
  {c:"pad",id:"d3",n:"Радужная",f:"img/pads/p3.webp",t:"img/pads/t3.webp",p:120,hb:56.0,pb:99.9,px:84.5},
@@ -558,7 +542,7 @@ function decoScreen(){
  card=it=>{const on=it.c==="sticker"?!!(P.dec&&P.dec.some(x=>x.id===it.id)):eq(it.c)===it.id,
   th=it.c==="sticker"?stk(it):it.c==="bg"?`<div class="sw" style="background-image:url(${it.t})"></div>`:`<img class="pd" src="${it.t||it.f}" alt="">`;
   return `<button class="sc ${rar(it.p)} ${on?"on":""}" onclick="decoTap('${it.id}')">${th}<b>${it.n}</b><span class="pr">${on?(it.c==="sticker"?"✓ На ракете":"✓ Надето"):(it.c==="sticker"?"Нанести":"Надеть")}</span></button>`};
- frame(`<div class="dstage">${rocketScene("",0)}</div><div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div>
+ frame(`${rocketScene("",0)}<div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div>
  <p class="decp">Тяни наклейку. «−» и «+» меняют размер</p>
  <div class="myt">${DCATS.map(([c,e,t])=>`<button class="${c===DC?"on":""}" onclick="decoCat('${c}')">${e} ${t}</button>`).join("")}</div>
  <div class="rail">${items.length?items.map(card).join(""):'<p class="center" style="width:100%;opacity:.85">Здесь пока пусто. Загляни в магазин!</p>'}</div>`,false,EDNAV);
