@@ -450,10 +450,11 @@ function layCopy(){const t=JSON.stringify(Object.assign({},LAYDEF,LAY));
  const ta=o.querySelector("textarea");ta.focus();ta.select();try{document.execCommand("copy")}catch(e){}}
 function devOn(){DEV=true;DSEL=null;devBar();layMark();say("Режим расстановки: тяни блоки пальцем")}
 let DBAK=null;
-function devRich(){if(!DBAK)DBAK=JSON.stringify({w:P.wallet,o:P.own,p:P.parts});
+function devRich(){let bk=null;try{bk=localStorage.getItem("twinkle_bak")}catch(e){}if(!bk){bk=JSON.stringify({w:P.wallet,o:P.own,p:P.parts});try{localStorage.setItem("twinkle_bak",bk)}catch(e){}}DBAK=bk;
  P.wallet=99999;P.own=Object.assign({},P.own);SHOP.forEach(x=>{P.own[x.id]=1});P.parts=Object.assign({},P.parts);RP.forEach(r=>{P.parts[r[0]]=1});
  save();const b=$("sc");if(b)b.textContent=bankVal();rerender();say("Тест: 99999 ⭐, всё куплено. При выходе ✕ вернётся как было")}
-function devOff(){if(DBAK){const o=JSON.parse(DBAK);P.wallet=o.w;P.own=o.o;P.parts=o.p;DBAK=null;save()}DEV=false;DSEL=null;devBar();layMark()}
+function devOff(){let bk=DBAK;try{bk=bk||localStorage.getItem("twinkle_bak")}catch(e){}
+ if(bk){const o=JSON.parse(bk);P.wallet=o.w;P.own=o.o;P.parts=o.p;DBAK=null;try{localStorage.removeItem("twinkle_bak")}catch(e){}save()}else if(P.wallet===99999){P.wallet=53;save()}DEV=false;DSEL=null;devBar();layMark()}
 document.addEventListener("pointerdown",e=>{
  const tw=e.target.closest&&e.target.closest("#app .top");
  if(tw){const n=Date.now();DTAP=DTAP.filter(t=>n-t<1500);DTAP.push(n);if(DTAP.length>=5){DTAP=[];DEV?devOff():devOn();e.preventDefault();return}}
