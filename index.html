@@ -417,8 +417,8 @@ function frame(inner,back=true,nav=""){
  <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`;applyLay()}
 
 /* РЕЖИМ РАССТАНОВКИ: 5 нажатий на «Twinkle» — двигай блоки пальцем, +/− размер, 📋 копия */
-const LAYDEF={"t-map:2.bar":[0.3,2.1,0.95],"t-map:1.hrow":[0,0,1],"t-shop:5.rail":[1.2,3.1,1],"t-map:0.top":[0,-0.2,1],"wsc.hero":[-4,5.7,1],"wsc.pad":[0,5.8,0.9],"wsc.rkg":[0.4,0.3,1.08]};
-let LAY={};try{LAY=JSON.parse(localStorage.getItem("twinkle_lay")||"{}")}catch(e){}
+const LAYDEF={"wsc.hero":[-4,5.7,1],"wsc.pad":[0,5.8,0.9],"wsc.rkg":[0.4,0.3,1.08]};
+let LAY={};try{LAY=JSON.parse(localStorage.getItem("twinkle_lay2")||"{}")}catch(e){}
 let DEV=false,DSEL=null,DDRAG=null,DTAP=[];
 const layKey=(el,i)=>(app.className.replace(/\bdeco\b/,"").trim()||"home")+(app.classList.contains("deco")?"+deco":"")+":"+i+(el.className&&typeof el.className==="string"?"."+el.className.split(" ")[0]:"");
 const layGet=k=>LAY[k]||LAYDEF[k]||[0,0,1];
@@ -443,7 +443,7 @@ function devBar(){let b=$("devbar");if(!DEV){if(b)b.remove();document.body.class
 function layScale(d){if(!DSEL)return;const v=[...layGet(DSEL)];v[2]=Math.max(.3,Math.min(2.5,Math.round((v[2]+d)*100)/100));LAY[DSEL]=v;layStore();applyLay()}
 function layUp(){const e=document.querySelector(`#app [data-lay="${DSEL}"]`);if(e&&e.parentNode!==app&&e.parentNode.dataset.lay){DSEL=e.parentNode.dataset.lay;layMark();devBar()}}
 function layReset(){if(!DSEL)return;delete LAY[DSEL];layStore();applyLay()}
-function layStore(){try{localStorage.setItem("twinkle_lay",JSON.stringify(LAY))}catch(e){}}
+function layStore(){try{localStorage.setItem("twinkle_lay2",JSON.stringify(LAY))}catch(e){}}
 function layCopy(){const t=JSON.stringify(Object.assign({},LAYDEF,LAY));
  let o=$("layout");if(o)o.remove();o=document.createElement("div");o.id="layout";
  o.innerHTML=`<p>Нажми и удерживай текст → Выбрать всё → Скопировать. Отправь мне.</p><textarea readonly>${t}</textarea><button onclick="this.parentNode.remove()">Закрыть</button>`;document.body.appendChild(o);
