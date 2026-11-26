@@ -111,8 +111,8 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:50%;width:min(100%,52
 
 #app.intro{position:fixed;inset:0;max-width:none;margin:0;padding:0;display:block;background:#0b0c4f;overflow:hidden;z-index:2;min-height:0}
 .scene{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(100vw,520px,calc(100vh*.558));aspect-ratio:937/1679;background:url(bg_intro.jpg) center/100% 100%}
-.scene:before{content:"";position:absolute;left:0;right:0;bottom:100%;height:60vh;background:#0b0c4f}
-.scene .top{position:absolute;left:4%;right:4%;top:calc(1.5% + max(0px,var(--ztop) - (100vh - min(100vw,520px,calc(100vh*.558))*1.7918)));z-index:3}
+.scene:before{content:"";position:absolute;left:0;right:0;bottom:100%;height:60vh;background:url(bg_intro.jpg) center top/100% auto no-repeat #0b0c4f;transform:scaleY(-1)}
+#app.intro>.top{position:absolute;left:50%;transform:translateX(-50%);width:min(94%,490px);top:calc(var(--ztop) + 8px);z-index:4}
 .scene .bubble{position:absolute;left:8%;width:64%;top:19%;margin:0;padding:12px 10px;text-align:center;font-size:clamp(18px,5.4vw,26px);z-index:3}
 .scene .bubble:before{left:50%;top:auto;bottom:-14px;margin:0 0 0 -9px;border:9px solid transparent;border-bottom:0;border-top-color:var(--gold)}
 .scene #hero{position:absolute;left:3%;bottom:29%;width:74%;height:auto;aspect-ratio:10/11;z-index:2;filter:drop-shadow(0 5px 5px #0006)}
@@ -220,7 +220,7 @@ input::placeholder{font-size:17px}
 .wsc .flame{position:absolute;width:13%;aspect-ratio:.55;transform:translate(-50%,-6%) scaleY(.2);transform-origin:50% 0;opacity:0;border-radius:50% 50% 50% 50%/30% 30% 70% 70%;background:radial-gradient(ellipse at 50% 15%,#fff7b0 0%,#ffd23f 35%,#ff7a1a 65%,rgba(255,60,0,0) 100%);filter:blur(1px)}
 .wsc .flame.on{opacity:1;animation:fk .12s linear infinite alternate}@keyframes fk{from{transform:translate(-50%,-6%) scaleY(1)}to{transform:translate(-50%,-6%) scaleY(1.4)}}
 .rkg.shake{animation:shk .08s linear infinite alternate}@keyframes shk{from{translate:-2px 0}to{translate:2px 1px}}
-.wsc .rkg{inset:auto;left:0;top:-5%;width:100%;height:100%}
+.wsc .rkg{inset:auto;left:0;top:-9%;width:100%;height:100%}
 .rank{display:flex;align-items:center;gap:14px;justify-content:center}.rb{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:46px;font-weight:800;color:#5a3300;background:radial-gradient(circle at 35% 30%,#fff3b0,#ffc83d 55%,#d88a00);border:5px solid #fff1b8;box-shadow:0 0 22px #ffc40099,inset 0 -6px 0 #b8740055}
 .rt small{display:block;font-size:13px;color:#d4c8ff;text-align:left}.rt b{display:block;font-size:30px;color:var(--gold);text-align:left}
 .pb.big{display:block;width:100%;height:16px;margin:12px 0 6px}.rn{font-size:14px;margin:0}
@@ -280,6 +280,18 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 @keyframes mrot{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.mi .msh,.mi .msp,.mvb::before,.mc.ok::before,.mc.got::before,.mc.ok,.mc.got .mi,.tab .nb,.mc .mimg,.dk.spray{animation:none}.mi .msp{opacity:.8}}
 .edb .rail{margin:0 -4px;padding:4px 4px 8px}.edr .btn{margin:0;width:auto;flex:1;font-size:20px;padding:0 10px;height:46px;border-width:3px;box-shadow:0 4px 0 #0b6b63}
+
+/* ===== ПРАВКИ v7 ===== */
+#pvs{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,520px);z-index:40;padding:10px 12px calc(12px + var(--zbot));background:linear-gradient(#2c1a73,#1c0f52);border:3px solid var(--gold);border-bottom:0;border-radius:24px 24px 0 0;text-align:center;box-shadow:0 -8px 24px #000a}
+#pvs .wsc{max-width:220px;margin:4px auto}#pvs .pvt{font-size:17px}#pvs .pvn{font-size:12px;opacity:.8;margin:2px 0}
+#app.t-rocket:not(.deco) .hrow{min-height:0;margin:12px 0 2px}#app.t-rocket:not(.deco) .wsc{max-width:clamp(230px,calc((var(--tg-viewport-stable-height,100dvh) - 395px - var(--ztop) - var(--zbot))*.96),380px)}#app.t-rocket:not(.deco) .tray+.center{display:none}#app.t-rocket:not(.deco) .tray{padding:8px 10px 16px;margin-top:6px;margin-bottom:96px}#app.t-rocket:not(.deco) .tg{gap:14px 6px}#app.t-rocket:not(.deco) .pc{width:min(100%,58px);justify-self:center}#app.t-rocket:not(.deco) .launch{flex-basis:30%}#app.t-rocket:not(.deco) .btn.alt{margin-top:2px;padding:7px;font-size:21px}
+#app.t-rocket:not(.deco) .bubble{font-size:15px;padding:6px 12px;border-radius:18px;max-width:86%}
+#app.t-rocket:not(.deco) .wsc{margin:-4px auto 0}
+#app.deco .hrow{display:none}
+#app.deco .wsc{max-width:clamp(190px,calc((var(--tg-viewport-stable-height,100dvh) - 400px - var(--ztop) - var(--zbot))*.96),340px);margin:2px auto 0}
+.decp{text-align:center;font-size:13px;opacity:.85;margin:4px 0 6px}
+.edr{margin:6px 0 0}.edr .btn{margin:0;width:auto;flex:1;font-size:20px;padding:0 10px;height:46px;border-width:3px;box-shadow:0 4px 0 #0b6b63}
+.myt{display:flex;gap:6px;overflow-x:auto;margin:0 0 2px;padding-bottom:2px}.myt button{flex:1 0 auto;font:inherit;font-size:14px;color:var(--ink);background:#1c0f52;border:3px solid #5a3fb0;border-radius:14px;padding:6px 10px;cursor:pointer;white-space:nowrap}.myt button.on{background:linear-gradient(#35e0cf,#13a89b);border-color:#fff1b8;color:#fff}
 </style>
 </head>
 <body>
@@ -390,7 +402,8 @@ function startLoader(){const pb=document.querySelector(".play"),f=document.query
  setTimeout(done,8000)}
 function frame(inner,back=true,nav=""){
  if(nav!=="shop"&&PV){PV=null;applyBg()}
- if(nav!=="shop"&&nav!=="rocket"&&ED){ED=false;SEL=-1}
+ {const o=$("pvs");if(o)o.remove()}
+ if(ED&&!inDeco){ED=false;SEL=-1}
  app.className=nav?"t-"+nav:"";
  app.innerHTML=`<div class="top">${back?'<button class="back" onclick="home()" aria-label="Назад"><img src="img/icons/back.png" alt=""></button>':'<b>Twinkle</b>'}${hudHTML(!back)}</div>
  <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`}
@@ -466,7 +479,7 @@ const allShop=()=>SHOP,rar=p=>p>=100?"epic":p>=50?"rare":"common";
 const owned=it=>it.p===0||!!(P.own&&P.own[it.id]),eq=c=>(P.eq&&P.eq[c])||(c==="paint"?"p0":c==="bg"?"g0":c==="pad"?"d0":"");
 const cur=c=>PV&&PV.c===c?PV.id:eq(c),curItem=c=>SHOP.find(x=>x.id===cur(c));
 function applyBg(){const it=curItem("bg");document.body.style.setProperty("--bgimg",it&&it.f?`url(${it.f})`:"url(bg.jpg)")}
-function shopRefresh(){const y=scrollY,rs=[...document.querySelectorAll(".rail")].map(r=>r.scrollLeft);app.classList.contains("t-rocket")?tabRocket():tabShop();scrollTo(0,y);document.querySelectorAll(".rail").forEach((r,i)=>r.scrollLeft=rs[i]||0)}
+function shopRefresh(){const y=scrollY,rs=[...document.querySelectorAll(".rail")].map(r=>r.scrollLeft);rerender();scrollTo(0,y);document.querySelectorAll(".rail").forEach((r,i)=>r.scrollLeft=rs[i]||0)}
 function pvOff(){PV=null;applyBg();shopRefresh()}
 const SPOTS=[[50,63],[38,52],[62,52],[40,72],[60,72],[50,44]];
 function equipItem(it){P.eq=P.eq||{};if(it.c==="sticker"){P.dec=P.dec||[];if(!P.dec.some(x=>x.id===it.id)&&P.dec.length<6){const q=SPOTS[P.dec.length];P.dec.push({id:it.id,x:q[0],y:q[1],s:12})}}else P.eq[it.c]=it.id}
@@ -497,11 +510,12 @@ function rocketScene(cls,withHero){
  const dec=hasPart(0)&&hasPart(4)?decList().map(d=>{const it=SHOP.find(x=>x.id===d.id);return it?`<span class="dk ${ED&&d.i===SEL?"sel":""} ${d.tmp?"tmp":""} ${d.i===FXI?"spray":""}" data-i="${d.i}" style="left:${d.x}%;top:${d.y}%;width:${d.s}cqw">${stk(it)}</span>`:""}).join(""):"";
  return `<div class="wsc ${cls||""} ${ED?"ed":""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="${pd.f}" style="bottom:.13%" alt=""><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${dec}</div>${pet?`<img class="pet ${rar(pet.p)}" src="${pet.f}" style="left:${pd.px||86}%;bottom:${pd.pb||87}%" alt="">`:""}${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
 /* редактор наклеек: тянуть пальцем, менять размер */
-const rerender=()=>app.classList.contains("t-rocket")?tabRocket():tabShop();
+let EDNAV="shop",inDeco=false,DC="sticker";
+const rerender=()=>ED?decoScreen():(app.classList.contains("t-rocket")?tabRocket():tabShop());
 function edOn(){if(!(hasPart(0)&&hasPart(4))){fb(0);hero("think");return say("Сначала собери Корпус и Нижний отсек!")}
  if(!((P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x)))){fb(0);hero("think");return say("Сначала купи наклейки в магазине!")}
- ED=true;SEL=-1;rerender();say("Выбери наклейку и нанеси её на ракету!")}
-function edDone(){ED=false;SEL=-1;save();rerender()}
+ EDNAV=app.classList.contains("t-rocket")?"rocket":"shop";PV=null;applyBg();ED=true;SEL=-1;DC="sticker";decoScreen();scrollTo(0,0)}
+function edDone(){ED=false;SEL=-1;save();rerender();scrollTo(0,0)}
 let FXI=-1;
 function spraySnd(){try{const h=tg&&tg.HapticFeedback;if(h&&h.impactOccurred)h.impactOccurred("light")}catch(e){}
  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime,n=Math.floor(AC.sampleRate*.45),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);
@@ -518,21 +532,30 @@ function sprayFx(){
 function edAdd(id){const it=SHOP.find(x=>x.id===id);if(!it)return;P.dec=P.dec||[];const k=P.dec.findIndex(x=>x.id===id);
  if(k>=0){SEL=k;fb(1);shopRefresh();return say("Тяни наклейку и меняй размер кнопками!")}
  if(P.dec.length>=6){fb(0);return say("На ракете уже 6 наклеек. Сними одну!")}
- equipItem(it);SEL=P.dec.length-1;FXI=SEL;save();fb(1);spraySnd();shopRefresh();hero("thumbs_up");say("Ух ты! Тяни наклейку и меняй размер!")}
-const edBox=()=>`<div class="edb"><p>Нажми наклейку и тяни по ракете. «−» и «+» меняют размер</p>${edPick()}<div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div></div>`;
-const edPick=()=>{const l=SHOP.filter(x=>x.c==="sticker"&&owned(x));return `<div class="rail">${l.length?l.map(it=>{const on=!!(P.dec&&P.dec.some(x=>x.id===it.id));return `<button class="sc ${rar(it.p)} ${on?"on":""}" onclick="edAdd('${it.id}')">${stk(it)}<b>${it.n}</b><span class="pr">${on?"✓ На ракете":"Нанести"}</span></button>`}).join(""):'<p class="center" style="width:100%;opacity:.85">Наклеек пока нет. Купи в магазине!</p>'}</div>`};
+ equipItem(it);SEL=P.dec.length-1;FXI=SEL;save();fb(1);spraySnd();shopRefresh();say("Ух ты! Тяни наклейку и меняй размер!")}
+const DCATS=[["sticker","✨","Наклейки"],["pad","🛸","Площадки"],["pet","🐾","Питомцы"],["bg","🌌","Фоны"]];
+function decoCat(c){DC=c;shopRefresh()}
+function decoTap(id){const it=SHOP.find(x=>x.id===id);if(!it)return;if(it.c==="sticker")return edAdd(id);P.eq=P.eq||{};
+ if(it.c==="pet"&&P.eq.pet===id)P.eq.pet="";else P.eq[it.c]=id;save();applyBg();fb(1);shopRefresh()}
+function decoScreen(){
+ live=false;inDeco=true;const items=SHOP.filter(x=>x.c===DC&&owned(x)),
+ card=it=>{const on=it.c==="sticker"?!!(P.dec&&P.dec.some(x=>x.id===it.id)):eq(it.c)===it.id,
+  th=it.c==="sticker"?stk(it):it.c==="bg"?`<div class="sw" style="background-image:url(${it.t})"></div>`:`<img class="pd" src="${it.t||it.f}" alt="">`;
+  return `<button class="sc ${rar(it.p)} ${on?"on":""}" onclick="decoTap('${it.id}')">${th}<b>${it.n}</b><span class="pr">${on?(it.c==="sticker"?"✓ На ракете":"✓ Надето"):(it.c==="sticker"?"Нанести":"Надеть")}</span></button>`};
+ frame(`${rocketScene("",0)}<div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div>
+ <p class="decp">Тяни наклейку. «−» и «+» меняют размер</p>
+ <div class="myt">${DCATS.map(([c,e,t])=>`<button class="${c===DC?"on":""}" onclick="decoCat('${c}')">${e} ${t}</button>`).join("")}</div>
+ <div class="rail">${items.length?items.map(card).join(""):'<p class="center" style="width:100%;opacity:.85">Здесь пока пусто. Загляни в магазин!</p>'}</div>`,false,EDNAV);
+ inDeco=false;app.classList.add("deco");say("Украшаем ракету!");sprayFx()}
 function edSize(d){const o=P.dec&&P.dec[SEL];if(!o)return say("Сначала нажми на наклейку");o.s=Math.max(6,Math.min(28,o.s+d));save();const el=document.querySelector(`.dk[data-i="${SEL}"]`);if(el)el.style.width=o.s+"cqw"}
 function edDel(){if(SEL<0||!P.dec||!P.dec[SEL])return say("Сначала нажми на наклейку");P.dec.splice(SEL,1);SEL=-1;save();rerender()}
 document.addEventListener("pointerdown",e=>{if(!ED)return;const d=e.target.closest&&e.target.closest(".dk");if(!d)return;const i=+d.dataset.i;if(i<0)return;SEL=i;DRAG={i,el:d};try{d.setPointerCapture(e.pointerId)}catch(_){}document.querySelectorAll(".dk").forEach(x=>x.classList.toggle("sel",+x.dataset.i===i));e.preventDefault()});
 document.addEventListener("pointermove",e=>{if(!DRAG)return;const o=P.dec&&P.dec[DRAG.i],g=$("rkg");if(!o||!g)return;const r=g.getBoundingClientRect();o.x=+Math.max(18,Math.min(82,(e.clientX-r.left)/r.width*100)).toFixed(1);o.y=+Math.max(16,Math.min(84,(e.clientY-r.top)/r.height*100)).toFixed(1);DRAG.el.style.left=o.x+"%";DRAG.el.style.top=o.y+"%"});
 document.addEventListener("pointerup",()=>{if(DRAG){DRAG=null;save()}});
 function tabRocket(){
- live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6,ready=hasPart(0)&&hasPart(4),mine=!!((P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x)));
- frame(`${rocketScene("",1)}${ED?"":`<p class="center"><b>Деталей собрано: ${n} из 6</b></p>`}${ED?edBox():`<div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div>
- ${ready&&mine?'<button class="btn alt" style="margin-top:14px" onclick="edOn()">✏️ Украсить ракету</button>':'<p class="center" style="font-size:13px;opacity:.8;margin:10px 0 0">Собери корпус и нижний отсек и купи наклейки, чтобы украшать ракету</p>'}
- <p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`}`,false,"rocket");
- if(!ED){hero("happy");say(all?"Ракета готова! Нажми «Запуск»!":"Собирай ракету! Нажми на деталь.")}else{hero("happy")}
- sprayFx()}
+ live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6;
+ frame(`${rocketScene("",1)}<button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button><div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`,false,"rocket");
+ hero("happy");say(all?"Ракета готова! Нажми «Запуск»!":`Собери ракету: ${n} из 6. Нажми на деталь.`)}
 function partTap(i){const [id,price]=RP[i];
  if(hasPart(i)){fb(1);hero("happy");return say(RK[id].name+" уже на месте!")}
  if((P.wallet||0)<price){fb(0);hero("try_again");return say(`Нужно ещё ${price-(P.wallet||0)} ⭐. Проходи планеты!`)}
@@ -552,15 +575,19 @@ function launch(){
  setTimeout(()=>{confetti();const first=!P.launched;P.launched=(P.launched||0)+1;if(first)P.wallet=(P.wallet||0)+30;save();$("sc").textContent=bankVal();say(first?"Ура! Ракета в космосе! +30 ⭐":"Ракета в космосе!")},3900);
  setTimeout(tabRocket,6300)}
 function soon(){fb(1);hero("surprise");say("Скоро! Оплата через Telegram Stars в разработке ✨")}
+function pvSheet(){
+ let o=$("pvs");if(o)o.remove();if(!PV)return;
+ const bg=PV.c==="bg",note=PV.c==="sticker"&&!(hasPart(0)&&hasPart(4))?'<p class="pvn">Наклейки видны, когда собраны Корпус и Нижний отсек</p>':"";
+ o=document.createElement("div");o.id="pvs";
+ o.innerHTML=`<div class="pvt">Примерка: <b>${PV.n}</b></div>${bg?"":rocketScene("small")}${note}<div class="pvb"><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`;
+ document.body.appendChild(o)}
 function tabShop(){
- live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`,
- ready=hasPart(0)&&hasPart(4),mine=(P.dec&&P.dec.length)||SHOP.some(x=>x.c==="sticker"&&owned(x)),
- under=ED?edBox():PV?`<div class="pvb"><span>Примерка: <b>${PV.n}</b></span><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`:mine?(ready?'<button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button>':'<p class="center" style="font-size:13px;opacity:.8;margin:8px 0 0">Собери корпус и нижний отсек, чтобы украшать наклейками</p>'):"";
+ live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`;
  frame(`<div class="panel wal"><img src="img/icons/star.png" alt=""><div>Мои звёзды: <b>${P.wallet||0}</b><small>Звёзды дают за уроки и задание дня</small></div></div>
- <div class="panel">${rocketScene(ED?"":"small")}${under}</div>${ED?"":`
+ <button class="btn alt" style="margin-top:0" onclick="edOn()">✏️ Украсить ракету</button>
  <h2 class="sh">🛸 Площадки запуска</h2>${rail("pad")}<h2 class="sh">✨ Наклейки</h2>${rail("sticker")}<h2 class="sh">🐾 Питомцы</h2>${rail("pet")}<h2 class="sh">🌌 Фоны</h2>${rail("bg")}
- <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><p class="center" style="font-size:13px;opacity:.8;margin:6px 0">В сундуке предмет стоимостью до 60 ⭐</p>`}`,false,"shop");
- sprayFx();hero("happy");say(ED?"Выбери наклейку и нанеси её на ракету!":PV?`Примеряем: ${PV.n}!`:"Нажми на предмет, чтобы примерить!")}
+ <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><p class="center" style="font-size:13px;opacity:.8;margin:6px 0">В сундуке предмет стоимостью до 60 ⭐</p>`,false,"shop");
+ pvSheet();hero("happy");say(PV?`Примеряем: ${PV.n}!`:"Нажми на предмет, чтобы примерить!")}
 const MEDALS=[[3,"badge_3","3 дня",10],[7,"badge_7","7 дней",25],[14,"badge_14","14 дней",50],[30,"badge_30","30 дней",120]];
 const MD={"3": [318, 360, 0, 0], "7": [316, 360, 0, 0], "14": [345, 360, 0, 0], "30": [308, 360, 0, 0]},MS={"3": ["#fff3d6", "#ffb347", "#5a2d0c", 0.17], "7": ["#ffffff", "#cfd8ea", "#2b3f6b", 0.17], "14": ["#fffbe0", "#ffd23f", "#6b3a00", 0.15], "30": ["#ffffff", "#ffd6f7", "#5b2b8f", 0.13]};
 const SPK=[[16,22,0],[84,30,.7],[24,74,1.3],[80,80,1.9],[50,10,.35],[92,56,1.1]];
@@ -759,7 +786,7 @@ function chooseVoice(){if(!document.querySelector(".gnode"))return;const p=voice
 function afterHome(){if(introState===1)pendingChoose=true;else chooseVoice()}
 function intro(){
  live=false;app.className="intro";
- app.innerHTML=`<div class="scene"><div class="top"><b>Twinkle</b>${hudHTML(false)}</div>
+ app.innerHTML=`<div class="top"><b>Twinkle</b>${hudHTML(false)}</div><div class="scene">
  <i class="tw" style="left:8%;top:14%;animation-delay:0s;font-size:22px">✦</i><i class="tw" style="left:86%;top:12%;animation-delay:0.5s;font-size:26px">✦</i><i class="tw" style="left:20%;top:30%;animation-delay:1.1s;font-size:16px">✦</i><i class="tw" style="left:78%;top:34%;animation-delay:1.6s;font-size:20px">✦</i><i class="tw" style="left:6%;top:46%;animation-delay:0.3s;font-size:18px">✦</i><i class="tw" style="left:90%;top:52%;animation-delay:1.2s;font-size:16px">✦</i><i class="tw" style="left:14%;top:66%;animation-delay:0.8s;font-size:22px">✦</i><i class="tw" style="left:84%;top:70%;animation-delay:1.9s;font-size:18px">✦</i><i class="tw" style="left:30%;top:10%;animation-delay:1.4s;font-size:14px">✦</i><i class="tw" style="left:66%;top:8%;animation-delay:0.9s;font-size:16px">✦</i><i class="tw" style="left:48%;top:20%;animation-delay:2.1s;font-size:12px">✦</i><i class="tw" style="left:94%;top:30%;animation-delay:0.2s;font-size:14px">✦</i><div id="say" class="bubble"></div><div class="shadow"></div><div id="hero"></div>
  <div class="form"><input id="nm" class="inp" maxlength="20" placeholder="Как тебя зовут? (не обязательно)" value="${(P.name||"").replace(/"/g,"")}"><button class="play" onclick="enter()" aria-label="Играть"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 9 L55 32 L20 55 Z" fill="#ffc83d" stroke="#0a6a62" stroke-width="7" stroke-linejoin="round"/><path d="M20 9 L55 32 L20 55 Z" fill="#ffc83d" stroke="#ffe27a" stroke-width="2" stroke-linejoin="round"/></svg><span>Играть</span></button></div></div>`;
  hero("wave");say("Привет! Это Твинкл!");introVoice()}
