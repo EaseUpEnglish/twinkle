@@ -419,7 +419,7 @@ function frame(inner,back=true,nav=""){
  <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`;applyLay()}
 
 /* РЕЖИМ РАССТАНОВКИ: 5 нажатий на «Twinkle» — двигай блоки пальцем, +/− размер, 📋 копия */
-const LAYDEF={"t-map:2.bar":[0.3,2.1,0.95],"t-map:1.hrow":[0,0,1],"t-rocket:3.btn":[0,27.2,0.9],"t-rocket:2.wsc":[-0.6,19.7,1.2],"t-rocket:1.hrow":[0,4.7,1],"t-rocket:0.top":[0.4,0,1],"t-shop:5.rail":[1.2,3.1,1],"t-map:0.top":[0,-0.2,1],"wsc.hero":[-3.9,12.6,1],"wsc.pad":[-0.1,5,0.9],"wsc.rkg":[0.5,3.9,1.1],"t-rocket:4.tray":[0.8,30,1]};
+const LAYDEF={"t-map:2.bar":[0.3,2.1,0.95],"t-map:1.hrow":[0,0,1],"t-rocket:3.btn":[0,27.2,0.9],"t-rocket:2.wsc":[-0.6,19.7,1.2],"t-rocket:1.hrow":[-0.2,1.6,1],"t-rocket:0.top":[-0.4,1.3,1],"t-shop:5.rail":[1.2,3.1,1],"t-map:0.top":[0,-0.2,1],"wsc.hero":[-4,5.7,1],"wsc.pad":[0,5.8,0.9],"wsc.rkg":[0.4,0.3,1.15],"t-rocket:4.tray":[0.8,30,1]};
 let LAY={};try{LAY=JSON.parse(localStorage.getItem("twinkle_lay")||"{}")}catch(e){}
 let DEV=false,DSEL=null,DDRAG=null,DTAP=[];
 const layKey=(el,i)=>(app.className.replace(/\bdeco\b/,"").trim()||"home")+(app.classList.contains("deco")?"+deco":"")+":"+i+(el.className&&typeof el.className==="string"?"."+el.className.split(" ")[0]:"");
@@ -441,7 +441,7 @@ function layMark(){document.querySelectorAll("#app [data-lay]").forEach(e=>e.cla
 function devBar(){let b=$("devbar");if(!DEV){if(b)b.remove();document.body.classList.remove("dev");return}
  document.body.classList.add("dev");
  if(!b){b=document.createElement("div");b.id="devbar";document.body.appendChild(b)}
- b.innerHTML=`<button onclick="layUp()">⤴</button><button onclick="layScale(.05)">＋</button><button onclick="layScale(-.05)">－</button><button onclick="layReset()">↺</button><button onclick="layCopy()">📋</button><button onclick="devOff()">✕</button><i>${DSEL?(DSEL.startsWith("wsc.")?LNM[DSEL.slice(4)]:DSEL.split(":")[1]):"тапни блок"}</i>`}
+ b.innerHTML=`<button onclick="layUp()">⤴</button><button onclick="layScale(.05)">＋</button><button onclick="layScale(-.05)">－</button><button onclick="layReset()">↺</button><button onclick="devRich()">⭐</button><button onclick="layCopy()">📋</button><button onclick="devOff()">✕</button><i>${DSEL?(DSEL.startsWith("wsc.")?LNM[DSEL.slice(4)]:DSEL.split(":")[1]):"тапни блок"}</i>`}
 function layScale(d){if(!DSEL)return;const v=[...layGet(DSEL)];v[2]=Math.max(.3,Math.min(2.5,Math.round((v[2]+d)*100)/100));LAY[DSEL]=v;layStore();applyLay()}
 function layUp(){const e=document.querySelector(`#app [data-lay="${DSEL}"]`);if(e&&e.parentNode!==app&&e.parentNode.dataset.lay){DSEL=e.parentNode.dataset.lay;layMark();devBar()}}
 function layReset(){if(!DSEL)return;delete LAY[DSEL];layStore();applyLay()}
@@ -451,7 +451,11 @@ function layCopy(){const t=JSON.stringify(Object.assign({},LAYDEF,LAY));
  o.innerHTML=`<p>Нажми и удерживай текст → Выбрать всё → Скопировать. Отправь мне.</p><textarea readonly>${t}</textarea><button onclick="this.parentNode.remove()">Закрыть</button>`;document.body.appendChild(o);
  const ta=o.querySelector("textarea");ta.focus();ta.select();try{document.execCommand("copy")}catch(e){}}
 function devOn(){DEV=true;DSEL=null;devBar();layMark();say("Режим расстановки: тяни блоки пальцем")}
-function devOff(){DEV=false;DSEL=null;devBar();layMark()}
+let DBAK=null;
+function devRich(){if(!DBAK)DBAK=JSON.stringify({w:P.wallet,o:P.own,p:P.parts});
+ P.wallet=99999;P.own=Object.assign({},P.own);SHOP.forEach(x=>{P.own[x.id]=1});P.parts=Object.assign({},P.parts);RP.forEach(r=>{P.parts[r[0]]=1});
+ save();const b=$("sc");if(b)b.textContent=bankVal();rerender();say("Тест: 99999 ⭐, всё куплено. При выходе ✕ вернётся как было")}
+function devOff(){if(DBAK){const o=JSON.parse(DBAK);P.wallet=o.w;P.own=o.o;P.parts=o.p;DBAK=null;save()}DEV=false;DSEL=null;devBar();layMark()}
 document.addEventListener("pointerdown",e=>{
  const tw=e.target.closest&&e.target.closest("#app .top");
  if(tw){const n=Date.now();DTAP=DTAP.filter(t=>n-t<1500);DTAP.push(n);if(DTAP.length>=5){DTAP=[];DEV?devOff():devOn();e.preventDefault();return}}
