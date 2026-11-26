@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Twinkle — уроки английского</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
@@ -10,7 +10,7 @@
 :root{--gold:#ffc83d;--ink:#fff7e0;--card:#3b2290;--teal:#27d6c6;--ztop:env(safe-area-inset-top,0px);--zbot:env(safe-area-inset-bottom,0px);box-sizing:border-box;padding-top:var(--ztop)}
 html{scroll-padding-top:var(--ztop)}
 *{box-sizing:border-box}
-html,body{overscroll-behavior:none}
+html,body{overscroll-behavior:none;touch-action:manipulation}
 body{margin:0;min-height:100vh;background:#0c0630 url(bg.jpg) center top/cover fixed;color:var(--ink);font-family:Fredoka,system-ui,sans-serif;font-weight:500;user-select:none;-webkit-user-select:none;overflow-x:hidden}
 #sky{display:none}
 #app{position:relative;max-width:520px;margin:0 auto;padding:12px 14px calc(104px + var(--zbot))}
@@ -117,7 +117,7 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:50%;width:min(100%,52
 .scene .bubble:before{left:50%;top:auto;bottom:-14px;margin:0 0 0 -9px;border:9px solid transparent;border-bottom:0;border-top-color:var(--gold)}
 .scene #hero{position:absolute;left:3%;bottom:29%;width:74%;height:auto;aspect-ratio:10/11;z-index:2;filter:drop-shadow(0 5px 5px #0006)}
 .scene .shadow{position:absolute;left:17%;bottom:27.4%;width:46%;height:3.6%;border-radius:50%;background:radial-gradient(#000a,#0000 70%);z-index:1}
-.scene .form{position:absolute;left:6%;right:6%;bottom:3.5%;z-index:3}
+.scene .form{position:absolute;left:6%;right:6%;bottom:8.5%;z-index:3}
 .scene .play{margin-top:16px}
 
 .pl{filter:drop-shadow(0 14px 12px rgba(4,2,48,.6)) drop-shadow(0 0 1px rgba(255,255,255,.25))!important;animation:fl 5.5s ease-in-out infinite;animation-delay:var(--d,0s)}
@@ -247,9 +247,23 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 .wsc .rkg .dk img{position:static}
 .dk{position:absolute;transform:translate(-50%,-50%);font-size:0;z-index:3}.dk .sk{display:block;width:100%}.dk .sk img{width:100%;height:auto}.dk.tmp{opacity:.9}
 .wsc.ed .dk{cursor:grab;touch-action:none;outline:2px dashed rgba(255,255,255,.55);outline-offset:3px;border-radius:10px}.wsc.ed .dk.sel{outline:3px solid #ffd23f}
-.wsc .pet{position:absolute;width:11.5cqw;height:auto;transform:translateX(-50%);z-index:2;animation:pbo 2.4s ease-in-out infinite;filter:drop-shadow(0 3px 4px #0007)}@keyframes pbo{0%,100%{translate:0 0;rotate:0deg}25%{translate:0 -7%;rotate:-4deg}50%{translate:0 0;rotate:0deg}75%{translate:0 -5%;rotate:4deg}}
+.wsc .pet{position:absolute;width:15cqw;height:auto;transform:translateX(-50%);z-index:2;animation:pbo 2.4s ease-in-out infinite;filter:drop-shadow(0 3px 4px #0007)}@keyframes pbo{0%,100%{translate:0 0;rotate:0deg}25%{translate:0 -7%;rotate:-4deg}50%{translate:0 0;rotate:0deg}75%{translate:0 -5%;rotate:4deg}}
 .wsc .pad{z-index:1}.wsc .padglow{position:absolute;left:50%;bottom:8%;width:86%;height:54%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at center,rgba(57,230,255,.45) 0%,rgba(160,110,255,.28) 45%,transparent 72%);filter:blur(14px);z-index:0;pointer-events:none;animation:pglow 3s ease-in-out infinite alternate}@keyframes pglow{from{opacity:.65;transform:translateX(-50%) scale(.95)}to{opacity:1;transform:translateX(-50%) scale(1.06)}}
-.decobox{background:linear-gradient(180deg,#2342a8,#16276b);border:3px solid var(--gold);border-radius:22px;padding:10px 10px 12px;margin:4px 0 10px;box-shadow:0 6px 20px #0006,inset 0 0 24px rgba(57,230,255,.16)}
+.decobox{background:linear-gradient(180deg,#2342a8,#16276b);border:3px solid var(--gold);border-radius:22px;padding:34px 10px 10px;margin:2px 0 6px;box-shadow:0 6px 20px #0006,inset 0 0 24px rgba(57,230,255,.16);overflow:hidden}
+html:has(#app.deco),html:has(#app.deco) body{height:100%;min-height:0;overflow:hidden}
+#app.deco{display:flex;flex-direction:column;height:calc(var(--tg-viewport-stable-height,100dvh) - var(--ztop));padding-top:8px;padding-bottom:calc(92px + var(--zbot));overflow:hidden}
+#app.deco>*{flex:none}
+#app.deco .decobox{flex:1 1 0;min-height:0;display:flex;flex-direction:column;justify-content:center}
+#app.deco .decobox .wsc{max-width:clamp(130px,calc((var(--tg-viewport-stable-height,100dvh) - 440px - var(--ztop) - var(--zbot))*.8),215px);margin:0 auto}
+#app.deco .rail{padding:6px 4px 10px}
+.rstage{position:relative}
+.rstage .moonwrap{position:absolute;left:50%;top:64%;transform:translateX(-50%);width:142%;aspect-ratio:1;pointer-events:none;z-index:0}
+.rstage .moonwrap::before{content:"";position:absolute;inset:-14%;border-radius:50%;background:radial-gradient(circle,rgba(140,195,255,.55) 0%,rgba(120,100,255,.35) 45%,transparent 72%);filter:blur(18px);animation:mglow2 3.5s ease-in-out infinite alternate}
+@keyframes mglow2{from{opacity:.75;transform:scale(.96)}to{opacity:1;transform:scale(1.04)}}
+.rstage .moonbg{position:relative;width:100%;height:100%;display:block;border-radius:50%;filter:drop-shadow(0 -6px 18px rgba(200,225,255,.45))}
+.rstage .moonwrap::after{content:"";position:absolute;left:50%;top:5%;transform:translateX(-50%);width:54%;height:14%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(5,3,28,.75) 0%,rgba(5,3,28,.38) 55%,transparent 80%);filter:blur(4px)}
+.rstage .wsc{z-index:1}
+#app.t-rocket:not(.deco)>*{position:relative;z-index:2}
 .chests{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 12px}
 .chb{background:linear-gradient(#3558c8,#1e3282);border:3px solid var(--gold);border-radius:18px;padding:10px 4px;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;box-shadow:0 4px 0 #121d54}
 .chb:active{transform:translateY(2px)}.chb .ci{font-size:34px;line-height:1}.chb b{font-size:13px}.chb .pr{font-size:13px;background:linear-gradient(#ffe27a,#ffb300);color:#4a2c00;border-radius:999px;padding:1px 9px;font-weight:700}
@@ -488,7 +502,7 @@ function frame(inner,back=true,nav=""){
 /* РЕЖИМ РАССТАНОВКИ: 5 нажатий на «Twinkle» — двигай блоки пальцем, +/− размер, 📋 копия */
 const LAYDEF={"wsc.hero":[-4,5.7,1],"wsc.pad":[0,5.8,0.9],"wsc.rkg":[0.4,0.3,1.08]};
 let LAY={};try{LAY=JSON.parse(localStorage.getItem("twinkle_lay2")||"{}")}catch(e){}
-let DEV=false,DSEL=null,DDRAG=null,DTAP=[];
+let DEV=false,DSEL=null,DDRAG=null,DTAP=[];const DEV_LOCK=true;
 const layKey=(el,i)=>(app.className.replace(/\bdeco\b/,"").trim()||"home")+(app.classList.contains("deco")?"+deco":"")+":"+i+(el.className&&typeof el.className==="string"?"."+el.className.split(" ")[0]:"");
 const layGet=k=>LAY[k]||LAYDEF[k]||[0,0,1];
 const LIN=".wsc>.pad,.wsc>.rkg,.wsc>#hero,.wsc>.pet",LNM={pad:"площадка",rkg:"ракета",hero:"твинкл",pet:"питомец"};
@@ -501,7 +515,7 @@ function layPut(el,v){const u=layUnit(el),x=v[0]*u/100,y=v[1]*u/100;
 function applyLay(){
  if(app.classList.contains("intro"))return;
  [...app.children].forEach((el,i)=>{
-  if(el.tagName==="NAV"||el.id==="devbar")return;
+  if(el.tagName==="NAV"||el.id==="devbar"||el.classList.contains("moonbg"))return;
   const k=layKey(el,i);el.dataset.lay=k;layPut(el,layGet(k))});
  app.querySelectorAll(LIN).forEach(el=>{const n=el.id==="hero"?"hero":el.classList.contains("pad")?"pad":el.classList.contains("pet")?"pet":"rkg";const k="wsc."+n;el.dataset.lay=k;layPut(el,layGet(k))})}
 function layMark(){document.querySelectorAll("#app [data-lay]").forEach(e=>e.classList.toggle("lsel",DEV&&e.dataset.lay===DSEL))}
@@ -526,7 +540,7 @@ function devOff(){let bk=DBAK;try{bk=bk||localStorage.getItem("twinkle_bak")}cat
  if(bk){const o=JSON.parse(bk);P.wallet=o.w;P.own=o.o;P.parts=o.p;DBAK=null;try{localStorage.removeItem("twinkle_bak")}catch(e){}save()}else if(P.wallet===99999){P.wallet=53;save()}DEV=false;DSEL=null;devBar();layMark()}
 document.addEventListener("pointerdown",e=>{
  const tw=e.target.closest&&e.target.closest("#app .top");
- if(tw){const n=Date.now();DTAP=DTAP.filter(t=>n-t<1500);DTAP.push(n);if(DTAP.length>=5){DTAP=[];DEV?devOff():devOn();e.preventDefault();return}}
+ if(!DEV_LOCK&&tw){const n=Date.now();DTAP=DTAP.filter(t=>n-t<1500);DTAP.push(n);if(DTAP.length>=5){DTAP=[];DEV?devOff():devOn();e.preventDefault();return}}
  if(!DEV||app.classList.contains("intro"))return;
  if(e.target.closest("#devbar,#layout"))return;
  const el=e.target.closest("#app [data-lay]");if(!el)return;
@@ -680,7 +694,8 @@ function decoScreen(){
   return `<button class="sc ${rar(it.p)} ${on?"on":""}" onclick="decoTap('${it.id}')">${th}<b>${it.n}</b><span class="pr">${on?(it.c==="sticker"?"✓ На ракете":"✓ Надето"):(it.c==="sticker"?"Нанести":"Надеть")}</span></button>`};
  frame(`<div class="decobox">${rocketScene("",0)}<div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div></div>
  <div class="myt">${DCATS.map(([c,e,t])=>`<button class="${c===DC?"on":""}" onclick="decoCat('${c}')">${e} ${t}</button>`).join("")}</div>
- <div class="rail">${items.length?items.map(card).join(""):'<p class="center" style="width:100%;opacity:.85">Здесь пока пусто. Загляни в магазин!</p>'}</div>`,false,EDNAV);
+ <div class="rail">${items.length?items.map(card).join(""):'<p class="center" style="width:100%;opacity:.85">Здесь пока пусто. Загляни в магазин!</p>'}</div>`,true,EDNAV);
+ const bk=document.querySelector("#app .back");if(bk)bk.onclick=edDone;
  inDeco=false;app.classList.add("deco");say("Украшаем ракету!");sprayFx()}
 function edSize(d){const o=P.dec&&P.dec[SEL];if(!o)return say("Сначала нажми на наклейку");o.s=Math.max(6,Math.min(28,o.s+d));save();const el=document.querySelector(`.dk[data-i="${SEL}"]`);if(el)el.style.width=o.s+"cqw"}
 function edDel(){if(SEL<0||!P.dec||!P.dec[SEL])return say("Сначала нажми на наклейку");P.dec.splice(SEL,1);SEL=-1;save();rerender()}
@@ -689,7 +704,7 @@ document.addEventListener("pointermove",e=>{if(!DRAG)return;const o=P.dec&&P.dec
 document.addEventListener("pointerup",()=>{if(DRAG){DRAG=null;save()}});
 function tabRocket(){
  live=false;const n=RP.filter((_,i)=>hasPart(i)).length,all=n===6;
- frame(`<div class="rstage">${rocketScene("",1)}</div><button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button><div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`,false,"rocket");scrollTo(0,0);
+ frame(`<div class="rstage"><div class="moonwrap"><img class="moonbg" src="img/moon_ground.webp" alt=""></div>${rocketScene("",1)}</div><button class="btn alt" style="margin-top:8px" onclick="edOn()">✏️ Украсить ракету</button><div class="tray"><div class="tg">${RP.map(([id,price],i)=>hasPart(i)?`<button class="pc own" onclick="partTap(${i})"><img src="img/rocket2/t_${id}.png" alt=""></button>`:`<button class="pc" onclick="partTap(${i})"><img class="dim" src="img/rocket2/t_${id}.png" alt=""><span class="pr">⭐ ${price}</span>${(P.wallet||0)>=price?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button>`).join("")}</div><button class="launch ${all?"":"off"}" onclick="launch()"><img src="img/icons/tab_rocket.png" alt=""><b>Запуск</b>${all?"":'<img class="lk" src="img/icons/lock.png" alt="">'}</button></div><p class="center" style="font-size:14px;opacity:.85">Детали дают за планеты или покупай за звёзды</p>`,false,"rocket");scrollTo(0,0);
  hero("happy");say(all?"Ракета готова! Нажми «Запуск»!":`Собери ракету: ${n} из 6. Нажми на деталь.`)}
 function partTap(i){const [id,price]=RP[i];
  if(hasPart(i)){fb(1);hero("happy");return say(RK[id].name+" уже на месте!")}
@@ -785,8 +800,8 @@ window.addEventListener("pointermove",e=>{if(!drag)return;
  if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>8){drag.moved=true;const g=drag.t.cloneNode(true);g.classList.add("ghost");g.style.cssText="transform:none;margin:-32px 0 0 -40px";document.body.appendChild(g);drag.g=g;drag.t.style.opacity=.3}
  if(drag.g){drag.g.style.left=e.clientX+"px";drag.g.style.top=e.clientY+"px"}});
 window.addEventListener("pointerup",e=>{if(!drag)return;const {t,moved,g}=drag;drag=null;if(g)g.remove();
- if(moved){t.style.opacity="";const c=document.elementFromPoint(e.clientX,e.clientY);const cd=c&&c.closest(".card");if(cd)attempt(t,cd)}
- else{document.querySelectorAll(".tile.sel").forEach(x=>x.classList.remove("sel"));if(sel===t)sel=null;else{sel=t;t.classList.add("sel")}}});
+ if(moved){t.style.opacity="";const c=document.elementFromPoint(e.clientX,e.clientY);const cd=c&&c.closest(".card");if(cd){if(L&&L.kind==="combo")cmPairPick(cd,t);else attempt(t,cd)}}
+ else{document.querySelectorAll(".tile.sel").forEach(x=>x.classList.remove("sel"));if(sel===t){sel=null;if(C)C.sel=null}else{sel=t;if(C)C.sel=t;t.classList.add("sel")}}});
 function attempt(t,c){
  if(c.classList.contains("done")||t.classList.contains("done"))return;
  const l=t.dataset.l,p=PAIRS.find(x=>x[0]===l);document.querySelectorAll(".hint").forEach(x=>x.classList.remove("hint"));
@@ -903,7 +918,7 @@ function cmPairs(mode){
   const i=L.items.indexOf(it),t=document.createElement("div");
   t.className="tile"+(mode===1?" sm":"");t.dataset.k=it[0];t.style.setProperty("--c",col(i));
   t.textContent=mode===0?(L.id==="where"?it[2]:it[0][0]):it[1];
-  t.onclick=()=>{if(t.classList.contains("done"))return;document.querySelectorAll(".tile.sel").forEach(x=>x.classList.remove("sel"));if(C.sel===t)C.sel=null;else{C.sel=t;t.classList.add("sel")}};
+  t.onpointerdown=e=>tileDown(e,t);
   $("Lc").appendChild(t)});
  shuffle(pool).forEach(it=>{
   const i=L.items.indexOf(it),c=document.createElement("div");
@@ -911,17 +926,17 @@ function cmPairs(mode){
   c.innerHTML=`<span class="em">${mode===0&&L.id==="where"?"🌍":it[2]}</span><span>${it[0]}</span><span class="bd">✓</span>`;
   c.onclick=()=>cmPairPick(c);
   $("Rc").appendChild(c)})}
-function cmPairPick(c){
- const t=C.sel;if(!t||c.classList.contains("done")||t.classList.contains("done"))return;
+function cmPairPick(c,src){
+ const t=src||C.sel||sel;if(!t||c.classList.contains("done")||t.classList.contains("done"))return;
  const k=t.dataset.k;
  if(c.dataset.k===k){
-  fb(1);t.classList.add("done");t.classList.remove("sel");c.classList.add("done");C.sel=null;
+  fb(1);t.classList.add("done");t.classList.remove("sel");c.classList.add("done");C.sel=null;sel=null;
   const first=!C.triesMap[k],add=first?1:0;R.stars+=add;C.done++;
   speak(k,slug(k));if(add)fly(c,add);else $("sc").textContent=bankVal();
   hero(first?"thumbs_up":"happy");say(first?"Отлично! +1 ⭐":"Верно!");
   if(C.done===C.pairs.length)setTimeout(cmRoundEnd,700);
  }else{
-  fb(0);C.triesMap[k]=(C.triesMap[k]||0)+1;C.errs++;R.weak.add(k);C.sel=null;t.classList.remove("sel");
+  fb(0);C.triesMap[k]=(C.triesMap[k]||0)+1;C.errs++;R.weak.add(k);C.sel=null;sel=null;t.classList.remove("sel");
   c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");
   hero("try_again");say("Не совпало, попробуй ещё!")}}
 
@@ -1089,6 +1104,8 @@ async function boot(){
  if(v){try{const c=JSON.parse(v);if(c.name&&!P.name)P.name=c.name;if(P.wallet==null&&c.wallet!=null){P.wallet=c.wallet;P.own=c.own;P.eq=c.eq}if(c.streak&&(!P.streak||c.streak.last>P.streak.last)){P.streak=c.streak;P.freeze=c.freeze||0;P.daily=c.daily}
   if(c.v===2)for(const [k,x] of Object.entries(c.lessons||{})){const m=P.lessons[k];if(!m||(x.best||0)>(m.best||0))P.lessons[k]=x}}catch(e){}}
  if(P.wallet==null)P.wallet=bests("");P.own=P.own||{};P.eq=P.eq||{};applyBg();intro();startLoader()}
+document.addEventListener("gesturestart",e=>e.preventDefault());
+document.addEventListener("touchmove",e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});
 boot();
 </script>
 </body>
