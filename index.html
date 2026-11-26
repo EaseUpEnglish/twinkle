@@ -247,7 +247,13 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 .wsc .rkg .dk img{position:static}
 .dk{position:absolute;transform:translate(-50%,-50%);font-size:0;z-index:3}.dk .sk{display:block;width:100%}.dk .sk img{width:100%;height:auto}.dk.tmp{opacity:.9}
 .wsc.ed .dk{cursor:grab;touch-action:none;outline:2px dashed rgba(255,255,255,.55);outline-offset:3px;border-radius:10px}.wsc.ed .dk.sel{outline:3px solid #ffd23f}
-.wsc .pet{position:absolute;width:11.5cqw;height:auto;transform:translateX(-50%);z-index:2;animation:pbo 2.8s ease-in-out infinite;filter:drop-shadow(0 3px 4px #0007)}@keyframes pbo{50%{translate:0 -5%}}
+.wsc .pet{position:absolute;width:11.5cqw;height:auto;transform:translateX(-50%);z-index:2;animation:pbo 2.4s ease-in-out infinite;filter:drop-shadow(0 3px 4px #0007)}@keyframes pbo{0%,100%{translate:0 0;rotate:0deg}25%{translate:0 -7%;rotate:-4deg}50%{translate:0 0;rotate:0deg}75%{translate:0 -5%;rotate:4deg}}
+.wsc .pad{z-index:1}.wsc .padglow{position:absolute;left:50%;bottom:8%;width:86%;height:54%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at center,rgba(57,230,255,.45) 0%,rgba(160,110,255,.28) 45%,transparent 72%);filter:blur(14px);z-index:0;pointer-events:none;animation:pglow 3s ease-in-out infinite alternate}@keyframes pglow{from{opacity:.65;transform:translateX(-50%) scale(.95)}to{opacity:1;transform:translateX(-50%) scale(1.06)}}
+.decobox{background:linear-gradient(180deg,#2342a8,#16276b);border:3px solid var(--gold);border-radius:22px;padding:10px 10px 12px;margin:4px 0 10px;box-shadow:0 6px 20px #0006,inset 0 0 24px rgba(57,230,255,.16)}
+.chests{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 12px}
+.chb{background:linear-gradient(#3558c8,#1e3282);border:3px solid var(--gold);border-radius:18px;padding:10px 4px;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;box-shadow:0 4px 0 #121d54}
+.chb:active{transform:translateY(2px)}.chb .ci{font-size:34px;line-height:1}.chb b{font-size:13px}.chb .pr{font-size:13px;background:linear-gradient(#ffe27a,#ffb300);color:#4a2c00;border-radius:999px;padding:1px 9px;font-weight:700}
+.chb.rare{border-color:#6ec6ff}.chb.epic{border-color:#d28bff;box-shadow:0 4px 0 #121d54,0 0 14px #c77dff66}
 .edb{text-align:center;margin:8px 0}.edb p{margin:4px 0 8px;font-size:15px;color:#ffe9a0}.edr{display:flex;gap:8px;justify-content:center;align-items:center;margin-bottom:10px}.edr button{width:52px;height:46px;border-radius:14px;border:3px solid #fff1b8;background:linear-gradient(#5a3bc0,#3b2290);color:#fff;font:inherit;font-size:24px;font-weight:700;cursor:pointer}.edr span{font-weight:700;min-width:70px}
 .tray .tg{grid-template-columns:repeat(3,minmax(0,1fr));min-width:0}.pc{position:relative;min-width:0;padding:0}.pc img:not(.lk){position:absolute;inset:9px;width:calc(100% - 18px);height:calc(100% - 18px);object-fit:contain}.pc .pr{font-size:12px;padding:0 7px}.launch{min-width:0;flex:0 0 26%}
 @media (prefers-reduced-motion:reduce){.wsc .pet{animation:none}}
@@ -564,13 +570,13 @@ const SHOP=[
  {c:"paint",id:"p2",n:"Зелёная",f:"hue-rotate(-100deg)",p:30},
  {c:"paint",id:"p3",n:"Розовая",f:"hue-rotate(130deg) saturate(1.3)",p:30},
  {c:"paint",id:"p4",n:"Золотая",f:"sepia(1) saturate(2.5) hue-rotate(-10deg)",p:50},
- {c:"pad",id:"d0",n:"Классика",f:"img/pads/p0.webp",t:"img/pads/t0.webp",p:0,hb:55.0,pb:99.3,px:84.8},
- {c:"pad",id:"d1",n:"Лунная база",f:"img/pads/p1.webp",t:"img/pads/t1.webp",p:80,hb:55.0,pb:99.3,px:84.8},
- {c:"pad",id:"d2",n:"Ледяная",f:"img/pads/p2.webp",t:"img/pads/t2.webp",p:80,hb:54.8,pb:95.4,px:83.8},
- {c:"pad",id:"d3",n:"Радужная",f:"img/pads/p3.webp",t:"img/pads/t3.webp",p:120,hb:56.0,pb:99.9,px:84.5},
- {c:"pad",id:"d4",n:"Тропический пляж",f:"img/pads/p4.webp",t:"img/pads/t4.webp",p:100,hb:64.8,pb:100.4,px:85.0},
- {c:"pad",id:"d5",n:"Конфетная",f:"img/pads/p5.webp",t:"img/pads/t5.webp",p:100,hb:58.5,pb:98.8,px:84.8},
- {c:"pad",id:"d6",n:"Коралловая",f:"img/pads/p6.webp",t:"img/pads/t6.webp",p:120,hb:60.2,pb:99.7,px:83.5},
+ {c:"pad",id:"d0",n:"Классика",f:"img/pads/p0.webp",t:"img/pads/t0.webp",p:0,hb:55.0,pb:88.5,px:80.8},
+ {c:"pad",id:"d1",n:"Лунная база",f:"img/pads/p1.webp",t:"img/pads/t1.webp",p:80,hb:55.0,pb:88.5,px:80.8},
+ {c:"pad",id:"d2",n:"Ледяная",f:"img/pads/p2.webp",t:"img/pads/t2.webp",p:80,hb:54.8,pb:85.0,px:80.0},
+ {c:"pad",id:"d3",n:"Радужная",f:"img/pads/p3.webp",t:"img/pads/t3.webp",p:120,hb:56.0,pb:89.0,px:80.6},
+ {c:"pad",id:"d4",n:"Тропический пляж",f:"img/pads/p4.webp",t:"img/pads/t4.webp",p:100,hb:64.8,pb:89.5,px:81.0},
+ {c:"pad",id:"d5",n:"Конфетная",f:"img/pads/p5.webp",t:"img/pads/t5.webp",p:100,hb:58.5,pb:88.0,px:80.8},
+ {c:"pad",id:"d6",n:"Коралловая",f:"img/pads/p6.webp",t:"img/pads/t6.webp",p:120,hb:60.2,pb:88.8,px:79.8},
  {c:"sticker",id:"k_apple",n:"Яблоко",f:"img/stk/apple.webp",p:15},
  {c:"sticker",id:"k_banana",n:"Банан",f:"img/stk/banana.webp",p:15},
  {c:"sticker",id:"k_orange",n:"Апельсин",f:"img/stk/orange.webp",p:15},
@@ -616,10 +622,15 @@ function shopTap(id){const it=SHOP.find(x=>x.id===id);if(!it)return;P.own=P.own|
  if(!PV||PV.id!==id){PV=it;applyBg();fb(1);shopRefresh();hero("think");return say(`Примеряем: ${it.n}. Нажми ещё раз, чтобы купить!`)}
  if((P.wallet||0)<it.p){fb(0);shopRefresh();hero("try_again");return say(`Нужно ещё ${it.p-(P.wallet||0)} ⭐. Проходи планеты!`)}
  P.wallet-=it.p;P.own[id]=1;equipItem(it);PV=null;save();applyBg();fb(1);confetti();shopRefresh();hero("thumbs_up");say(`Куплено: ${it.n}!`)}
-function openBox(){const pool=SHOP.filter(x=>x.p>0&&x.p<=60&&x.c!=="paint"&&!owned(x));P.own=P.own||{};P.eq=P.eq||{};
- if(!pool.length){shopRefresh();return say("Всё доступное уже есть!")}
- if((P.wallet||0)<25){fb(0);shopRefresh();hero("try_again");return say("Для сундука нужно 25 ⭐")}
- const it=pool[Math.floor(Math.random()*pool.length)];P.wallet-=25;P.own[it.id]=1;equipItem(it);PV=null;save();applyBg();fb(1);confetti();shopRefresh();hero("reward");say(`В сундуке: ${it.n}!`)}
+const CHESTS=[
+ {ic:"🎁",n:"Обычный",p:15,min:1,max:30,cls:""},
+ {ic:"💎",n:"Редкий",p:45,min:31,max:80,cls:"rare"},
+ {ic:"👑",n:"Эпический",p:85,min:81,max:200,cls:"epic"}];
+function openBox(idx=0){const ch=CHESTS[idx]||CHESTS[0];
+ const pool=SHOP.filter(x=>x.p>=ch.min&&x.p<=ch.max&&x.c!=="paint"&&!owned(x));P.own=P.own||{};P.eq=P.eq||{};
+ if(!pool.length){shopRefresh();return say(`Всё из сундука «${ch.n}» уже собрано!`)}
+ if((P.wallet||0)<ch.p){fb(0);shopRefresh();hero("try_again");return say(`Для сундука нужно ${ch.p} ⭐ (у тебя ${P.wallet||0} ⭐)`)}
+ const it=pool[Math.floor(Math.random()*pool.length)];P.wallet-=ch.p;P.own[it.id]=1;equipItem(it);PV=null;save();applyBg();fb(1);confetti();shopRefresh();hero("reward");say(`В сундуке: ${it.n}!`)}
 const stk=it=>`<span class="sk ${rar(it.p)}" style="--m:url(${it.f})"><img src="${it.f}" alt=""></span>`;
 const shopCard=it=>{const o=owned(it),on=it.c==="sticker"?!!(P.dec&&P.dec.some(x=>x.id===it.id)):eq(it.c)===it.id,pv=!!(PV&&PV.id===it.id),th=it.c==="paint"?`<img src="img/rocket/rocket_small.png" style="filter:${it.f}" alt="">`:it.c==="sticker"?stk(it):it.c==="pad"||it.c==="pet"?`<img class="pd" src="${it.t||it.f}" alt="">`:`<div class="sw" style="background-image:url(${it.t})"></div>`,
  lb=on?(it.c==="sticker"?"✓ На ракете":"✓ Надето"):o?(it.c==="sticker"?"На ракету":"Надеть"):pv?"Купить":`⭐ ${it.p}`;
@@ -633,7 +644,7 @@ function rocketScene(cls,withHero){
  const pf="none",pet=curItem("pet"),pd=curItem("pad")||SHOP.find(x=>x.id==="d0"),sty=o=>`left:${o.l}%;top:${o.t}%;width:${o.w}%`;let g="",p="";
  RP.forEach(([id],i)=>{if(hasPart(i))p+=`<img class="rp" data-p="${id}" src="img/rocket2/p_${id}.png" style="${sty(RK[id].p)}" alt="">`;else g+=`<img class="rg" src="img/rocket2/g_${id}.png" style="${sty(RK[id].g)}" alt="">`});
  const dec=hasPart(0)&&hasPart(4)?decList().map(d=>{const it=SHOP.find(x=>x.id===d.id);return it?`<span class="dk ${ED&&d.i===SEL?"sel":""} ${d.tmp?"tmp":""} ${d.i===FXI?"spray":""}" data-i="${d.i}" style="left:${d.x}%;top:${d.y}%;width:${d.s}cqw">${stk(it)}</span>`:""}).join(""):"";
- return `<div class="wsc ${cls||""} ${ED?"ed":""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="${pd.f}" style="bottom:.13%" alt="" onerror="this.onerror=null;this.src='img/rocket2/pad.png'"><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${dec}</div>${pet?`<img class="pet ${rar(pet.p)}" src="${pet.f}" style="left:${pd.px||86}%;bottom:${pd.pb||87}%" alt="">`:""}${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
+ return `<div class="wsc ${cls||""} ${ED?"ed":""}" style="aspect-ratio:${1/RK._.ratio}"><i class="padglow"></i><img class="pad" src="${pd.f}" style="bottom:.13%" alt="" onerror="this.onerror=null;this.src='img/rocket2/pad.png'"><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${dec}</div>${pet?`<img class="pet ${rar(pet.p)}" src="${pet.f}" style="left:${pd.px||80.8}%;bottom:${pd.pb||88.5}%" alt="">`:""}${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
 /* редактор наклеек: тянуть пальцем, менять размер */
 let EDNAV="shop",inDeco=false,DC="sticker";
 const rerender=()=>ED?decoScreen():(app.classList.contains("t-rocket")?tabRocket():tabShop());
@@ -667,8 +678,7 @@ function decoScreen(){
  card=it=>{const on=it.c==="sticker"?!!(P.dec&&P.dec.some(x=>x.id===it.id)):eq(it.c)===it.id,
   th=it.c==="sticker"?stk(it):it.c==="bg"?`<div class="sw" style="background-image:url(${it.t})"></div>`:`<img class="pd" src="${it.t||it.f}" alt="">`;
   return `<button class="sc ${rar(it.p)} ${on?"on":""}" onclick="decoTap('${it.id}')">${th}<b>${it.n}</b><span class="pr">${on?(it.c==="sticker"?"✓ На ракете":"✓ Надето"):(it.c==="sticker"?"Нанести":"Надеть")}</span></button>`};
- frame(`${rocketScene("",0)}<div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div>
- <p class="decp">Тяни наклейку. «−» и «+» меняют размер</p>
+ frame(`<div class="decobox">${rocketScene("",0)}<div class="edr"><button onclick="edSize(-2)">−</button><button onclick="edSize(2)">+</button><button onclick="edDel()">🗑</button><button class="btn" onclick="edDone()">Готово</button></div></div>
  <div class="myt">${DCATS.map(([c,e,t])=>`<button class="${c===DC?"on":""}" onclick="decoCat('${c}')">${e} ${t}</button>`).join("")}</div>
  <div class="rail">${items.length?items.map(card).join(""):'<p class="center" style="width:100%;opacity:.85">Здесь пока пусто. Загляни в магазин!</p>'}</div>`,false,EDNAV);
  inDeco=false;app.classList.add("deco");say("Украшаем ракету!");sprayFx()}
@@ -704,15 +714,13 @@ function pvSheet(){
  let o=$("pvs");if(o)o.remove();if(!PV)return;
  const bg=PV.c==="bg",note=PV.c==="sticker"&&!(hasPart(0)&&hasPart(4))?'<p class="pvn">Наклейки видны, когда собраны Корпус и Нижний отсек</p>':"";
  o=document.createElement("div");o.id="pvs";
- o.innerHTML=`<div class="pvt">Примерка: <b>${PV.n}</b></div>${bg?"":rocketScene("small")}${note}<div class="pvb"><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`;
+ o.innerHTML=`${bg?"":rocketScene("small")}${note}<div class="pvb"><button class="btn" onclick="shopTap('${PV.id}')">Купить ⭐ ${PV.p}</button><button class="link" onclick="pvOff()">Отмена</button></div>`;
  document.body.appendChild(o)}
 function tabShop(){
  live=false;const rail=c=>`<div class="rail">${SHOP.filter(x=>x.c===c).map(shopCard).join("")}</div>`;
- frame(`<div class="panel wal"><img src="img/icons/star.png" alt=""><div>Мои звёзды: <b>${P.wallet||0}</b><small>Звёзды дают за уроки и задание дня</small></div></div>
- <button class="btn alt" style="margin-top:0" onclick="edOn()">✏️ Украсить ракету</button>
- <h2 class="sh">🛸 Площадки запуска</h2>${rail("pad")}<h2 class="sh">✨ Наклейки</h2>${rail("sticker")}<h2 class="sh">🐾 Питомцы</h2>${rail("pet")}<h2 class="sh">🌌 Фоны</h2>${rail("bg")}
- <button class="btn alt" onclick="openBox()">🎁 Сундук-сюрприз · ⭐ 25</button><p class="center" style="font-size:13px;opacity:.8;margin:6px 0">В сундуке предмет стоимостью до 60 ⭐</p>`,false,"shop");
- pvSheet();hero("happy");say(PV?`Примеряем: ${PV.n}!`:"Нажми на предмет, чтобы примерить!")}
+ const chests=`<div class="chests">${CHESTS.map((c,i)=>`<button class="chb ${c.cls}" onclick="openBox(${i})"><span class="ci">${c.ic}</span><b>${c.n}</b><span class="pr">⭐ ${c.p}</span></button>`).join("")}</div>`;
+ frame(`${chests}<h2 class="sh">🛸 Площадки запуска</h2>${rail("pad")}<h2 class="sh">✨ Наклейки</h2>${rail("sticker")}<h2 class="sh">🐾 Питомцы</h2>${rail("pet")}<h2 class="sh">🌌 Фоны</h2>${rail("bg")}`,false,"shop");
+ pvSheet();hero("happy");say(PV?`Примеряем: ${PV.n}! (У тебя ${P.wallet||0} ⭐)`:`У тебя ${P.wallet||0} ⭐! Нажми на предмет, чтобы примерить!`)}
 const MEDALS=[[3,"badge_3","3 дня",10],[7,"badge_7","7 дней",25],[14,"badge_14","14 дней",50],[30,"badge_30","30 дней",120]];
 const MD={"3": [371, 420, 0, 0], "7": [370, 420, 0, 0], "14": [404, 420, 0, 0], "30": [368, 420, 0, 0]},MS={"3": ["#fff3d6", "#ffb347", "#5a2d0c", 0.17], "7": ["#ffffff", "#cfd8ea", "#2b3f6b", 0.17], "14": ["#fffbe0", "#ffd23f", "#6b3a00", 0.15], "30": ["#ffffff", "#ffd6f7", "#5b2b8f", 0.13]};
 const SPK=[[16,22,0],[84,30,.7],[24,74,1.3],[80,80,1.9],[50,10,.35],[92,56,1.1]];
