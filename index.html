@@ -292,6 +292,16 @@ button.rw{cursor:pointer;animation:pl 1.6s infinite}.rw.done{background:#1f6b4d;
 .decp{text-align:center;font-size:13px;opacity:.85;margin:4px 0 6px}
 .edr{margin:6px 0 0}.edr .btn{margin:0;width:auto;flex:1;font-size:20px;padding:0 10px;height:46px;border-width:3px;box-shadow:0 4px 0 #0b6b63}
 .myt{display:flex;gap:6px;overflow-x:auto;margin:0 0 2px;padding-bottom:2px}.myt button{flex:1 0 auto;font:inherit;font-size:14px;color:var(--ink);background:#1c0f52;border:3px solid #5a3fb0;border-radius:14px;padding:6px 10px;cursor:pointer;white-space:nowrap}.myt button.on{background:linear-gradient(#35e0cf,#13a89b);border-color:#fff1b8;color:#fff}
+
+body.dev #app [data-lay]{outline:2px dashed rgba(255,255,255,.55);outline-offset:2px;touch-action:none;user-select:none;-webkit-user-select:none}
+body.dev .wsc>.rkg,body.dev .wsc>.rkg>.rkp{pointer-events:none}body.dev .wsc>.rkg>.rkp>img,body.dev .wsc>.rkg>.rface,body.dev .wsc>.rkg>.dk{pointer-events:auto}
+body.dev #app .lsel{outline:3px solid #ffd23f}
+#devbar{position:fixed;right:6px;top:50%;transform:translateY(-50%);z-index:9999;display:flex;flex-direction:column;gap:6px;align-items:center;background:#1c0f52ee;border:3px solid var(--gold);border-radius:18px;padding:8px 6px}
+#devbar button{width:44px;height:44px;border-radius:12px;border:2px solid #fff1b8;background:#35208f;color:#fff;font-size:20px;font-weight:700}
+#devbar i{font-style:normal;font-size:10px;color:#fff;max-width:56px;text-align:center;word-break:break-all}
+#layout{position:fixed;left:8%;right:8%;top:20%;z-index:10000;background:#1c0f52;border:3px solid var(--gold);border-radius:18px;padding:12px;color:#fff;font-size:14px}
+#layout textarea{width:100%;height:160px;font-size:12px;margin:8px 0;background:#fff;color:#000;border-radius:8px}
+#layout button{width:100%;padding:10px;border-radius:12px;border:0;background:var(--gold);font:inherit;font-weight:700}
 </style>
 </head>
 <body>
@@ -406,7 +416,55 @@ function frame(inner,back=true,nav=""){
  if(ED&&!inDeco){ED=false;SEL=-1}
  app.className=nav?"t-"+nav:"";
  app.innerHTML=`<div class="top">${back?'<button class="back" onclick="home()" aria-label="Назад"><img src="img/icons/back.png" alt=""></button>':'<b>Twinkle</b>'}${hudHTML(!back)}</div>
- <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`}
+ <div class="hrow">${nav==="rocket"?"":'<div id="hero"></div>'}<div id="say" class="bubble"></div></div>${inner}${nav?navBar(nav):""}`;applyLay()}
+
+/* РЕЖИМ РАССТАНОВКИ: 5 нажатий на «Twinkle» — двигай блоки пальцем, +/− размер, 📋 копия */
+const LAYDEF={"t-map:2.bar":[0.3,2.1,0.95],"t-map:1.hrow":[0,0,1],"t-rocket:3.btn":[0,27.2,0.9],"t-rocket:2.wsc":[-0.6,19.7,1.2],"t-rocket:1.hrow":[0,4.7,1],"t-rocket:0.top":[0.4,0,1],"t-shop:5.rail":[1.2,3.1,1],"t-map:0.top":[0,-0.2,1],"wsc.hero":[-3.9,12.6,1],"wsc.pad":[-0.1,5,0.9],"wsc.rkg":[0.5,3.9,1.1],"t-rocket:4.tray":[0.8,30,1]};
+let LAY={};try{LAY=JSON.parse(localStorage.getItem("twinkle_lay")||"{}")}catch(e){}
+let DEV=false,DSEL=null,DDRAG=null,DTAP=[];
+const layKey=(el,i)=>(app.className.replace(/\bdeco\b/,"").trim()||"home")+(app.classList.contains("deco")?"+deco":"")+":"+i+(el.className&&typeof el.className==="string"?"."+el.className.split(" ")[0]:"");
+const layGet=k=>LAY[k]||LAYDEF[k]||[0,0,1];
+const LIN=".wsc>.pad,.wsc>.rkg,.wsc>#hero,.wsc>.pet",LNM={pad:"площадка",rkg:"ракета",hero:"твинкл",pet:"питомец"};
+const layUnit=el=>el.parentNode===app?(app.clientWidth||390):(el.parentNode.clientWidth||300);
+function layPut(el,v){const u=layUnit(el),x=v[0]*u/100,y=v[1]*u/100;
+ if(el.parentNode===app){if(getComputedStyle(el).position==="static")el.style.position="relative";el.style.left=x+"px";el.style.top=y+"px"}
+ else if(el.classList.contains("pet")){el.style.marginLeft=x+"px";el.style.marginBottom=(-y)+"px"}
+ else el.style.translate=x+"px "+y+"px";
+ el.style.scale=v[2]===1?"":v[2]}
+function applyLay(){
+ if(app.classList.contains("intro"))return;
+ [...app.children].forEach((el,i)=>{
+  if(el.tagName==="NAV"||el.id==="devbar")return;
+  const k=layKey(el,i);el.dataset.lay=k;layPut(el,layGet(k))});
+ app.querySelectorAll(LIN).forEach(el=>{const n=el.id==="hero"?"hero":el.classList.contains("pad")?"pad":el.classList.contains("pet")?"pet":"rkg";const k="wsc."+n;el.dataset.lay=k;layPut(el,layGet(k))})}
+function layMark(){document.querySelectorAll("#app [data-lay]").forEach(e=>e.classList.toggle("lsel",DEV&&e.dataset.lay===DSEL))}
+function devBar(){let b=$("devbar");if(!DEV){if(b)b.remove();document.body.classList.remove("dev");return}
+ document.body.classList.add("dev");
+ if(!b){b=document.createElement("div");b.id="devbar";document.body.appendChild(b)}
+ b.innerHTML=`<button onclick="layUp()">⤴</button><button onclick="layScale(.05)">＋</button><button onclick="layScale(-.05)">－</button><button onclick="layReset()">↺</button><button onclick="layCopy()">📋</button><button onclick="devOff()">✕</button><i>${DSEL?(DSEL.startsWith("wsc.")?LNM[DSEL.slice(4)]:DSEL.split(":")[1]):"тапни блок"}</i>`}
+function layScale(d){if(!DSEL)return;const v=[...layGet(DSEL)];v[2]=Math.max(.3,Math.min(2.5,Math.round((v[2]+d)*100)/100));LAY[DSEL]=v;layStore();applyLay()}
+function layUp(){const e=document.querySelector(`#app [data-lay="${DSEL}"]`);if(e&&e.parentNode!==app&&e.parentNode.dataset.lay){DSEL=e.parentNode.dataset.lay;layMark();devBar()}}
+function layReset(){if(!DSEL)return;delete LAY[DSEL];layStore();applyLay()}
+function layStore(){try{localStorage.setItem("twinkle_lay",JSON.stringify(LAY))}catch(e){}}
+function layCopy(){const t=JSON.stringify(Object.assign({},LAYDEF,LAY));
+ let o=$("layout");if(o)o.remove();o=document.createElement("div");o.id="layout";
+ o.innerHTML=`<p>Нажми и удерживай текст → Выбрать всё → Скопировать. Отправь мне.</p><textarea readonly>${t}</textarea><button onclick="this.parentNode.remove()">Закрыть</button>`;document.body.appendChild(o);
+ const ta=o.querySelector("textarea");ta.focus();ta.select();try{document.execCommand("copy")}catch(e){}}
+function devOn(){DEV=true;DSEL=null;devBar();layMark();say("Режим расстановки: тяни блоки пальцем")}
+function devOff(){DEV=false;DSEL=null;devBar();layMark()}
+document.addEventListener("pointerdown",e=>{
+ const tw=e.target.closest&&e.target.closest("#app .top");
+ if(tw){const n=Date.now();DTAP=DTAP.filter(t=>n-t<1500);DTAP.push(n);if(DTAP.length>=5){DTAP=[];DEV?devOff():devOn();e.preventDefault();return}}
+ if(!DEV||app.classList.contains("intro"))return;
+ if(e.target.closest("#devbar,#layout"))return;
+ const el=e.target.closest("#app [data-lay]");if(!el)return;
+ e.preventDefault();e.stopPropagation();DSEL=el.dataset.lay;const v=layGet(DSEL);
+ DDRAG={x:e.clientX,y:e.clientY,v:[...v],el,u:layUnit(el)};layMark();devBar();try{el.setPointerCapture(e.pointerId)}catch(_){}},true);
+document.addEventListener("pointermove",e=>{if(!DEV||!DDRAG)return;const W=DDRAG.u;
+ const v=[DDRAG.v[0]+(e.clientX-DDRAG.x)/W*100,DDRAG.v[1]+(e.clientY-DDRAG.y)/W*100,DDRAG.v[2]];
+ v[0]=Math.round(v[0]*10)/10;v[1]=Math.round(v[1]*10)/10;LAY[DSEL]=v;applyLay();e.preventDefault()},{passive:false});
+document.addEventListener("pointerup",()=>{if(DDRAG){DDRAG=null;layStore()}});
+document.addEventListener("click",e=>{if(DEV&&!e.target.closest("#devbar,#layout")&&e.target.closest("#app")){e.stopPropagation();e.preventDefault()}},true);
 const TABS=[["map","Карта","home()"],["rocket","Ракета","tabRocket()"],["shop","Магазин","tabShop()"],["awards","Награды","tabAwards()"],["parents","Родителям","tabParents()"]];
 const pendAwards=()=>{const best=(P.streak&&P.streak.best)||0,cl=P.claimed||{};return MEDALS.filter(m=>best>=m[0]&&!cl["m"+m[0]]).length+ACH().filter(a=>a[5]&&!cl[a[0]]).length};
 const navBar=on=>`<nav class="nav">${TABS.map(t=>`<button class="tab ${t[0]===on?"on":""}" onclick="${t[2]}">${t[0]==="awards"&&pendAwards()?'<i class="nb"></i>':""}<img src="${t[0]==="shop"?"img/icons/chest_closed.png":"img/icons/tab_"+t[0]+".png"}" alt="">${t[1]}</button>`).join("")}</nav>`;
@@ -439,7 +497,7 @@ const SHOP=[
  {c:"paint",id:"p2",n:"Зелёная",f:"hue-rotate(-100deg)",p:30},
  {c:"paint",id:"p3",n:"Розовая",f:"hue-rotate(130deg) saturate(1.3)",p:30},
  {c:"paint",id:"p4",n:"Золотая",f:"sepia(1) saturate(2.5) hue-rotate(-10deg)",p:50},
- {c:"pad",id:"d0",n:"Классика",f:"img/rocket2/pad.png",t:"img/rocket2/pad.png",p:0,hb:45.0,pb:83.9,px:86.4},
+ {c:"pad",id:"d0",n:"Классика",f:"img/pads/p0.webp",t:"img/pads/t0.webp",p:0,hb:55.0,pb:99.3,px:84.8},
  {c:"pad",id:"d1",n:"Лунная база",f:"img/pads/p1.webp",t:"img/pads/t1.webp",p:80,hb:55.0,pb:99.3,px:84.8},
  {c:"pad",id:"d2",n:"Ледяная",f:"img/pads/p2.webp",t:"img/pads/t2.webp",p:80,hb:54.8,pb:95.4,px:83.8},
  {c:"pad",id:"d3",n:"Радужная",f:"img/pads/p3.webp",t:"img/pads/t3.webp",p:120,hb:56.0,pb:99.9,px:84.5},
@@ -508,7 +566,7 @@ function rocketScene(cls,withHero){
  const pf="none",pet=curItem("pet"),pd=curItem("pad")||SHOP.find(x=>x.id==="d0"),sty=o=>`left:${o.l}%;top:${o.t}%;width:${o.w}%`;let g="",p="";
  RP.forEach(([id],i)=>{if(hasPart(i))p+=`<img class="rp" data-p="${id}" src="img/rocket2/p_${id}.png" style="${sty(RK[id].p)}" alt="">`;else g+=`<img class="rg" src="img/rocket2/g_${id}.png" style="${sty(RK[id].g)}" alt="">`});
  const dec=hasPart(0)&&hasPart(4)?decList().map(d=>{const it=SHOP.find(x=>x.id===d.id);return it?`<span class="dk ${ED&&d.i===SEL?"sel":""} ${d.tmp?"tmp":""} ${d.i===FXI?"spray":""}" data-i="${d.i}" style="left:${d.x}%;top:${d.y}%;width:${d.s}cqw">${stk(it)}</span>`:""}).join(""):"";
- return `<div class="wsc ${cls||""} ${ED?"ed":""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="${pd.f}" style="bottom:.13%" alt=""><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${dec}</div>${pet?`<img class="pet ${rar(pet.p)}" src="${pet.f}" style="left:${pd.px||86}%;bottom:${pd.pb||87}%" alt="">`:""}${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
+ return `<div class="wsc ${cls||""} ${ED?"ed":""}" style="aspect-ratio:${1/RK._.ratio}"><img class="pad" src="${pd.f}" style="bottom:.13%" alt="" onerror="this.onerror=null;this.src='img/rocket2/pad.png'"><div class="rkg" id="rkg"><div class="rkp" style="${pf==="none"?"":"filter:"+pf}">${g}${p}</div>${hasPart(0)?`<img class="rface" src="img/rocket2/face.png" style="${sty(RK.face)}" alt="">`:""}<i class="flame" style="left:${RK.flame.l}%;top:${RK.flame.t}%"></i>${dec}</div>${pet?`<img class="pet ${rar(pet.p)}" src="${pet.f}" style="left:${pd.px||86}%;bottom:${pd.pb||87}%" alt="">`:""}${withHero?`<div id="hero" style="bottom:${pd.hb||45}%"></div>`:""}</div>`}
 /* редактор наклеек: тянуть пальцем, менять размер */
 let EDNAV="shop",inDeco=false,DC="sticker";
 const rerender=()=>ED?decoScreen():(app.classList.contains("t-rocket")?tabRocket():tabShop());
